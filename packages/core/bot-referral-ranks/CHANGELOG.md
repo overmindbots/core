@@ -3,6 +3,8 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+**Note:** Version bump only for package @overmindbots/bot-referral-ranks
+
 <a name="1.0.4-0-alpha.38241552"></a>
 ## 1.0.4-0-alpha.38241552 (2018-07-09)
 

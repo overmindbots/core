@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name=""></a>
+# [](https://github.com/bot-alchemy/monorepo-test/compare/v1.0.3...v) (2018-07-09)
+
+
+### Bug Fixes
+
+* **config:** fix dependencies config not installing ([1a537ce](https://github.com/bot-alchemy/monorepo-test/commit/1a537ce))
+
+
+### Features
+
+* **git:** prevent commits to master ([6bb15f0](https://github.com/bot-alchemy/monorepo-test/commit/6bb15f0))
+
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/bot-alchemy/monorepo-test/compare/v1.0.2...v1.0.3) (2018-07-09)
 
