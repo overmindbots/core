@@ -5,7 +5,7 @@
     "packages/shared/*",
     "packages/public/*"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "changelog": {
     "repo": "bot-alchemy/monorepo-test",
     "labels": {
