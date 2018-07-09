@@ -6,7 +6,7 @@
   "scripts": {
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
-    "pre-commit": "node scripts/preCommitCheck.js -E GIT_PARAMS",
+    "precommit": "git-branch-is -r \"^(?!master)\"",
     "release-production": "lerna publish",
     "release-staging": "lerna publish --canary"
   },
@@ -16,6 +16,7 @@
     "@commitlint/prompt": "^7.0.0",
     "commitizen": "^2.10.1",
     "cz-lerna-changelog": "^1.2.1",
+    "git-branch-is": "^2.0.0",
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
     "lerna-changelog": "^0.8.0",
