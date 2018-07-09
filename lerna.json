@@ -12,9 +12,11 @@
       "tag: enhancement": ":nail_care: Enhancement"
     }
   },
-  "npmClient": "yarn",
-  "publish": {
-    "message": "chore(release): publish %s"
+  "commands": {
+    "publish": {
+      "message": "chore(release): publish %s"
+    }
   },
+  "npmClient": "yarn",
   "useWorkspaces": true
 }
