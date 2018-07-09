@@ -25,6 +25,8 @@
     }
   },
   "workspaces": [
-    "packages/*"
+    "packages/core/*",
+    "packages/shared/*",
+    "packages/public/*"
   ]
 }

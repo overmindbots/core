@@ -1,8 +1,9 @@
 {
   "lerna": "2.11.0",
   "packages": [
-    "packages/*",
-    "core/*"
+    "packages/core/*",
+    "packages/shared/*",
+    "packages/public/*"
   ],
   "version": "1.0.2",
   "changelog": {
