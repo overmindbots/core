@@ -1,6 +1,5 @@
 {
-  "name": "client",
-  "version": "0.0.1",
+  "name": "webapp-bots-web-panel",
   "private": true,
   "scripts": {
     "start": "node scripts/start.js",

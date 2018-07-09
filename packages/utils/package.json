@@ -1,3 +1,4 @@
 {
-  "name": "models"
+  "private": true,
+  "name": "utils"
 }

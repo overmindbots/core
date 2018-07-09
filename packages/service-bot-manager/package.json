@@ -1,11 +1,7 @@
 {
-  "name": "bot-manager",
-  "version": "1.3.2",
+  "name": "service-bot-manager",
   "private": true,
   "author": "Rafael Vidaurre <narzerus@gmail.com>",
-  "engines": {
-    "node": ">=10.5.0"
-  },
   "scripts": {
     "start": "npm run start-develop",
     "test": "echo \"no tests yet\"",

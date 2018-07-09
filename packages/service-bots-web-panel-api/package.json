@@ -1,6 +1,5 @@
 {
-  "name": "server",
-  "version": "1.0.0",
+  "name": "service-bots-web-panel-api",
   "private": true,
   "scripts": {
     "run-server": "babel-node --extensions \".ts\" src",

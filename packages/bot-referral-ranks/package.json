@@ -1,10 +1,6 @@
 {
   "name": "bot-referral-ranks",
-  "version": "2.15.0",
   "private": true,
-  "engines": {
-    "node": ">=10.5.0"
-  },
   "scripts": {
     "start": "npm run start-develop",
     "test": "jest",
