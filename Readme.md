@@ -47,7 +47,7 @@ This is a set of conventions that is followed in this repository
 ## Package naming
 We name our packages based on what they are:
 
-**Core**
+### Core
 Our apps and services, they live in `core/*`
 
 - **Bots:** Bots can have a master service and some slave services to do specialized work
@@ -55,13 +55,19 @@ Our apps and services, they live in `core/*`
     * Example: `bot-referral-ranks`,
   * **Slave service:** `bot-<name-of-bot>-<name-of-service>-service`
     * Example: `bot-referral-ranks-invites-service`
+- **Apps:** Apps (web apps, mobile apps, landing pages etc...)
+  * Naming `app-<name-of-app>[-<scope>][-client,-server]`
+    * Examples:
+      * `app-bots-web-panel-web-client`
+      * `app-bots-web-panel-ios-client`
+      * `app-bots-web-panel-api-server`
+      * `app-bot-referral-ranks-landing`
 - **Services:** Standalone services that are not part of a bigger one
   * Naming:  `service-<name-of-service>`
   * Example: `service-bot-manager`, `service-spam-mailer-cannon`
 
-**Packages**
-Our shared code packages. They live in `packages/*`
-- **Private:** Packages that only we can access
-  * Naming: `<name-of-package>`
-- **Public:** Packages that are open source and available in NPM
-  * Naming: `public-<name-of-package>`
+### Shared Packages
+Our shared code packages. They live in `packages/shared/*`, no naming convention.
+
+### Public Packages
+Packages that are open source and potentially published to NPM. They live in `packages/public/*`, no naming convention.
