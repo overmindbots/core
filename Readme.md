@@ -71,3 +71,13 @@ Our shared code packages. They live in `packages/shared/*`, no naming convention
 
 ### Public Packages
 Packages that are open source and potentially published to NPM. They live in `packages/public/*`, no naming convention.
+
+# Notes
+Updated dependencies in `app-bots-web-panel-web-client`. If anything fails, these were the old ones:
+
+```
+"relay-compiler": "https://github.com/alloy/relay/releases/download/v1.5.0-plugin.3/relay-compiler-1.5.0-plugin.3.tgz",
+"relay-runtime": "https://github.com/alloy/relay/releases/download/v1.5.0-plugin.3/relay-runtime-1.5.0-plugin.3.tgz",
+"babel-plugin-relay": "https://github.com/alloy/relay/releases/download/v1.5.0-plugin.3/babel-plugin-relay-1.5.0-plugin.3.tgz",
+"react-relay": "https://github.com/alloy/relay/releases/download/v1.5.0-plugin.3/react-relay-1.5.0-plugin.3.tgz"
+```
