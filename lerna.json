@@ -11,5 +11,6 @@
       "tag: bug fix": ":bug: Bug Fix",
       "tag: enhancement": ":nail_care: Enhancement"
     }
-  }
+  },
+  "npmClient": "yarn"
 }
