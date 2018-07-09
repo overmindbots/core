@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "outDir": "build",
+    "module": "esnext",
+    "target": "es2018",
+    "lib": ["es2015"],
+    "sourceMap": true,
+    "allowJs": true,
+    "moduleResolution": "node",
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "downlevelIteration": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "esModuleInterop": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": "./",
+    "rootDirs": ["~"],
+    "strictFunctionTypes": true,
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+
+  "exclude": ["node_modules", "build", "scripts", "jest"]
+}
