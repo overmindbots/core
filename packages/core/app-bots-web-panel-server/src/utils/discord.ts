@@ -12,8 +12,8 @@ import {
   GraphQLRateLimitError,
   GraphQLUnauthenticatedError,
 } from '~/shared/graphqlErrors';
-import { Guild, UserDocument } from '~/shared/models';
-import { asyncDelay } from '~/shared/utils';
+import { Guild, UserDocument } from '@overmindbots/shared-models';
+import { asyncDelay } '@overmindbots/shared-utils';
 
 // Keeps track of the last time a request of a certain resource was performed
 // Should use a Redis cache for this

@@ -8,7 +8,7 @@ import {
   SessionDocument,
   User,
   UserDocument,
-} from '~/shared/models';
+} from '@overmindbots/shared-models';
 import { GraphQLID, GraphQLObjectType, GraphQLSchema } from 'graphql';
 import { requireSession } from '~/utils/graphQL';
 

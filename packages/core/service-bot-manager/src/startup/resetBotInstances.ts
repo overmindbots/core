@@ -1,5 +1,5 @@
+import { BotInstance } from '@overmindbots/shared-models';
 import logger from 'winston';
-import { BotInstance } from '~/shared/models';
 
 /**
  * Marks all BotInstances in the database as disabled. As shards turn on

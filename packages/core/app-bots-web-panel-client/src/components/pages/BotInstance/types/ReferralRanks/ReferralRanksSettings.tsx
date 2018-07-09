@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react';
 import SemanticFormField from '~/components/shared/SemanticFormField';
 import { length, required } from '~/formValidators';
-import { PREFIX_PATTERN } from '~/shared/constants';
+import { PREFIX_PATTERN } from '@overmindbots/shared-utils/constants';
 
 import { Link } from 'react-router-dom';
 import { ReferralRanksSettings_botInstance } from '~/__generated__/ReferralRanksSettings_botInstance.graphql';

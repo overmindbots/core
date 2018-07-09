@@ -2,13 +2,13 @@ import { GraphQLID, GraphQLNonNull } from 'graphql';
 import { fromGlobalId, mutationWithClientMutationId } from 'graphql-relay';
 import GraphQLJSON from 'graphql-type-json';
 import ReferralRanksType from '~/schema/types/BotInstance/ReferralRanks';
-import { PREFIX_PATTERN, ReferralRanksBotConfig } from '~/shared/constants';
+import { PREFIX_PATTERN, ReferralRanksBotConfig } from '@overmindbots/shared-utils/constants';
 import { AssertionError } from '~/shared/errors';
 import {
   GraphQLNotFoundError,
   GraphQLUnauthorizedError,
 } from '~/shared/graphqlErrors';
-import { BotInstance, Guild, SessionDocument, User } from '~/shared/models';
+import { BotInstance, Guild, SessionDocument, User } from '@overmindbots/shared-models';
 import { requireSession } from '~/utils/graphQL';
 
 interface ReferralRanksBotInstance {

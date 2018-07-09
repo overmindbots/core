@@ -4,10 +4,10 @@ import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
-} from 'discord.js-command-manager';
+} from '@overmindbots/discord.js-command-manager';
 import { bot } from '~/bot';
 import { BOT_ROLE, DISCORD_ERROR_CODES } from '~/constants';
-import { Rank } from '~/shared/models/referralRanks';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { getBotHighestRolePosition, getRolesLowerThanBot } from '~/utils';
 
 // TODO: Use generics to include args

@@ -9,7 +9,7 @@ import { BotInstanceListItem_botInstance } from '~/__generated__/BotInstanceList
 import { BotInstanceListRefetchQueryResponse } from '~/__generated__/BotInstanceListRefetchQuery.graphql';
 import BotInstanceListItem from '~/components/BotInstanceListItem';
 import { AssertionError } from '~/errors';
-import { BOT_TYPES } from '~/shared/constants';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 
 import { Wrapper } from './elements';
 

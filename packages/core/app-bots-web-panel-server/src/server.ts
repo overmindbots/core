@@ -6,8 +6,8 @@ import { formatError, GraphQLError } from 'graphql';
 import passport from 'passport';
 import { GraphQLUnauthorizedError } from '~/shared/graphqlErrors';
 import '~/startup';
-import { User } from '~/shared/models';
-import { createAsyncCatcher } from '~/shared/utils';
+import { User } from '@overmindbots/shared-models';
+import { createAsyncCatcher } '@overmindbots/shared-utils';
 import schema from '~/schema';
 
 const asyncCatcher = createAsyncCatcher(error => {

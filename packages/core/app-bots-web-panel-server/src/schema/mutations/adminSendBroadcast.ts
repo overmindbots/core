@@ -2,12 +2,12 @@ import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import { includes, values } from 'lodash';
 import bots from '~/bots';
-import { BOT_TYPES } from '~/shared/constants';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 import {
   GraphQLBadRequestError,
   GraphQLUnauthorizedError,
 } from '~/shared/graphqlErrors';
-import { SessionDocument, User } from '~/shared/models';
+import { SessionDocument, User } from '@overmindbots/shared-models';
 import { requireSession } from '~/utils/graphQL';
 
 interface MutationInput {

@@ -1,0 +1,14 @@
+{
+  "tslint.autoFixOnSave": [
+    "ordered-imports",
+    "member-access",
+    "object-literal-sort-keys",
+    "quotemark",
+    "max-line-length"
+  ],
+  // "tslint.autoFixOnSave": true,
+  // "prettier.disableLanguages": ["typescript"],
+  "tslint.packageManager": "yarn",
+  "tslint.run": "onSave",
+  "editor.formatOnSave": true
+}

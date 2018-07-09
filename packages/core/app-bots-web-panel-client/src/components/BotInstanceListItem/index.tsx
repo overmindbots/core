@@ -4,7 +4,7 @@ import { Popup } from 'semantic-ui-react';
 import { BotInstanceListItem_botInstance } from '~/__generated__/BotInstanceListItem_botInstance.graphql';
 import botIconReferralRanksImg from '~/assets/botIconReferralRanks.svg';
 import { BOT_ADD_URLS } from '~/constants';
-import { BOT_TYPES, BOTS } from '~/shared/constants';
+import { BOT_TYPES, BOTS } from '@overmindbots/shared-utils/constants';
 
 import { BotInstanceExternalLink, BotInstanceInternalLink } from './elements';
 

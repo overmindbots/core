@@ -1,7 +1,7 @@
+import { POD_STATUS_SERVER_PORT } from '@overmindbots/shared-utils/constants';
 import express, { Response } from 'express';
 import { Server } from 'http';
 import logger from 'winston';
-import { POD_STATUS_SERVER_PORT } from '~/shared/constants';
 
 enum LIVENESS_STATUSES {
   HEALTHY = 200,

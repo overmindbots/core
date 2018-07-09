@@ -4,11 +4,11 @@ import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
-} from 'discord.js-command-manager';
+} from '@overmindbots/discord.js-command-manager';
 import { cache } from '~/cache';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
-import { PREFIX_PATTERN } from '~/shared/constants';
-import { BotInstance } from '~/shared/models';
+import { PREFIX_PATTERN } from '@overmindbots/shared-utils/constants';
+import { BotInstance } from '@overmindbots/shared-models';
 
 interface Args {
   prefix: string;

@@ -1,5 +1,5 @@
 import { mutationWithClientMutationId } from 'graphql-relay';
-import { SessionDocument } from '~/shared/models';
+import { SessionDocument } from '@overmindbots/shared-models';
 import { requireSession } from '~/utils/graphQL';
 
 export default mutationWithClientMutationId({

@@ -1,8 +1,8 @@
 import pkginfo from 'pkginfo';
 pkginfo(module, 'version');
 
-import { DiscordPermissions } from 'discord.js-command-manager';
-import { BOT_TYPES } from '~/shared/constants';
+import { DiscordPermissions } from '@overmindbots/discord.js-command-manager';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 
 // TODO: Assert env variables better
 if (!process.env.BOT_MANAGER_SERVICE_HOST) {

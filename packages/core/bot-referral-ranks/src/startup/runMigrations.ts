@@ -1,7 +1,7 @@
 import P from 'bluebird';
 import logger from 'winston';
 import { migrations } from '~/migrations';
-import { Control } from '~/shared/models/referralRanks';
+import { Control } from '@overmindbots/shared-models/referralRanks';
 // TODO: Temporary use only, make better system
 
 export async function runMigrations() {

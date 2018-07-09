@@ -8,7 +8,7 @@ import SemanticFormField from '~/components/shared/SemanticFormField';
 import { required } from '~/formValidators';
 import adminSendBroadcast from '~/mutations/AdminSendBroadcast';
 import { RootState } from '~/reducers';
-import { BOT_TYPES } from '~/shared/constants';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 
 type FormProps = {};
 type OwnProps = {

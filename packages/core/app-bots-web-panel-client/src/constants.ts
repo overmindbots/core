@@ -1,5 +1,5 @@
 import botIconReferralRanksImg from '~/assets/botIconReferralRanks.svg';
-import { BOT_TYPES, BOTS } from '~/shared/constants';
+import { BOT_TYPES, BOTS } from '@overmindbots/shared-utils/constants';
 
 import { buildAddBotUrl, verifyEnvVariables } from './shared/utils';
 

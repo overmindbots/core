@@ -1,8 +1,8 @@
 // TODO: Move caching to a separate service instance
+import { BotInstance } from '@overmindbots/shared-models';
 import { get, set } from 'lodash';
 import logger from 'winston';
 import { BOT_TYPE } from '~/constants';
-import { BotInstance } from '~/shared/models';
 
 interface Cache {
   prefixes: {

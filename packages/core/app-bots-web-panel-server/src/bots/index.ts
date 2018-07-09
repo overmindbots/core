@@ -1,4 +1,4 @@
-import { BOT_TYPES } from '~/shared/constants';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 
 import referralRanks from './referralRanks';
 

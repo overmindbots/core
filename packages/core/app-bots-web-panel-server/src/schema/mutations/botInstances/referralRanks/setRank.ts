@@ -12,9 +12,9 @@ import {
   GraphQLBadRequestError,
   GraphQLNotFoundError,
 } from '~/shared/graphqlErrors';
-import { Guild, Role, SessionDocument, User } from '~/shared/models';
-import { Rank } from '~/shared/models/referralRanks';
-import { RankDocument } from '~/shared/models/referralRanks/Rank';
+import { Guild, Role, SessionDocument, User } from '@overmindbots/shared-models';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
+import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
 import { requireSession } from '~/utils/graphQL';
 
 export default mutationWithClientMutationId({

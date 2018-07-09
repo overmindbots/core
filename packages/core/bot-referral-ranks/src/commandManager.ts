@@ -1,4 +1,4 @@
-import { CommandManager } from 'discord.js-command-manager';
+import { CommandManager } from '@overmindbots/discord.js-command-manager';
 import { each } from 'lodash';
 import * as commands from '~/commands';
 import { DEFAULT_PREFIX } from '~/constants';

@@ -8,7 +8,7 @@ import {
 
 import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
 import { AssertionError, UnexpectedError } from '~/shared/errors';
-import { User } from '~/shared/models';
+import { User } from '@overmindbots/shared-models';
 import DiscordClient from '~/utils/discord';
 
 import GuildType from './Guild';

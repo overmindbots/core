@@ -3,9 +3,9 @@ import Discord from 'discord.js';
 import { chunk, each, map } from 'lodash';
 import logger from 'winston';
 import { DISCORD_ERROR_CODES } from '~/constants';
-import { Guild } from '~/shared/models';
-import { Invite, InviteUse, Rank } from '~/shared/models/referralRanks';
-import { InviteDocument } from '~/shared/models/referralRanks/Invite';
+import { Guild } from '@overmindbots/shared-models';
+import { Invite, InviteUse, Rank } from '@overmindbots/shared-models/referralRanks';
+import { InviteDocument } from '@overmindbots/shared-models/referralRanks/Invite';
 
 export interface InvitesPerUserItem {
   invitesUses: number;

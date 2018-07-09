@@ -4,9 +4,9 @@ import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
-} from 'discord.js-command-manager';
+} from '@overmindbots/discord.js-command-manager';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
-import { BotInstance } from '~/shared/models';
+import { BotInstance } from '@overmindbots/shared-models';
 
 interface Args {
   size: number;

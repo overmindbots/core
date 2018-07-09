@@ -4,9 +4,9 @@ import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
-} from 'discord.js-command-manager';
+} from '@overmindbots/discord.js-command-manager';
 import { DISCORD_ERROR_CODES } from '~/constants';
-import { Rank } from '~/shared/models/referralRanks';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
 
 interface Args {
   role: Discord.Role;
