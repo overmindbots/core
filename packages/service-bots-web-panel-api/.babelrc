@@ -1,0 +1,34 @@
+{
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "node": 9
+        }
+      }
+    ],
+    "@babel/typescript"
+  ],
+  "plugins": [
+    [
+      "@babel/transform-runtime",
+      {
+        "helpers": true,
+        "regenerator": true,
+        "moduleName": "@babel/runtime"
+      }
+    ],
+    "@babel/plugin-proposal-class-properties",
+    [
+      "module-resolver",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "root": ["./src"],
+        "alias": {
+          "~": "./src"
+        }
+      }
+    ]
+  ]
+}

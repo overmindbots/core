@@ -1,0 +1,9 @@
+{
+  "extends": ["react-app", "plugin:react/recommended"],
+  "plugins": ["react"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}
