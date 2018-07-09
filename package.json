@@ -7,7 +7,8 @@
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "release-production": "lerna publish",
-    "release-staging": "lerna publish --canary"
+    "release-staging": "lerna publish --canary",
+    "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
