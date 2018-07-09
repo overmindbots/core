@@ -6,6 +6,7 @@
   "scripts": {
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
+    "pre-commit": "node scripts/preCommitCheck.js -E GIT_PARAMS",
     "release-production": "lerna publish",
     "release-staging": "lerna publish --canary"
   },
