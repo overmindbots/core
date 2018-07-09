@@ -13,6 +13,7 @@
     "@commitlint/config-conventional": "^7.0.1",
     "@commitlint/prompt": "^7.0.0",
     "commitizen": "^2.10.1",
+    "cz-lerna-changelog": "^1.2.1",
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
     "lerna-changelog": "^0.8.0",
@@ -20,8 +21,10 @@
   },
   "config": {
     "commitizen": {
-      "path": "@commitlint/prompt"
+      "path": "cz-lerna-changelog"
     }
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }
