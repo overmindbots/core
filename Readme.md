@@ -25,8 +25,8 @@ Use `yarn commit` to trigger the commitizen prompt. A pre-commit hook will
 ensure that the message is compliant with the `conventional-commits` standard.
 
 **Publishing**
-To publish a new version use `yarn release`, this will prompt which packages
-have been updated and the monorepo will be pushed accordingly
+`yarn release-staging` Creates an alpha release
+`yarn release-production` Creates an official release
 
 **Continuous Development**
 Deployments are performed based on the following rules:

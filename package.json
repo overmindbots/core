@@ -6,7 +6,8 @@
   "scripts": {
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
-    "release": "lerna publish --conventional-commits"
+    "release-production": "lerna publish",
+    "release-staging": "lerna publish --canary"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
