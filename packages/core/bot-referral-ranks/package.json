@@ -1,5 +1,5 @@
 {
-  "name": "bot-referral-ranks",
+  "name": "@overmindbots/bot-referral-ranks",
   "version": "1.0.3",
   "private": true,
   "scripts": {

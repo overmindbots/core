@@ -1,5 +1,5 @@
 {
-  "name": "shared-utils",
+  "name": "@overmindbots/shared-utils",
   "version": "1.0.3",
   "private": true
 }

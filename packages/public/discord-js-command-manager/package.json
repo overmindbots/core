@@ -1,5 +1,5 @@
 {
-  "name": "discord.js-command-manager",
+  "name": "@overmindbots/discord.js-command-manager",
   "version": "1.0.3",
   "description": "Commands manager for discord.js",
   "author": "Rafael Vidaurre <narzerus@gmail.com>",

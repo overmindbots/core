@@ -1,5 +1,5 @@
 {
-  "name": "app-bots-web-panel-client",
+  "name": "@overmindbots/app-bots-web-panel-client",
   "version": "1.0.3",
   "private": true,
   "scripts": {
