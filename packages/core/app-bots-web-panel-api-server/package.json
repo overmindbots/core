@@ -1,5 +1,5 @@
 {
-  "name": "service-bots-web-panel-api",
+  "name": "app-bots-web-panel-api-server",
   "version": "1.0.1",
   "private": true,
   "scripts": {
