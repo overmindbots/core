@@ -1,3 +1,0 @@
-[submodule "src/shared"]
-	path = src/shared
-	url = git@github.com:bot-alchemy/bot-alchemy-shared.git
