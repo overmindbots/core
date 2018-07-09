@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bot-manager
+  namespace: bot-alchemy
+  labels:
+    app: bot-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot-manager
+  template:
+    metadata:
+      labels:
+        app: bot-manager
+    spec:
+      containers:
+      - name: bot-alchemy-bot-manager
+        image: {{{imageUrl}}}
+        imagePullPolicy: {{imagePullPolicy}}
+        ports:
+        - containerPort: 4000
+        - containerPort: 7000
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 7000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 7000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        env:
+          - name: NODE_ENV
+            value: production
+          - name: DEPLOYMENT_STAGE
+            value: {{deploymentStage}}
+          - name: BOT_REFERRAL_RANKS_REPLICAS_COUNT
+            value: "{{choose botReferralRanksReplicas 4}}"
+          - name: POD_ID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: MONGODB_URI
+            valueFrom:
+              secretKeyRef:
+                name: bot-alchemy-secret
+                key: MONGODB_URI
+---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: bot-manager
+  namespace: bot-alchemy
+  labels:
+    app: bot-manager
+spec:  
+  selector:
+    app: bot-manager
+  ports:
+  - name: ws-server-port
+    port: 4000
+    nodePort: 30005
+  type: NodePort

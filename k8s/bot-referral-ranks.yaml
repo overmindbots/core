@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: bot-referral-ranks
+  namespace: bot-alchemy
+spec:
+  replicas: {{choose botReferralRanksReplicas 4}}
+  selector:
+    matchLabels:
+      app: bot-referral-ranks
+  template:
+    metadata:
+      labels:
+        app: bot-referral-ranks
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - bot-referral-ranks
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: bot-alchemy-referral-ranks
+        image: {{{imageUrl}}}
+        imagePullPolicy: {{imagePullPolicy}}
+        ports:
+          - containerPort: 7000
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 7000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 7000
+          initialDelaySeconds: 5
+          periodSeconds: 3
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DEPLOYMENT_STAGE
+          value: {{deploymentStage}}
+        - name: POD_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: bot-alchemy-secret
+              key: MONGODB_URI
+        - name: BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: bot-alchemy-secret
+              key: BOT_TOKEN
