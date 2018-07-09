@@ -6,7 +6,6 @@
   "scripts": {
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
-    "precommit": "git-branch-is -r \"^(?!master)\"",
     "release-production": "lerna publish",
     "release-staging": "lerna publish --canary"
   },

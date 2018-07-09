@@ -28,17 +28,9 @@ ensure that the message is compliant with the `conventional-commits` standard.
 `yarn release-staging` Creates an alpha release
 `yarn release-production` Creates an official release
 
-**Continuous Development**
-Deployments are performed based on the following rules:
+**Continuous Delivery and Branching Model**
 
-- When the `develop` branch gets updated (push or merge):
-  * a pre-release tag is created
-  * CI deploys to `STAGING`
-- When the `master` branch gets updated (push or merge) a release tag is created
-  * a release tag is created
-  * CI deploys to `PRODUCTION`
-
-*We should be able later in the future to have a **beta** version available for users who are willing to test the latest features*
+<Pending team decision>
 
 # Conventions
 
