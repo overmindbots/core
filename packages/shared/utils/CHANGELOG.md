@@ -3,7 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-**Note:** Version bump only for package @overmindbots/shared-utils/utils
+<a name="1.0.1-beta.0"></a>
+## 1.0.1-beta.0 (2018-07-10)
+
+
+### Bug Fixes
+
+* fix bad renaming in shared-utils package name ([1813346](https://github.com/overmindbots/core/commit/1813346))
+
+
+
 
 <a name="1.0.4-0-alpha.38241552"></a>
 ## 1.0.4-0-alpha.38241552 (2018-07-09)

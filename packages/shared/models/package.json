@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/shared-models",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.0",
   "private": true,
   "dependencies": {
     "@overmindbots/shared-utils/utils": "^1.0.3",
