@@ -1,12 +1,15 @@
 // tslint:disable completed-docs
+import {
+  Command,
+  CommandRuntimeError,
+} from '@overmindbots/discord.js-command-manager';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
+import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
 import { Collection, Message, RichEmbed, Role } from 'discord.js';
 import Discord from 'discord.js';
-import { Command, CommandRuntimeError } from '@overmindbots/discord.js-command-manager';
 import { each, filter as normalFilter, includes, reverse } from 'lodash';
 import { compact, flow, map, reduce, sortBy } from 'lodash/fp';
 import { COLOR_CODES, DISCORD_ERROR_CODES } from '~/constants';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
-import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
 
 // FIXME: Rewrite this mess
 

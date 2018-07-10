@@ -1,3 +1,5 @@
+import { BotInstanceDocument, Role } from '@overmindbots/shared-models';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
 import {
   GraphQLBoolean,
   GraphQLNonNull,
@@ -14,8 +16,6 @@ import { filter, includes, map } from 'lodash';
 import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
 import GuildType from '~/schema/types/Guild';
 import RankType from '~/schema/types/ReferralRanksRank';
-import { BotInstanceDocument, Role } from '@overmindbots/shared-models';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
 
 import { sharedResolvers } from './index';
 

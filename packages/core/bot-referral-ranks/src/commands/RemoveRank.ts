@@ -1,12 +1,12 @@
 // tslint:disable completed-docs
-import Discord from 'discord.js';
 import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
-import { DISCORD_ERROR_CODES } from '~/constants';
 import { Rank } from '@overmindbots/shared-models/referralRanks';
+import Discord from 'discord.js';
+import { DISCORD_ERROR_CODES } from '~/constants';
 
 interface Args {
   role: Discord.Role;

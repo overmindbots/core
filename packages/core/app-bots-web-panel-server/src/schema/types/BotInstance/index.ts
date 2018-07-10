@@ -1,7 +1,7 @@
-import { GraphQLUnionType } from 'graphql';
-import { BOT_TYPES, BOTS } from '@overmindbots/shared-utils/constants';
-import { GraphQLNotFoundError } from '~/shared/graphqlErrors';
 import { BotInstanceDocument, Guild } from '@overmindbots/shared-models';
+import { BOT_TYPES, BOTS } from '@overmindbots/shared-utils/constants';
+import { GraphQLNotFoundError } from '@overmindbots/shared-utils/graphqlErrors';
+import { GraphQLUnionType } from 'graphql';
 
 import ReferralRanksType from './ReferralRanks';
 

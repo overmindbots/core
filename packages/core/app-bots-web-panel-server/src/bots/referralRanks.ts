@@ -1,11 +1,11 @@
+import { OwnerNotificationMessage } from '@overmindbots/shared-models';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import checksum from 'checksum';
 import { Client } from 'discord.js';
 import { includes } from 'lodash';
 import { DISCORD_BOT_REFERRAL_RANKS_TOKEN } from '~/constants';
-import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
-import { OwnerNotificationMessage } from '@overmindbots/shared-models';
-import { createAsyncCatcher } '@overmindbots/shared-utils';
 
 const asyncCatcher = createAsyncCatcher(error => {
   // tslint:disable-next-line

@@ -1,7 +1,7 @@
+import { User } from '@overmindbots/shared-models';
 import { GraphQLNonNull, GraphQLObjectType } from 'graphql';
 import { globalIdField } from 'graphql-relay';
 import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
-import { User } from '@overmindbots/shared-models';
 
 import UserType from './User';
 

@@ -1,5 +1,12 @@
 import '~/startup';
 
+import {
+  ClientMsgTypes,
+  HandshakeClientMsg,
+  ServerMsgTypes,
+  ServiceServerMessage,
+  ShardReadyClientMsg,
+} from '@overmindbots/shared-utils/serviceMessageTypes';
 import { AssertionError } from 'assert';
 import { once } from 'lodash';
 import {
@@ -11,13 +18,6 @@ import logger from 'winston';
 import { bot, Bot } from '~/bot';
 import { BOT_MANAGER_URL, MONGODB_URI, POD_ID } from '~/constants';
 import { podStatusServer } from '~/podStatusServer';
-import {
-  ClientMsgTypes,
-  HandshakeClientMsg,
-  ServerMsgTypes,
-  ServiceServerMessage,
-  ShardReadyClientMsg,
-} from '~/shared/serviceMessageTypes';
 
 async function _initializeBot(
   instancedBot: Bot,

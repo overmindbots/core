@@ -1,9 +1,12 @@
 // tslint:disable completed-docs
-import { Command, CommandRuntimeError } from '@overmindbots/discord.js-command-manager';
+import {
+  Command,
+  CommandRuntimeError,
+} from '@overmindbots/discord.js-command-manager';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { reduce as reduceNormal } from 'lodash';
 import { add, flow, map as mapFp, reduce } from 'lodash/fp';
 import { DISCORD_ERROR_CODES } from '~/constants';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
 
 import { buildInvitesPerUser, updateUsersRanks } from './utils';
 

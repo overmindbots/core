@@ -1,7 +1,7 @@
 /* tslint:disable ordered-imports */
 import { fromGlobalId } from 'graphql-relay';
 import { map, filter, includes } from 'lodash';
-import { AssertionError } from '~/shared/errors';
+import { AssertionError } from '@overmindbots/shared-utils/errors';
 import {
   BotInstance,
   Guild,
@@ -23,7 +23,7 @@ import UserType from './types/User';
 import { nodeField } from './interfaces/nodeDefinitions';
 import DiscordClient from '../utils/discord';
 import { Permissions } from 'discord.js';
-import { GraphQLNotFoundError } from '~/shared/graphqlErrors';
+import { GraphQLNotFoundError } from '@overmindbots/shared-utils/graphqlErrors';
 
 export default new GraphQLSchema({
   query: new GraphQLObjectType({

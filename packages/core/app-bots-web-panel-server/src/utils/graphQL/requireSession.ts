@@ -1,8 +1,8 @@
+import { Session } from '@overmindbots/shared-models';
 import {
   GraphQLBadRequestError,
   GraphQLUnauthenticatedError,
-} from '~/shared/graphqlErrors';
-import { Session } from '@overmindbots/shared-models';
+} from '@overmindbots/shared-utils/graphqlErrors';
 
 /* IMPROVE: `requireSession` should be able to define its return value
   as `SessionDocument` (non-null) if `throwIfUnauthenticated` is true.

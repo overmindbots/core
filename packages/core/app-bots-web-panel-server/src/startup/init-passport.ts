@@ -1,7 +1,7 @@
+import { User } from '@overmindbots/shared-models';
 import passport from 'passport';
 import { Strategy as DiscordStrategy } from 'passport-discord-oauth2';
 import { DISCORD_CALLBACK_URL } from '~/constants';
-import { User } from '@overmindbots/shared-models';
 
 if (!process.env.DISCORD_CLIENT_ID) {
   throw new Error('Env variable "DISCORD_CLIENT_ID" is missing.');

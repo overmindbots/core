@@ -1,10 +1,13 @@
 // tslint:disable completed-docs
-import { Command, CommandRuntimeError } from '@overmindbots/discord.js-command-manager';
+import {
+  Command,
+  CommandRuntimeError,
+} from '@overmindbots/discord.js-command-manager';
+import { InviteUse } from '@overmindbots/shared-models/referralRanks';
 import { each, map } from 'lodash';
 import { compact, flow, map as mapFp, reduce } from 'lodash/fp';
 import logger from 'winston';
 import { DISCORD_ERROR_CODES } from '~/constants';
-import { InviteUse } from '@overmindbots/shared-models/referralRanks';
 
 /**
  * Returns a ranking of users with the most invalid invites detected

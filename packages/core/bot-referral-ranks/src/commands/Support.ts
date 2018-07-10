@@ -1,6 +1,9 @@
 // tslint:disable completed-docs
+import {
+  Command,
+  CommandRuntimeError,
+} from '@overmindbots/discord.js-command-manager';
 import { Message } from 'discord.js';
-import { Command, CommandRuntimeError } from '@overmindbots/discord.js-command-manager';
 import { DISCORD_ERROR_CODES } from '~/constants';
 
 export class SupportCommand extends Command {

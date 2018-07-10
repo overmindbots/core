@@ -1,7 +1,13 @@
 import { ProcessMessageResultCodes } from '@overmindbots/discord.js-command-manager';
 import { BotInstance, Guild, Role } from '@overmindbots/shared-models';
 import { Rank } from '@overmindbots/shared-models/referralRanks';
-import { createAsyncCatcher } '@overmindbots/shared-utils';
+import {
+  ClientMsgTypes,
+  ReportGuildCreateClientMsg,
+  ReportGuildDeleteClientMsg,
+  ShardShuttingDownClientMsg,
+} from '@overmindbots/shared-utils/serviceMessageTypes';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import { Promise as P } from 'bluebird';
 import Discord from 'discord.js';
 import { chunk, difference, map, maxBy } from 'lodash';
@@ -25,12 +31,6 @@ import {
   VERSION,
 } from '~/constants';
 import { podStatusServer } from '~/podStatusServer';
-import {
-  ClientMsgTypes,
-  ReportGuildCreateClientMsg,
-  ReportGuildDeleteClientMsg,
-  ShardShuttingDownClientMsg,
-} from '~/shared/serviceMessageTypes';
 import { debounceBy, enqueueBy } from '~/utils';
 
 const genericAsyncCatcher = createAsyncCatcher(async error => {

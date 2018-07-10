@@ -1,3 +1,4 @@
+import { BotInstance, GuildDocument, Role } from '@overmindbots/shared-models';
 import {
   GraphQLBoolean,
   GraphQLNonNull,
@@ -11,7 +12,6 @@ import {
   globalIdField,
 } from 'graphql-relay';
 import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
-import { BotInstance, GuildDocument, Role } from '@overmindbots/shared-models';
 
 import BotInstanceType from './BotInstance';
 import RoleType from './Role';

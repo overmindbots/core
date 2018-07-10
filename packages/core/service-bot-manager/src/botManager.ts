@@ -1,3 +1,15 @@
+import {
+  ClientMsgTypes,
+  HandshakeClientMsg,
+  HandshakeServerMsg,
+  LogToTeamServerMsg,
+  ReportGuildCreateClientMsg,
+  ReportGuildDeleteClientMsg,
+  ServerMsgTypes,
+  ServiceClientMessage,
+  ShardReadyClientMsg,
+  ShardShuttingDownClientMsg,
+} from '@overmindbots/shared-utils/serviceMessageTypes';
 import http from 'http';
 import { each, filter, find, findKey, range } from 'lodash';
 import mongoose from 'mongoose';
@@ -12,18 +24,6 @@ import {
   BOT_MANAGER_SERVICE_PORT,
 } from '~/constants';
 import { podStatusServer } from '~/podStatusServer';
-import {
-  ClientMsgTypes,
-  HandshakeClientMsg,
-  HandshakeServerMsg,
-  LogToTeamServerMsg,
-  ReportGuildCreateClientMsg,
-  ReportGuildDeleteClientMsg,
-  ServerMsgTypes,
-  ServiceClientMessage,
-  ShardReadyClientMsg,
-  ShardShuttingDownClientMsg,
-} from '~/shared/serviceMessageTypes';
 
 interface EnhancedConnection extends WebsocketConnection {
   shardId?: number;

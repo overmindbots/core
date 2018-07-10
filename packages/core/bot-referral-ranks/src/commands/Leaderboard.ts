@@ -1,10 +1,13 @@
 // tslint:disable completed-docs
+import {
+  Command,
+  CommandRuntimeError,
+} from '@overmindbots/discord.js-command-manager';
 import { Message, RichEmbed } from 'discord.js';
-import { Command, CommandRuntimeError } from '@overmindbots/discord.js-command-manager';
 import { flow, map, orderBy, reduce, take } from 'lodash/fp';
 
-import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
+import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
   buildInvitesPerUser,

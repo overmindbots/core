@@ -1,3 +1,6 @@
+import { BotInstance, Guild, Role } from '@overmindbots/shared-models';
+import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 import {
   GraphQLInt,
   GraphQLNonNull,
@@ -9,9 +12,6 @@ import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
 import ReferralRanksType from '~/schema/types/BotInstance/ReferralRanks';
 import GuildType from '~/schema/types/Guild';
 import RoleType from '~/schema/types/Role';
-import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
-import { BotInstance, Guild, Role } from '@overmindbots/shared-models';
-import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
 
 export default new GraphQLObjectType({
   name: 'ReferralRanksRank',

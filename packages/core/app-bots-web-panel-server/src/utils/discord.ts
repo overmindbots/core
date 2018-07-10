@@ -1,3 +1,10 @@
+import { Guild, UserDocument } from '@overmindbots/shared-models';
+import { UnexpectedError } from '@overmindbots/shared-utils/errors';
+import {
+  GraphQLRateLimitError,
+  GraphQLUnauthenticatedError,
+} from '@overmindbots/shared-utils/graphqlErrors';
+import { asyncDelay } from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import { Permissions } from 'discord.js';
 import { filter, get, map, set } from 'lodash';
@@ -7,13 +14,6 @@ import {
   DISCORD_ERROR_UNAUTHENTICATED,
   DISCORD_RATE_LIMIT_TIME,
 } from '~/constants';
-import { UnexpectedError } from '~/shared/errors';
-import {
-  GraphQLRateLimitError,
-  GraphQLUnauthenticatedError,
-} from '~/shared/graphqlErrors';
-import { Guild, UserDocument } from '@overmindbots/shared-models';
-import { asyncDelay } '@overmindbots/shared-utils';
 
 // Keeps track of the last time a request of a certain resource was performed
 // Should use a Redis cache for this

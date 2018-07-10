@@ -1,9 +1,12 @@
 // tslint:disable completed-docs
+import {
+  Command,
+  DiscordPermissions,
+} from '@overmindbots/discord.js-command-manager';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { PermissionResolvable, Role } from 'discord.js';
-import { Command, DiscordPermissions } from '@overmindbots/discord.js-command-manager';
 import { each, includes, map } from 'lodash';
 import { BOT_ROLE, REQUIRED_PERMISSIONS } from '~/constants';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
 
 import { getBotHighestRolePosition } from '~/utils';
 

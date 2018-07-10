@@ -4,10 +4,10 @@ import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { formatError, GraphQLError } from 'graphql';
 import passport from 'passport';
-import { GraphQLUnauthorizedError } from '~/shared/graphqlErrors';
+import { GraphQLUnauthorizedError } from '@overmindbots/shared-utils/graphqlErrors';
 import '~/startup';
 import { User } from '@overmindbots/shared-models';
-import { createAsyncCatcher } '@overmindbots/shared-utils';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import schema from '~/schema';
 
 const asyncCatcher = createAsyncCatcher(error => {

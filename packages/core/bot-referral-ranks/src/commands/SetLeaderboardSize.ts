@@ -1,12 +1,12 @@
 // tslint:disable completed-docs
-import { Message } from 'discord.js';
 import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
-import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 import { BotInstance } from '@overmindbots/shared-models';
+import { Message } from 'discord.js';
+import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 interface Args {
   size: number;

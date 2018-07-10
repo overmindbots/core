@@ -1,7 +1,10 @@
-import botIconReferralRanksImg from '~/assets/botIconReferralRanks.svg';
 import { BOT_TYPES, BOTS } from '@overmindbots/shared-utils/constants';
+import botIconReferralRanksImg from '~/assets/botIconReferralRanks.svg';
 
-import { buildAddBotUrl, verifyEnvVariables } from './shared/utils';
+import {
+  buildAddBotUrl,
+  verifyEnvVariables,
+} from '@overmindbots/shared-utils/utils';
 
 export enum NETWORK_ERROR_TYPES {
   UNAUTHENTICATED = 'UNAUTHENTICATED',

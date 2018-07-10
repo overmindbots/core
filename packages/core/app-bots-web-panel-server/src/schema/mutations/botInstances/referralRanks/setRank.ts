@@ -1,3 +1,15 @@
+import {
+  Guild,
+  Role,
+  SessionDocument,
+  User,
+} from '@overmindbots/shared-models';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
+import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
+import {
+  GraphQLBadRequestError,
+  GraphQLNotFoundError,
+} from '@overmindbots/shared-utils/graphqlErrors';
 import { AssertionError } from 'assert';
 import {
   GraphQLInt,
@@ -8,13 +20,6 @@ import {
 } from 'graphql';
 import { mutationWithClientMutationId, toGlobalId } from 'graphql-relay';
 import RankType from '~/schema/types/ReferralRanksRank';
-import {
-  GraphQLBadRequestError,
-  GraphQLNotFoundError,
-} from '~/shared/graphqlErrors';
-import { Guild, Role, SessionDocument, User } from '@overmindbots/shared-models';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
-import { RankDocument } from '@overmindbots/shared-models/referralRanks/Rank';
 import { requireSession } from '~/utils/graphQL';
 
 export default mutationWithClientMutationId({

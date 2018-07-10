@@ -1,13 +1,13 @@
 // tslint:disable completed-docs
-import Discord from 'discord.js';
 import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
+import { Rank } from '@overmindbots/shared-models/referralRanks';
+import Discord from 'discord.js';
 import { bot } from '~/bot';
 import { BOT_ROLE, DISCORD_ERROR_CODES } from '~/constants';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { getBotHighestRolePosition, getRolesLowerThanBot } from '~/utils';
 
 // TODO: Use generics to include args

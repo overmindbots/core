@@ -6,9 +6,12 @@ import {
   globalIdField,
 } from 'graphql-relay';
 
-import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
-import { AssertionError, UnexpectedError } from '~/shared/errors';
 import { User } from '@overmindbots/shared-models';
+import {
+  AssertionError,
+  UnexpectedError,
+} from '@overmindbots/shared-utils/errors';
+import { nodeInterface } from '~/schema/interfaces/nodeDefinitions';
 import DiscordClient from '~/utils/discord';
 
 import GuildType from './Guild';

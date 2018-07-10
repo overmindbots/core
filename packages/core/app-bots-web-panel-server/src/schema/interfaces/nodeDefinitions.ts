@@ -1,6 +1,6 @@
+import * as models from '@overmindbots/shared-models';
 import { fromGlobalId, nodeDefinitions } from 'graphql-relay';
 import mongoose from 'mongoose';
-import * as models from '@overmindbots/shared-models';
 function isMongooseObject(obj: any): obj is mongoose.Model<any> {
   return obj.collection && !!obj.collection.name;
 }

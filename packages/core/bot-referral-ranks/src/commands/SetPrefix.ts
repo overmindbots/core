@@ -1,14 +1,14 @@
 // tslint:disable completed-docs
-import { Message } from 'discord.js';
 import {
   Command,
   CommandRuntimeError,
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
+import { BotInstance } from '@overmindbots/shared-models';
+import { PREFIX_PATTERN } from '@overmindbots/shared-utils/constants';
+import { Message } from 'discord.js';
 import { cache } from '~/cache';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
-import { PREFIX_PATTERN } from '@overmindbots/shared-utils/constants';
-import { BotInstance } from '@overmindbots/shared-models';
 
 interface Args {
   prefix: string;
