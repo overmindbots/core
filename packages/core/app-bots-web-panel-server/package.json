@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/app-bots-web-panel-server",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.0",
   "private": true,
   "scripts": {
     "run-server": "babel-node --extensions \".ts\" src",

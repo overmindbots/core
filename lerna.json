@@ -15,7 +15,10 @@
   },
   "commands": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": [
+        "pre-release/*",
+        "release/*"
+      ],
       "cdVersion": "prerelease",
       "conventionalCommits": true,
       "gitRemote": "origin",
@@ -25,5 +28,5 @@
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "1.0.0"
+  "version": "1.0.1-beta.0"
 }
