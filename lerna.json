@@ -15,7 +15,7 @@
   },
   "commands": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": ["pre-release/*", "release/*"],
       "cdVersion": "prerelease",
       "conventionalCommits": true,
       "gitRemote": "origin",
