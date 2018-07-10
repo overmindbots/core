@@ -6,7 +6,7 @@
     "packages/public/*"
   ],
   "changelog": {
-    "repo": "bot-alchemy/monorepo-test",
+    "repo": "overmindbots/core",
     "labels": {
       "tag: new feature": ":rocket: New Feature",
       "tag: bug fix": ":bug: Bug Fix",
