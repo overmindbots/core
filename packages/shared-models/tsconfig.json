@@ -1,8 +1,9 @@
 {
-  "extends": "./tsconfig.base.json",
+  "extends": "../../../tsconfig.json",
+  "exclude": ["node_modules", "build", "scripts", "jest"],
   "compilerOptions": {
-    "baseUrl": "./packages",
     "paths": {
+      "~/*": ["./shared-models/src/*"],
       "@overmindbots/bot-referral-ranks/*": ["./bot-referral-ranks/src/*"],
       "@overmindbots/service-bot-manager/*": ["./service-bot-manager/src/*"],
       "@overmindbots/discord.js-command-manager/*": ["./discord.js-command-manager/src/*"],

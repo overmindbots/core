@@ -2,6 +2,11 @@
   "name": "@overmindbots/shared-models",
   "version": "1.0.0",
   "private": true,
+  "module": "./build",
+  "scripts": {
+    "clean:build": "rm -rf ./build",
+    "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'"
+  },
   "engines": {
     "node": ">=9.11.2"
   },

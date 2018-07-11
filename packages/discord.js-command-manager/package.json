@@ -8,18 +8,17 @@
     "node": ">=9.11.2"
   },
   "files": [
-    "lib"
+    "build"
   ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "private": true,
   "scripts": {
-    "build": "npm run clean:build; tsc; npm run build-babel",
-    "build-babel": "babel lib --out-dir lib --extensions '.js'",
-    "clean:build": "rm -rf ./lib",
-    "pre-publish": "npm run clean:build; npm run build; git add ./lib",
+    "pre-publish": "npm run clean:build; npm run build",
     "test": "jest",
-    "pre-commit": "echo \"disabled\""
+    "pre-commit": "echo \"disabled\"",
+    "clean:build": "rm -rf ./build",
+    "build": "npm run clean:build && babel src --out-dir ./build --extensions '.ts'"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",

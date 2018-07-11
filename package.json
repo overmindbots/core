@@ -11,7 +11,9 @@
     "release-staging": "lerna publish --canary",
     "bootstrap": "lerna bootstrap",
     "start-bot-referral-ranks": "lerna run start --scope={@overmindbots/bot-referral-ranks,@overmindbots/service-bot-manager} --parallel",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "start-bot-manager": "babel-node ./packages/service-bot-manager/src/index.ts --extensions '.ts'",
+    "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
@@ -31,16 +33,14 @@
       "path": "cz-lerna-changelog"
     }
   },
-  "workspaces": [
-    "packages/core/*",
-    "packages/shared/*",
-    "packages/public/*"
-  ],
   "version": "0.0.0-development",
   "repository": {
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "publishConfig": {
     "access": "restricted"
   }
