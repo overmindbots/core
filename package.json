@@ -13,9 +13,6 @@
     "start-bot-referral-ranks": "lerna run start --scope={@overmindbots/bot-referral-ranks,@overmindbots/service-bot-manager} --parallel",
     "semantic-release": "semantic-release"
   },
-  "resolutions": {
-    "semantic-release": "git+ssh://git@github.com:semantic-release/semantic-release.git#multi-branches"
-  },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-conventional": "^7.0.1",
