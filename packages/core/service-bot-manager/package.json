@@ -15,7 +15,6 @@
     "start-develop": "nodemon -e ts --watch src --exec \"babel-node ./src/index.ts --extensions '.ts'\""
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.51",
     "@overmindbots/shared-utils": "^1.0.0",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
@@ -28,13 +27,13 @@
     "winston": "^2.4.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.51",
-    "@babel/core": "^7.0.0-beta.51",
-    "@babel/node": "^7.0.0-beta.51",
-    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.51",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.51",
-    "@babel/preset-env": "^7.0.0-beta.51",
-    "@babel/preset-typescript": "^7.0.0-beta.51",
+    "@babel/cli": "^7.0.0-beta.53",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/node": "^7.0.0-beta.53",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.53",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "@babel/preset-typescript": "^7.0.0-beta.53",
     "@types/dotenv": "^4.0.3",
     "@types/express": "^4.16.0",
     "@types/lodash": "^4.14.108",

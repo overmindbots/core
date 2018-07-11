@@ -22,7 +22,6 @@
     "pre-commit": "echo \"disabled\""
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.46",
     "@overmindbots/shared-models": "^1.0.0",
     "@overmindbots/shared-utils": "^1.0.0",
     "@types/node": "^9.0.0",
