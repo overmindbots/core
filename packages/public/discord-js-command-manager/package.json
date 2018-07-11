@@ -22,18 +22,19 @@
     "pre-commit": "echo \"disabled\""
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.53",
     "@overmindbots/shared-models": "^1.0.0",
     "@overmindbots/shared-utils": "^1.0.0",
     "@types/node": "^9.0.0",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.46",
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/node": "^7.0.0-beta.46",
-    "@babel/plugin-transform-runtime": "^7.0.0-beta.46",
-    "@babel/preset-env": "^7.0.0-beta.46",
-    "@babel/preset-typescript": "^7.0.0-beta.42",
+    "@babel/cli": "^7.0.0-beta.53",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/node": "^7.0.0-beta.53",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "@babel/preset-typescript": "^7.0.0-beta.53",
     "@types/jest": "^22.2.3",
     "@types/lodash": "^4.14.108",
     "babel-plugin-module-resolver": "^3.1.1",
@@ -41,6 +42,6 @@
     "discord.js": "^11.3.2",
     "jest": "^22.4.3",
     "ts-jest": "^22.4.5",
-    "typescript": "^2.8.3"
+    "typescript": "^2.9.2"
   }
 }

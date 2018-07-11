@@ -4,5 +4,18 @@
   "private": true,
   "engines": {
     "node": ">=9.11.2"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.53"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.53",
+    "@babel/core": "^7.0.0-beta.53",
+    "@babel/node": "^7.0.0-beta.53",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.53",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.53",
+    "@babel/preset-env": "^7.0.0-beta.53",
+    "@babel/preset-typescript": "^7.0.0-beta.53",
+    "typescript": "^2.9.2"
   }
 }
