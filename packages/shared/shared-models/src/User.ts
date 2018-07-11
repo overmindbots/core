@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 
-import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/src/constants';
-import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/src/graphqlErrors';
+import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/constants';
+import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/graphqlErrors';
 
 import { Session, SessionDocument } from '~/Session';
 

@@ -1,4 +1,4 @@
-import { POD_STATUS_SERVER_PORT } from '@overmindbots/shared-utils/src/constants';
+import { POD_STATUS_SERVER_PORT } from '@overmindbots/shared-utils/constants';
 import express, { Response } from 'express';
 import { Server } from 'http';
 import logger from 'winston';

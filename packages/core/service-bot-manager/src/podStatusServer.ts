@@ -1,4 +1,4 @@
-import { PodStatusServer } from '@overmindbots/shared-utils/podStatusServer';
+import { PodStatusServer } from '@overmindbots/shared-utils';
 
 export const podStatusServer = new PodStatusServer();
 

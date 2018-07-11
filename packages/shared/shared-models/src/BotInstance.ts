@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import {
   BOT_TYPES,
   ReferralRanksBotConfig,
-} from '@overmindbots/shared-utils/src/constants';
+} from '@overmindbots/shared-utils/constants';
 
 export interface BotInstanceDocument extends mongoose.Document {
   botType: BOT_TYPES;

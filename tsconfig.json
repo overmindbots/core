@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./packages",
+    "paths": {
+      "@overmindbots/*": ["./core/*/src", "./shared/*/src", "./public/*/src"],
+    }
+  }
+}
