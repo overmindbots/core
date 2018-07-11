@@ -15,8 +15,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-beta.49",
     "@babel/runtime": "^7.0.0-beta.49",
-    "@overmindbots/shared-models": "^1.0.3",
-    "@overmindbots/shared-utils/utils": "^1.0.3",
+    "@overmindbots/shared-models": "^1.0.0",
+    "@overmindbots/shared-utils": "^1.0.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "btoa": "^1.1.2",
