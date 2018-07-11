@@ -2,6 +2,9 @@
   "name": "@overmindbots/service-bot-manager",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=9.11.2"
+  },
   "author": "Rafael Vidaurre <narzerus@gmail.com>",
   "scripts": {
     "start": "npm run start-develop",

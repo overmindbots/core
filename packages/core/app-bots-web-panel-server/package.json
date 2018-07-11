@@ -2,6 +2,9 @@
   "name": "@overmindbots/app-bots-web-panel-server",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=9.11.2"
+  },
   "scripts": {
     "run-server": "babel-node --extensions \".ts\" src",
     "run-build-schema": "babel-node ./scripts/syncSchema.ts --extensions \".ts\"",

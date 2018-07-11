@@ -1,5 +1,8 @@
 {
   "name": "@overmindbots/shared-utils",
   "version": "1.0.0",
-  "private": true
+  "private": true,
+  "engines": {
+    "node": ">=9.11.2"
+  }
 }

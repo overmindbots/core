@@ -4,6 +4,9 @@
   "description": "Commands manager for discord.js",
   "author": "Rafael Vidaurre <narzerus@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=9.11.2"
+  },
   "files": [
     "lib"
   ],

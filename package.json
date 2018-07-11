@@ -2,7 +2,7 @@
   "name": "@overmindbots/core",
   "private": true,
   "engines": {
-    "node": ">=9.0.0"
+    "node": ">=9.11.2"
   },
   "scripts": {
     "commit": "git-cz",
