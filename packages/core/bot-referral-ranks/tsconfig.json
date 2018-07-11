@@ -1,9 +1,4 @@
 {
   "extends": "../../../tsconfig.json",
-  "exclude": ["node_modules", "build", "scripts", "jest"],
-  "compilerOptions": {
-    "rootDirs": [
-      "~"
-    ],
-  }
+  "exclude": ["node_modules", "build", "scripts", "jest"]
 }
