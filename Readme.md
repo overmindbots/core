@@ -11,10 +11,6 @@ Right now this is just a "working" demo of a monorepo setup.
 Install Lerna
 - `yarn global add lerna`
 
-Setup LernaChangelog
-- [create a personal github access token](https://github.com/settings/tokens)
-- set this environment variable in your machine: `GITHUB_AUTH=<token>`
-
 Install dependencies of all packages
 - `lerna bootstrap --hoist`
 
@@ -24,13 +20,13 @@ Install dependencies of all packages
 Use `yarn commit` to trigger the commitizen prompt. A pre-commit hook will
 ensure that the message is compliant with the `conventional-commits` standard.
 
-**Publishing**
-`yarn release-staging` Creates an alpha release
-`yarn release-production` Creates an official release
-
 **Continuous Delivery and Branching Model**
 
-<Pending team decision>
+- All merges to `master` are deployed to production
+- All merges to `development` are deployed to staging (pending `beta` branch to control staging)
+
+Releases will be generated when development is updated, no new releases are generated
+on merge to master
 
 # Conventions
 
