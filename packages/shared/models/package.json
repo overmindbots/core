@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@overmindbots/shared-utils/utils": "^1.0.3",
+    "@overmindbots/shared-utils": "^1.0.0",
     "mongoose": "^5.2.2"
   }
 }
