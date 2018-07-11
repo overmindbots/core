@@ -1,4 +1,14 @@
 {
   "extends": "../../../tsconfig.json",
-  "exclude": ["node_modules", "build", "scripts", "jest"]
+  "exclude": ["node_modules", "build", "scripts", "jest"],
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./core/bot-referral-ranks/src/*"],
+      "@overmindbots/bot-referral-ranks/*": ["./core/bot-referral-ranks/src/*"],
+      "@overmindbots/service-bot-manager/*": ["./core/service-bot-manager/src/*"],
+      "@overmindbots/discord.js-command-manager/*": ["./public/discord.js-command-manager/src/*"],
+      "@overmindbots/shared-models/*": ["./shared/shared-models/src/*"],
+      "@overmindbots/shared-utils/*": ["./shared/shared-utils/src/*"],
+    }
+  }
 }
