@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { BOT_TYPES } from '../constants';
+import { BOT_TYPES } from '@overmindbots/shared-utils/src/constants';
 
 export interface OwnerNotificationMessageDocument extends mongoose.Document {
   checksum: string;

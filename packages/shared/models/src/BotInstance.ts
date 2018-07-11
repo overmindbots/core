@@ -1,7 +1,10 @@
 import { Guild } from 'discord.js';
 import mongoose from 'mongoose';
 
-import { BOT_TYPES, ReferralRanksBotConfig } from '../constants';
+import {
+  BOT_TYPES,
+  ReferralRanksBotConfig,
+} from '@overmindbots/shared-utils/src/constants';
 
 export interface BotInstanceDocument extends mongoose.Document {
   botType: BOT_TYPES;

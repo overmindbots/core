@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import uuid from 'uuid/v4';
 
-import { UserDocument } from './User';
+import { UserDocument } from '~/User';
 
 const MAX_SESSIONS = 5;
 

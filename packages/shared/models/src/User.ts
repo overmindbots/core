@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 import fetch from 'node-fetch';
 
-import { DISCORD_API_BASE_URL } from '../constants';
-import { GraphQLUnauthenticatedError } from '../graphqlErrors';
+import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/src/constants';
+import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/src/graphqlErrors';
 
-import { Session, SessionDocument } from './Session';
+import { Session, SessionDocument } from '~/Session';
 
 export interface CreateOrUpdateFromOauthArgs {
   accessToken: string;
