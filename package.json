@@ -40,8 +40,12 @@
     "url": "https://github.com/overmindbots/core.git"
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": ["**/@overmindbots/shared-utils", "**/@overmindbots/shared-models"]
   },
+  
   "publishConfig": {
     "access": "restricted"
   }

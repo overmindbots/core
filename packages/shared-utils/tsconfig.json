@@ -3,9 +3,9 @@
   "compilerOptions": {
     "baseUrl": "../",
     "paths": {
-      "~/*": ["./service-bot-manager/src/*"],
+      "~/*": ["./shared-utils/src/*"],
       "@overmindbots/shared-utils/*": ["./shared-utils/src/*"],
-      "@overmindbots/shared-models/*": ["./shared-models/src/*"]
+      "@overmindbots/shared-models/*": ["./shared-models/src/*"],
     },
     "rootDirs": [
       "~"

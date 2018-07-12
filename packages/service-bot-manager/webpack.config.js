@@ -9,10 +9,15 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
+    pathinfo: true,
   },
   target: 'node',
   context: __dirname,
-  externals: [nodeExternals()],
+  // externals: [
+  // nodeExternals({
+  //     whitelist: /^@overmindbots\/.*/,
+  //   }),
+  // ],
   mode: 'none',
   plugins: [
     new webpack.BannerPlugin({
@@ -23,24 +28,37 @@ module.exports = {
   ],
   module: {
     rules: [
+      // {
+      //   test: /\.ts$/,
+      //   // include: includePaths,
+      //   loader: 'ts-loader',
+      //   options: {
+      //     // disable type checker - we will use it in fork plugin
+      //     transpileOnly: true,
+      //   },
+      // },
       {
         // Include ts, tsx, and js files.
-        test: /\.(js|ts)$/,
-        exclude: /node_modules/,
+        test: /\.(ts)$/,
+        // exclude: /node_modules\/(?![@overmindbots/shared-modules|@overmindbots/shared-utils])/,
         loader: 'babel-loader',
-      },
-      {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        options: {
-          // disable type checker - we will use it in fork plugin
-          transpileOnly: true,
-        },
       },
     ],
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
+    alias: {
+      '@overmindbots/shared-models': path.resolve(
+        __dirname,
+        './node_modules/@overmindbots/shared-models/src'
+      ),
+      '@overmindbots/shared-utils': path.resolve(
+        __dirname,
+        './node_modules/@overmindbots/shared-utils/src'
+      ),
+    },
+    symlinks: false,
+    // plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
   },
   stats: {
     // suppress "export not found" warnings about re-exported types

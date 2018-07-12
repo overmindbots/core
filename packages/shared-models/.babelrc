@@ -10,7 +10,6 @@
     ],
     "@babel/typescript"
   ],
-
   "plugins": [
     "@babel/transform-runtime",
     [

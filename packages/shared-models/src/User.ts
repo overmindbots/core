@@ -4,7 +4,7 @@ import fetch from 'node-fetch';
 import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/constants';
 import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/graphqlErrors';
 
-import { Session, SessionDocument } from '~/Session';
+import { Session, SessionDocument } from '@overmindbots/shared-models/Session';
 
 export interface CreateOrUpdateFromOauthArgs {
   accessToken: string;

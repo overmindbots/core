@@ -1,23 +1,34 @@
-export { BotInstance } from '~/BotInstance';
-export { BotInstanceDocument, BotInstanceModel } from '~/BotInstance';
+export { BotInstance } from '@overmindbots/shared-models/BotInstance';
+export {
+  BotInstanceDocument,
+  BotInstanceModel,
+} from '@overmindbots/shared-models/BotInstance';
 
-export { Guild } from '~/Guild';
-export { GuildDocument, GuildModel } from '~/Guild';
+export { Guild } from '@overmindbots/shared-models/Guild';
+export { GuildDocument, GuildModel } from '@overmindbots/shared-models/Guild';
 
-export { Session } from '~/Session';
-export { SessionDocument, SessionModel } from '~/Session';
+export { Session } from '@overmindbots/shared-models/Session';
+export {
+  SessionDocument,
+  SessionModel,
+} from '@overmindbots/shared-models/Session';
 
-export { User } from '~/User';
-export { UserDocument, UserModel } from '~/User';
+export { User } from '@overmindbots/shared-models/User';
+export { UserDocument, UserModel } from '@overmindbots/shared-models/User';
 
-export { Member } from '~/Member';
-export { MemberDocument, MemberModel } from '~/Member';
+export { Member } from '@overmindbots/shared-models/Member';
+export {
+  MemberDocument,
+  MemberModel,
+} from '@overmindbots/shared-models/Member';
 
-export { Role } from '~/Role';
-export { RoleDocument, RoleModel } from '~/Role';
+export { Role } from '@overmindbots/shared-models/Role';
+export { RoleDocument, RoleModel } from '@overmindbots/shared-models/Role';
 
-export { OwnerNotificationMessage } from '~/OwnerNotificationMessage';
+export {
+  OwnerNotificationMessage,
+} from '@overmindbots/shared-models/OwnerNotificationMessage';
 export {
   OwnerNotificationMessageDocument,
   OwnerNotificationMessageModel,
-} from '~/OwnerNotificationMessage';
+} from '@overmindbots/shared-models/OwnerNotificationMessage';
