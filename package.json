@@ -13,7 +13,8 @@
     "start-bot-referral-ranks": "lerna run start --scope={@overmindbots/bot-referral-ranks,@overmindbots/service-bot-manager} --parallel",
     "semantic-release": "semantic-release",
     "start-bot-manager": "babel-node ./packages/service-bot-manager/src/index.ts --extensions '.ts'",
-    "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager"
+    "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
+    "build": "babel-node ./packages/service-bot-manager/src/index.ts --out-dir build --extensions '.ts'"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
@@ -38,9 +39,10 @@
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": ["packages/*"],
+    "nohoist": ["**/shared-utils", "**/shared-models"]
+  },
   "publishConfig": {
     "access": "restricted"
   }
