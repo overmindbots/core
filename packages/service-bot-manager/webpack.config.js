@@ -3,16 +3,17 @@ var path = require('path');
 var fs = require('fs');
 var nodeExternals = require('webpack-node-externals');
 var TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+var NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
-  entry: ['./service-bot-manager/src/index.ts'],
+  entry: ['./src/index.ts'],
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
     pathinfo: true,
   },
   target: 'node',
-  context: path.resolve(__dirname, '../'),
+  context: path.resolve(__dirname),
   externals: [
     nodeExternals({
       whitelist: /^@overmindbots\/.*/,
@@ -25,28 +26,21 @@ module.exports = {
       raw: true,
       entryOnly: false,
     }),
+    new NodemonPlugin(),
   ],
   module: {
     rules: [
-      // {
-      //   // Include ts, tsx, and js files.
-      //   test: /\.(js,ts)$/,
-      //   // exclude: /node_modules\/(?![@overmindbots/shared-modules|@overmindbots/shared-utils])/,
-      //   loader: 'babel-loader',
-      // },
       {
         test: /\.ts$/,
-        // include: includePaths,
         loader: 'ts-loader',
         options: {
-          // disable type checker - we will use it in fork plugin
           transpileOnly: true,
         },
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.js'],
     alias: {
       '@overmindbots/shared-models': path.resolve(
         __dirname,

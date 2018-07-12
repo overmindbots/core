@@ -7,14 +7,11 @@
   "scripts": {
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
-    "release-production": "lerna publish",
-    "release-staging": "lerna publish --canary",
     "bootstrap": "lerna bootstrap",
-    "start-bot-referral-ranks": "lerna run start --scope={@overmindbots/bot-referral-ranks,@overmindbots/service-bot-manager} --parallel",
     "semantic-release": "semantic-release",
-    "start-bot-manager": "babel-node ./packages/service-bot-manager/src/index.ts --extensions '.ts'",
+
     "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
-    "build": "babel-node ./packages/service-bot-manager/src/index.ts --out-dir build --extensions '.ts'"
+    "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",

@@ -7,14 +7,10 @@
   },
   "author": "Rafael Vidaurre <narzerus@gmail.com>",
   "scripts": {
-    "start": "npm run start-develop",
     "test": "echo \"no tests yet\"",
-    "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'",
-    "clean:build": "rm -rf ./build",
-    "start-production": "node ./build/index.js",
-    "start-develop": "nodemon -e ts --watch src --exec \"babel-node ./src/index.ts --extensions '.ts'\"",
-    "start-once": "babel-node ./src/index.ts --extensions '.ts'",
-    "webpack-build": "webpack --config webpack.config.js"
+    "start": "webpack --watch",
+    "start-build": "node ./build/index.js",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
@@ -47,7 +43,9 @@
     "@types/winston": "^2.3.9",
     "babel-loader": "8.0.0-beta.3",
     "babel-plugin-module-resolver": "^3.1.0",
+    "concurrently": "^3.6.0",
     "nodemon": "^1.17.4",
+    "nodemon-webpack-plugin": "next",
     "ts-loader": "^4.4.2",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint-config-prettier": "^1.13.0",
