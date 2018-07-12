@@ -41,6 +41,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    // TODO: Make this dynamic
     alias: {
       '@overmindbots/shared-models': path.resolve(
         __dirname,
@@ -51,12 +52,11 @@ module.exports = {
         './node_modules/@overmindbots/shared-utils/src'
       ),
     },
-    // symlinks: false,
     plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.build.json' })],
   },
   stats: {
     // suppress "export not found" warnings about re-exported types
-    warningsFilter: /export .* was not found in/,
+    warningsFilter: /(export .* was not found in)|(Critical dependency: the request of a dependency is an expression)/,
   },
   devtool: 'sourcemap',
 };
