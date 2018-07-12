@@ -40,7 +40,14 @@
     "packages": [
       "packages/*"
     ],
-    "nohoist": ["**/@overmindbots/shared-utils", "**/@overmindbots/shared-models"]
+    "nohoist": [
+      "**/@overmindbots/shared-utils",
+      "**/@overmindbots/shared-models",
+      "**/@overmindbots/discord.js-command-manager",
+      "**/@overmindbots/bot-referral-ranks/**",
+      "**/@types/**",
+      "**/pkginfo/**"
+    ]
   },
   
   "publishConfig": {

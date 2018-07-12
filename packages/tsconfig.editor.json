@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "~/*": ["./src/*"],
+      "@overmindbots/shared-utils": ["./node_modules/@overmindbots/shared-utils/src/index"],
+      "@overmindbots/shared-utils/*": ["./node_modules/@overmindbots/shared-utils/src/*"],
+      "@overmindbots/shared-models": ["./node_modules/@overmindbots/shared-models/src/index"],
+      "@overmindbots/shared-models/*": ["./node_modules/@overmindbots/shared-models/src/*"],
+      "@overmindbots/discord.js-command-manager/*": ["./node_modules/@overmindbots/discord.js-command-manager/src/*"],
+      "@overmindbots/discord.js-command-manager": ["./node_modules/@overmindbots/discord.js-command-manager/src/index"]
+    }
+  }
+}

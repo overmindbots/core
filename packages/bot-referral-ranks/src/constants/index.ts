@@ -1,8 +1,8 @@
-import pkginfo from 'pkginfo';
-pkginfo(module, 'version');
-
 import { DiscordPermissions } from '@overmindbots/discord.js-command-manager';
 import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
+
+// TODO: Pass this through an env variable on build time
+const pkginfo = require('../../package.json');
 
 // TODO: Assert env variables better
 if (!process.env.BOT_MANAGER_SERVICE_HOST) {
@@ -36,7 +36,7 @@ export const BOT_MANAGER_URL = `ws://${BOT_MANAGER_SERVICE_HOST}:${BOT_MANAGER_S
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const BOT_TYPE = BOT_TYPES.REFERRAL_RANKS;
 export const DEFAULT_PREFIX = '!';
-export const VERSION = `v${module.exports.version}`;
+export const VERSION = `v${pkginfo.version}`;
 export const REQUIRED_PERMISSIONS = {
   [DiscordPermissions.MANAGE_GUILD]: {
     name: 'Manage Server',

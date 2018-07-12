@@ -6,17 +6,14 @@
     "node": ">=9.11.2"
   },
   "scripts": {
-    "start": "npm run start-develop",
-    "test": "jest",
-    "start-production": "node ./build/index.js --max-old-space-size=3072",
-    "start-develop": "nodemon -e ts --watch src --exec \"babel-node ./src/index.ts --extensions '.ts'\"",
-    "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'",
-    "clean:build": "rm -rf ./build",
-    "lint": "tslint --project tsconfig.json"
+    "start": "webpack --watch",
+    "start-build": "node ./build/index.js",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
     "@google-cloud/logging-winston": "^0.9.0",
+    "@overmindbots/discord.js-command-manager": "^1.0.0",
     "@overmindbots/shared-models": "^1.0.0",
     "@overmindbots/shared-utils": "^1.0.0",
     "bluebird": "^3.5.1",

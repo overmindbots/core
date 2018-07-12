@@ -1,20 +1,21 @@
 import {
-  Message,
-  User,
   Channel,
   Collection,
-  MessageMentions,
   GuildMember,
+  Message,
+  MessageMentions,
   Role,
-  TextChannel
+  TextChannel,
+  User,
 } from 'discord.js';
-import { merge, find } from 'lodash';
-import CommandManager, {
-  ProcessMessageResultCodes
-} from '../src/CommandManager';
-import { CommandArgs, DiscordPermissions, CommandBase } from '../src/Command';
-import CommandRuntimeError from '../src/CommandRuntimeError';
+import { find, merge } from 'lodash';
+
 import { Command } from '../src';
+import { CommandArgs, CommandBase, DiscordPermissions } from '../src/Command';
+import CommandManager, {
+  ProcessMessageResultCodes,
+} from '../src/CommandManager';
+import CommandRuntimeError from '../src/CommandRuntimeError';
 
 class CollectionMock {
   map: Map<any, any>;
@@ -39,16 +40,16 @@ class CollectionMock {
 }
 
 const defaultUser = {
-  bot: false
+  bot: false,
 };
 const defaultChannel = {
-  send() {}
+  send() {},
 } as TextChannel;
 const defaultMessage = {
   content: 'foo',
   author: defaultUser,
   channel: defaultChannel,
-  guild: {}
+  guild: {},
 };
 
 // Factories
@@ -189,7 +190,7 @@ describe('CommandManager', () => {
         commandManager.registerCommand(CommandForPrefix);
         const message = createMessage({ content: '^custom ' });
         const result = await commandManager.processMessage(message, {
-          prefix: '^'
+          prefix: '^',
         });
         expect(result.code).not.toEqual(ProcessMessageResultCodes.NON_COMMAND);
         expect(spy).toHaveBeenCalled();
@@ -216,7 +217,7 @@ describe('CommandManager', () => {
       test('should correctly parse arguments', async () => {
         const commandManager = new CommandManager({ prefix: '!' });
         const testCommandMessage = createMessage({
-          content: '!test 10 testId'
+          content: '!test 10 testId',
         });
         commandManager.registerCommand(Test);
         const { code, data } = await commandManager.processMessage(
@@ -228,7 +229,7 @@ describe('CommandManager', () => {
         const args = data.args;
         expect(args).toEqual({
           id: 'testId',
-          level: 10
+          level: 10,
         });
       });
 
@@ -244,15 +245,15 @@ describe('CommandManager', () => {
         const message = createMessage({
           content: '%foo NonExistentRole exitentRole',
           author: {
-            bot: false
+            bot: false,
           },
           guild: {
             members: new CollectionMock(),
-            roles: new CollectionMock()
+            roles: new CollectionMock(),
           },
           channel: {
-            send: spy
-          }
+            send: spy,
+          },
         });
         message.guild.roles.set(exitentRole.id, exitentRole as Role);
         commandManager.registerCommand(SomeCommand);
@@ -266,7 +267,8 @@ describe('CommandManager', () => {
       test('should correctly parse mentions', async () => {
         class ParserCommand extends Command {
           static keywords = ['parse'];
-          static argsPattern = '{user:User} {role:Role} {channel:Channel} {roleAsString:Role} {roleInQuotes:Role} {roleInQuotes2:Role} {roleInQuotes3:Role} {roleInQuotes4:Role}';
+          static argsPattern =
+            '{user:User} {role:Role} {channel:Channel} {roleAsString:Role} {roleInQuotes:Role} {roleInQuotes2:Role} {roleInQuotes3:Role} {roleInQuotes4:Role}';
           async run(
             message: Message,
             args: CommandArgs
@@ -281,30 +283,30 @@ describe('CommandManager', () => {
           mentions: {
             users: new CollectionMock(),
             roles: new CollectionMock(),
-            channels: new CollectionMock()
+            channels: new CollectionMock(),
           },
           guild: {
-            roles: new CollectionMock()
-          }
+            roles: new CollectionMock(),
+          },
         });
         const user = {
           username: 'userone',
-          id: '123'
+          id: '123',
         };
         const role = {
           id: '444444',
-          name: 'roleOne'
+          name: 'roleOne',
         };
         const roleStr = {
           id: '113311',
-          name: 'RoleAs-Str'
+          name: 'RoleAs-Str',
         };
         const roleQuotes = {
           id: '333',
-          name: 'Role as string'
+          name: 'Role as string',
         };
         const channel = {
-          id: '555'
+          id: '555',
         };
 
         testMentionsMessage.mentions.users.set(user.id, user as User);
@@ -327,7 +329,7 @@ describe('CommandManager', () => {
           roleInQuotes: roleQuotes,
           roleInQuotes2: roleQuotes,
           roleInQuotes3: roleQuotes,
-          roleInQuotes4: roleQuotes
+          roleInQuotes4: roleQuotes,
         });
       });
 
@@ -375,11 +377,11 @@ describe('CommandManager', () => {
         const message = createMessage({
           content: '!auth',
           member: createUser({
-            hasPermission: () => false
+            hasPermission: () => false,
           }),
           channel: {
-            send: sendSpy
-          }
+            send: sendSpy,
+          },
         });
         const spy = jest.fn();
         class AuthCommand extends Command {

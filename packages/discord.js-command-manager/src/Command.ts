@@ -82,6 +82,7 @@ const ARGS_PATTERN_ITEM_REGEX = /\{([a-zA-Z0-9]+):([a-zA-Z0-9]+)\}/;
 const USER_ARG_REGEX = /^<@(\d+)>$/;
 const ROLE_MENTION_ARG_REGEX = /^<@&(\d+)>$/;
 const CHANNEL_ARG_REGEX = /^<#(\d+)>$/;
+// tslint:disable-next-line
 const STRING_ARG_REGEX = /^"([^"]+)"|'([^']+)'|`([^`]+)`|’([^’]+)’|“([^“]+)“|(\S+)$/;
 
 export class CommandBase {
@@ -114,7 +115,9 @@ export class CommandBase {
     } => {
       const match = value.match(CHANNEL_ARG_REGEX);
 
-      if (!match) return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
+      if (!match) {
+        return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
+      }
 
       const id = match[1];
       if (!id) {
@@ -123,7 +126,8 @@ export class CommandBase {
       const channel = this.message.mentions.channels.get(id);
       if (!channel) {
         console.warn(
-          'Unexpected case ocurred: Channel is mentioned in a message, but message has no such channel in the messageMentions collection'
+          'Unexpected case ocurred: Channel is mentioned in a message, ' +
+            'but message has no such channel in the messageMentions collection'
         );
         return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
       }
@@ -141,14 +145,15 @@ export class CommandBase {
         if (!id) {
           return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
         }
-        const role = this.message.mentions.roles.get(id);
-        if (!role) {
+        const roleMention = this.message.mentions.roles.get(id);
+        if (!roleMention) {
           console.warn(
-            'Unexpected case ocurred: Role is mentioned in a message, but message has no such role in the messageMentions collection'
+            'Unexpected case ocurred: Role is mentioned in a message, ' +
+              'but message has no such role in the messageMentions collection'
           );
           return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
         }
-        return { code: ParseArgsResultCodes.SUCCESS, data: role };
+        return { code: ParseArgsResultCodes.SUCCESS, data: roleMention };
       }
 
       // Match by name
@@ -164,7 +169,9 @@ export class CommandBase {
     ): { code: ParseArgsResultCodes; data?: User; argValue?: string } => {
       // TODO: Support strings
       const match = value.match(USER_ARG_REGEX);
-      if (!match) return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
+      if (!match) {
+        return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
+      }
       const id = match[1];
       if (!id) {
         return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
@@ -173,7 +180,8 @@ export class CommandBase {
       const user = this.message.mentions.users.get(id);
       if (!user) {
         console.warn(
-          'Unexpected case ocurred: User is mentioned in a message, but message has no such user in the messageMentions collection'
+          'Unexpected case ocurred: User is mentioned in a message, ' +
+            'but message has no such user in the messageMentions collection'
         );
         return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
       }
@@ -312,7 +320,9 @@ export class CommandBase {
 
   private parseArgsPattern = () => {
     const argsPattern = (this.constructor as typeof Command).argsPattern;
-    if (!argsPattern) return;
+    if (!argsPattern) {
+      return;
+    }
     const match = argsPattern.match(ARGS_PATTERN_REGEX);
     const argsPatternMatch = argsPattern.match(ARGS_PATTERN_REGEX);
 
@@ -321,7 +331,8 @@ export class CommandBase {
     }
     if (!match) {
       throw new Error(
-        `'argsPattern' "${argsPattern}" '${(this as any).constructor.getName()}' is invalid`
+        `'argsPattern' "${argsPattern}" ` +
+          `'${(this as any).constructor.getName()}' is invalid`
       );
     }
 
@@ -329,7 +340,8 @@ export class CommandBase {
       const itemMatch = item.match(ARGS_PATTERN_ITEM_REGEX);
       if (!itemMatch) {
         throw new Error(
-          `'argsPattern' argument "${item}" in '${(this as any).constructor.getName()}' is invalid`
+          `'argsPattern' argument "${item}" in ` +
+            `'${(this as any).constructor.getName()}' is invalid`
         );
       }
       const argName = itemMatch[1];
@@ -418,6 +430,8 @@ export class CommandBase {
           this.sendMissingArgsError();
           return { code: CommandExecuteResultCodes.INVALID };
         }
+        default:
+          break;
       }
     }
 

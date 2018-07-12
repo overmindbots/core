@@ -7,24 +7,17 @@
   "engines": {
     "node": ">=9.11.2"
   },
-  "files": [
-    "build"
-  ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "private": true,
   "scripts": {
-    "pre-publish": "npm run clean:build; npm run build",
-    "test": "jest",
-    "pre-commit": "echo \"disabled\"",
-    "clean:build": "rm -rf ./build",
-    "build": "npm run clean:build && babel src --out-dir ./build --extensions '.ts'"
+    "start": "webpack --watch",
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
     "@overmindbots/shared-models": "^1.0.0",
     "@overmindbots/shared-utils": "^1.0.0",
     "@types/node": "^9.0.0",
+    "discord.js": "^11.3.2",
     "lodash": "^4.17.10"
   },
   "devDependencies": {
