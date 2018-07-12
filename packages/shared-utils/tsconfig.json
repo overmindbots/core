@@ -1,14 +1,17 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "../",
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./shared-utils/src/*"],
-      "@overmindbots/shared-utils/*": ["./shared-utils/src/*"],
-      "@overmindbots/shared-models/*": ["./shared-models/src/*"],
+      "~/*": ["./src/*"],
+      "@overmindbots/shared-utils/*": ["./node_modules/@overmindbots/shared-utils/src/*"],
+      "@overmindbots/shared-models/*": ["./node_modules/@overmindbots/shared-models/src/*"]
     },
     "rootDirs": [
       "~"
     ]
-  }
+  },
+  "exclude": [
+    "node_modules", "build"
+  ]
 }

@@ -1,12 +1,13 @@
 import {
-  Message,
-  Role,
-  User,
-  TextChannel,
   Channel,
-  PermissionResolvable
+  Message,
+  PermissionResolvable,
+  Role,
+  TextChannel,
+  User,
 } from 'discord.js';
-import { isArray, each, every, keys, find } from 'lodash';
+import { each, every, find, isArray, keys } from 'lodash';
+
 import CommandRuntimeError from './CommandRuntimeError';
 
 export enum DiscordPermissions {
@@ -37,7 +38,7 @@ export enum DiscordPermissions {
   MANAGE_NICKNAMES = 'MANAGE_NICKNAMES',
   MANAGE_ROLES = 'MANAGE_ROLES',
   MANAGE_WEBHOOKS = 'MANAGE_WEBHOOKS',
-  MANAGE_EMOJIS = 'MANAGE_EMOJIS'
+  MANAGE_EMOJIS = 'MANAGE_EMOJIS',
 }
 export enum ArgsPatternTypes {
   ROLE = 'Role', // TODO: Implement
@@ -45,18 +46,18 @@ export enum ArgsPatternTypes {
   NUMBER = 'Number',
   STRING = 'String',
   USER = 'User', // TODO: Implement
-  BOOLEAN = 'Boolean' // TODO: Implement
+  BOOLEAN = 'Boolean', // TODO: Implement
 }
 export enum CommandExecuteResultCodes {
   SUCCESS = 'SUCCESS',
   INVALID = 'INVALID',
-  UNAUTHORIZED = 'UNAUTHORIZED'
+  UNAUTHORIZED = 'UNAUTHORIZED',
 }
 export enum ParseArgsResultCodes {
   INVALID_COMMAND_FORMAT = 'INVALID_COMMAND_FORMAT',
   RESOURCE_NOT_FOUND = 'RESOURCE_NOT_FOUND',
   MISSING_ARGS = 'MISSING_ARGS',
-  SUCCESS = 'SUCCESS'
+  SUCCESS = 'SUCCESS',
 }
 export type Mention = Role | User | Channel;
 export interface CommandArgs {
@@ -122,7 +123,7 @@ export class CommandBase {
       const channel = this.message.mentions.channels.get(id);
       if (!channel) {
         console.warn(
-          `Unexpected case ocurred: Channel is mentioned in a message, but message has no such channel in the messageMentions collection`
+          'Unexpected case ocurred: Channel is mentioned in a message, but message has no such channel in the messageMentions collection'
         );
         return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
       }
@@ -143,7 +144,7 @@ export class CommandBase {
         const role = this.message.mentions.roles.get(id);
         if (!role) {
           console.warn(
-            `Unexpected case ocurred: Role is mentioned in a message, but message has no such role in the messageMentions collection`
+            'Unexpected case ocurred: Role is mentioned in a message, but message has no such role in the messageMentions collection'
           );
           return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
         }
@@ -172,7 +173,7 @@ export class CommandBase {
       const user = this.message.mentions.users.get(id);
       if (!user) {
         console.warn(
-          `Unexpected case ocurred: User is mentioned in a message, but message has no such user in the messageMentions collection`
+          'Unexpected case ocurred: User is mentioned in a message, but message has no such user in the messageMentions collection'
         );
         return { code: ParseArgsResultCodes.RESOURCE_NOT_FOUND };
       }
@@ -190,7 +191,7 @@ export class CommandBase {
         return { code: ParseArgsResultCodes.SUCCESS, data: true };
       }
       return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
-    }
+    },
   };
 
   prefix: string;
@@ -217,7 +218,7 @@ export class CommandBase {
   private sendArgsResourceNotFound = ({
     argName,
     argType,
-    argValue
+    argValue,
   }: {
     argName: string;
     argType: ArgsPatternTypes;
@@ -287,7 +288,7 @@ export class CommandBase {
           code: parseResult.code,
           argName,
           argType,
-          argValue: parseResult.argValue
+          argValue: parseResult.argValue,
         };
         return false;
       }
@@ -301,7 +302,7 @@ export class CommandBase {
         code: invalidArgData.code,
         argName: invalidArgData.argName,
         argType: invalidArgData.argType,
-        argValue: invalidArgData.argValue
+        argValue: invalidArgData.argValue,
       };
     }
 
@@ -409,7 +410,7 @@ export class CommandBase {
           this.sendArgsResourceNotFound({
             argName: name,
             argType: type,
-            argValue
+            argValue,
           });
           return { code: CommandExecuteResultCodes.INVALID };
         }
@@ -427,7 +428,7 @@ export class CommandBase {
   constructor({
     keyword,
     prefix,
-    message
+    message,
   }: {
     prefix: string;
     keyword: string;

@@ -5,7 +5,8 @@
     "paths": {
       "~/*": ["./src/*"],
       "@overmindbots/shared-utils/*": ["./node_modules/@overmindbots/shared-utils/src/*"],
-      "@overmindbots/shared-models/*": ["./node_modules/@overmindbots/shared-models/src/*"]
+      "@overmindbots/shared-models/*": ["./node_modules/@overmindbots/shared-models/src/*"],
+      "@overmindbots/discord.js-command-manager/*": ["./node_modules/@overmindbots/discord.js-command-manager/src/*"]
     },
     "rootDirs": [
       "~"

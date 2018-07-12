@@ -1,5 +1,6 @@
 import { Message } from 'discord.js';
-import { each, includes, keys, find } from 'lodash';
+import { each, find, includes, keys } from 'lodash';
+
 import { CommandBase, CommandExecuteResultCodes } from './Command';
 import CommandRuntimeError from './CommandRuntimeError';
 
@@ -9,7 +10,7 @@ export enum ProcessMessageResultCodes {
   INVALID = 'INVALID',
   NON_COMMAND = 'NON_COMMAND',
   NO_COMMAND_MATCH = 'NO_COMMAND_MATCH',
-  UNAUTHORIZED = 'UNAUTHORIZED'
+  UNAUTHORIZED = 'UNAUTHORIZED',
 }
 export interface ProcessMessageResult {
   code: ProcessMessageResultCodes; // No
@@ -32,7 +33,9 @@ export default class CommandManager {
   };
 
   constructor({ prefix }: { prefix: string }) {
-    if (!prefix) throw new Error('No prefix for commands was passed');
+    if (!prefix) {
+      throw new Error('No prefix for commands was passed');
+    }
     if (includes(FORBIDDEN_PREFIXES, prefix)) {
       throw new Error(`The prefix ${prefix} is forbidden`);
     }
@@ -46,14 +49,20 @@ export default class CommandManager {
     const prefix = prefixOverride || this.prefix;
     const { content, author } = message;
     const startsWithPrefix = content.startsWith(prefix);
-    if (author.bot) return false;
-    if (!startsWithPrefix) return false;
+    if (author.bot) {
+      return false;
+    }
+    if (!startsWithPrefix) {
+      return false;
+    }
     return true;
   };
 
   private getKeyword = (message: Message): string | null => {
     const match = message.content.match(KEYWORD_PATTERN);
-    if (!match) return null;
+    if (!match) {
+      return null;
+    }
     const keyword = match[1];
     return keyword;
   };
@@ -65,7 +74,9 @@ export default class CommandManager {
       (_, savedKeyword) => savedKeyword === keyword
     );
 
-    if (!commandName) return;
+    if (!commandName) {
+      return;
+    }
 
     const CommandClass = this.commands[commandName];
 
@@ -84,14 +95,14 @@ export default class CommandManager {
 
     if (!this.messageIsCommand(message, prefix)) {
       return {
-        code: ProcessMessageResultCodes.NON_COMMAND
+        code: ProcessMessageResultCodes.NON_COMMAND,
       };
     }
 
     const CommandClass = this.identify(message);
     if (!CommandClass) {
       return {
-        code: ProcessMessageResultCodes.NO_COMMAND_MATCH
+        code: ProcessMessageResultCodes.NO_COMMAND_MATCH,
       };
     }
     const keyword = this.getKeyword(message) as string;
@@ -107,7 +118,7 @@ export default class CommandManager {
       if (handled) {
         return {
           code: ProcessMessageResultCodes.ERROR_HANDLED,
-          data: error
+          data: error,
         };
       }
 
@@ -118,26 +129,28 @@ export default class CommandManager {
       case CommandExecuteResultCodes.INVALID: {
         return {
           code: ProcessMessageResultCodes.INVALID,
-          data: res.data
+          data: res.data,
         };
       }
       case CommandExecuteResultCodes.UNAUTHORIZED: {
         return {
           code: ProcessMessageResultCodes.UNAUTHORIZED,
-          data: res.data
+          data: res.data,
         };
       }
       case CommandExecuteResultCodes.SUCCESS: {
         return {
           code: ProcessMessageResultCodes.FINISHED,
-          data: res.data
+          data: res.data,
         };
       }
+      default:
+        break;
     }
 
     return {
       code: ProcessMessageResultCodes.ERROR_HANDLED,
-      data: res.data
+      data: res.data,
     };
   };
 
@@ -159,7 +172,8 @@ export default class CommandManager {
 
     if (collidingKeyword) {
       throw new Error(
-        `Command "${commandName}" has keyword "${collidingKeyword}" which is already registered by another Command`
+        `Command "${commandName}" has keyword "${collidingKeyword}" which is ` +
+          'already registered by another Command'
       );
     }
 
