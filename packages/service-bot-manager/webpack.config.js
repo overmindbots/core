@@ -5,14 +5,14 @@ var nodeExternals = require('webpack-node-externals');
 var TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: ['./src/index.ts'],
+  entry: ['./service-bot-manager/src/index.ts'],
   output: {
     path: path.join(__dirname, 'build'),
     filename: 'index.js',
     pathinfo: true,
   },
   target: 'node',
-  context: __dirname,
+  context: path.resolve(__dirname, '../'),
   // externals: [
   // nodeExternals({
   //     whitelist: /^@overmindbots\/.*/,
@@ -28,18 +28,18 @@ module.exports = {
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.ts$/,
-      //   // include: includePaths,
-      //   loader: 'ts-loader',
-      //   options: {
-      //     // disable type checker - we will use it in fork plugin
-      //     transpileOnly: true,
-      //   },
-      // },
+      {
+        test: /\.ts$/,
+        // include: includePaths,
+        loader: 'ts-loader',
+        options: {
+          // disable type checker - we will use it in fork plugin
+          transpileOnly: true,
+        },
+      },
       {
         // Include ts, tsx, and js files.
-        test: /\.(ts)$/,
+        test: /\.(js)$/,
         // exclude: /node_modules\/(?![@overmindbots/shared-modules|@overmindbots/shared-utils])/,
         loader: 'babel-loader',
       },
@@ -57,8 +57,8 @@ module.exports = {
         './node_modules/@overmindbots/shared-utils/src'
       ),
     },
-    symlinks: false,
-    // plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
+    // symlinks: false,
+    plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.build.json' })],
   },
   stats: {
     // suppress "export not found" warnings about re-exported types

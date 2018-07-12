@@ -1,22 +1,10 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": 9
-        }
-      }
-    ],
-    "@babel/typescript"
-  ],
-
   "plugins": [
     "@babel/transform-runtime",
     [
       "module-resolver",
       {
-        "extensions": [".js", ".ts"],
+        "extensions": [".js"],
         "root": ["./src"],
         "alias": {
           "~": "./src"

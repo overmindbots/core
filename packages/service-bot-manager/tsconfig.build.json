@@ -1,7 +1,12 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "~/*": ["./src/service-bot-manager/*"]
-    }
+      "~/*": ["./src/*"]
+    },
+    "rootDirs": [
+      "~"
+    ]
   }
 }
