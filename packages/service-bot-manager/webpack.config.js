@@ -13,11 +13,11 @@ module.exports = {
   },
   target: 'node',
   context: path.resolve(__dirname, '../'),
-  // externals: [
-  // nodeExternals({
-  //     whitelist: /^@overmindbots\/.*/,
-  //   }),
-  // ],
+  externals: [
+    nodeExternals({
+      whitelist: /^@overmindbots\/.*/,
+    }),
+  ],
   mode: 'none',
   plugins: [
     new webpack.BannerPlugin({
@@ -28,6 +28,12 @@ module.exports = {
   ],
   module: {
     rules: [
+      // {
+      //   // Include ts, tsx, and js files.
+      //   test: /\.(js,ts)$/,
+      //   // exclude: /node_modules\/(?![@overmindbots/shared-modules|@overmindbots/shared-utils])/,
+      //   loader: 'babel-loader',
+      // },
       {
         test: /\.ts$/,
         // include: includePaths,
@@ -36,12 +42,6 @@ module.exports = {
           // disable type checker - we will use it in fork plugin
           transpileOnly: true,
         },
-      },
-      {
-        // Include ts, tsx, and js files.
-        test: /\.(js)$/,
-        // exclude: /node_modules\/(?![@overmindbots/shared-modules|@overmindbots/shared-utils])/,
-        loader: 'babel-loader',
       },
     ],
   },
