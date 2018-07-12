@@ -44,10 +44,13 @@
     "@types/node": "^9.4.7",
     "@types/websocket": "^0.0.39",
     "@types/winston": "^2.3.9",
+    "babel-loader": "^7.1.5",
     "babel-plugin-module-resolver": "^3.1.0",
     "nodemon": "^1.17.4",
+    "ts-loader": "^4.4.2",
     "tslint-config-prettier": "^1.13.0",
     "tslint-eslint-rules": "^5.3.1",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "webpack": "^4.16.0"
   }
 }

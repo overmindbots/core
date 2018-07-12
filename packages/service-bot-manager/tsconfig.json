@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../",
+    "paths": {
+      "~/*": ["./service-bot-manager/src/*"],
+      "@overmindbots/shared-utils/*": ["./shared-utils/src/*"],
+      "@overmindbots/shared-models/*": ["./shared-models/src/*"],
+    },
+    "rootDirs": [
+      "~"
+    ]
+  }
+}

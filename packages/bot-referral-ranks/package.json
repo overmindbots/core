@@ -50,12 +50,15 @@
     "@types/uuid": "^3.4.3",
     "@types/websocket": "^0.0.39",
     "@types/winston": "^2.3.9",
+    "babel-loader": "^7.1.5",
     "babel-plugin-module-resolver": "^3.1.1",
     "jest": "^23.1.0",
     "nodemon": "^1.17.3",
     "prettier": "^1.13.6",
+    "ts-loader": "^4.4.2",
     "tslint": "^5.10.0",
     "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "webpack": "^4.16.0"
   }
 }
