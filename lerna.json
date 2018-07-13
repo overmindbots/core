@@ -1,9 +1,7 @@
 {
   "lerna": "2.11.0",
   "packages": [
-    "packages/core/*",
-    "packages/shared/*",
-    "packages/public/*"
+    "packages/*"
   ],
   "changelog": {
     "repo": "overmindbots/core",
