@@ -22,16 +22,14 @@
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
     "lerna-changelog": "^0.8.0",
-    "lerna-semantic-release": "^9.1.0",
-    "semantic-release": "^15.7.1",
-    "semantic-release-cli": "^4.0.6"
+    "lerna-semantic-release": "^9.1.0"
   },
   "config": {
     "commitizen": {
       "path": "cz-lerna-changelog"
     }
   },
-  "version": "0.0.0-development",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
