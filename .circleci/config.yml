@@ -32,4 +32,4 @@ jobs:
           command: yarn lerna-changelog
       - run:
           name: lerna release
-          command: yarn publish-dependencies --yes --skip-npm
+          command: yarn publish-dependencies --yes
