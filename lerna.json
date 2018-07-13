@@ -5,7 +5,9 @@
   ],
   "commands": {
     "publish": {
-      "allowBranch": ["development"],
+      "allowBranch": [
+        "development"
+      ],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "preid": "beta",
@@ -14,5 +16,5 @@
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "0.0.0"
+  "version": "0.0.1"
 }
