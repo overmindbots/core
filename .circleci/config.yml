@@ -8,6 +8,3 @@ jobs:
       - run:
           name: install
           command: npm install
-      - run:
-          name: release
-          command: npm run semantic-release || true
