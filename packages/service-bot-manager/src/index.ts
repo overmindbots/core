@@ -13,9 +13,6 @@ import { BOT_REFERRAL_RANKS_REPLICAS_COUNT } from '~/constants';
  * what amount of replicas are configured and return that
  */
 async function getTotalShards() {
-  // FIXME: Temporarily using a static number since we are having issues
-  // with RBAC in GCP
-  // if (process.env.NODE_ENV === 'development' || !process.env.POD_ID) {
   return BOT_REFERRAL_RANKS_REPLICAS_COUNT;
   // }
   // const ext = new Api.Extensions(Api.config.getInCluster());
