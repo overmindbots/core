@@ -40,7 +40,9 @@
       "**/@overmindbots/shared-utils",
       "**/@overmindbots/shared-models",
       "**/@overmindbots/discord.js-command-manager",
-      "**/@overmindbots/bot-referral-ranks"
+      "**/@overmindbots/bot-referral-ranks",
+      "**/discord.js",
+      "**/discord.js/**"
     ]
   },
   "publishConfig": {
