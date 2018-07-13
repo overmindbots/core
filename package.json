@@ -9,7 +9,8 @@
     "commitmsg": "commitlint -E GIT_PARAMS",
     "bootstrap": "lerna bootstrap",
     "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
-    "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager"
+    "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager",
+    "semantic-release": "semantic-release"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
@@ -20,14 +21,16 @@
     "git-branch-is": "^2.0.0",
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
-    "lerna-changelog": "^0.8.0"
+    "lerna-changelog": "^0.8.0",
+    "semantic-release": "^15.7.1",
+    "semantic-release-cli": "^4.0.6"
   },
   "config": {
     "commitizen": {
       "path": "cz-lerna-changelog"
     }
   },
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "repository": {
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
