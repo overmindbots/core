@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/discord.js-command-manager",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.0",
   "description": "Commands manager for discord.js",
   "author": "Rafael Vidaurre <narzerus@gmail.com>",
   "engines": {
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^1.0.0",
-    "@overmindbots/shared-utils": "^1.0.0",
+    "@overmindbots/shared-models": "^1.0.1-beta.0",
+    "@overmindbots/shared-utils": "^1.0.1-beta.0",
     "@types/node": "^9.0.0",
     "discord.js": "^11.3.2",
     "lodash": "^4.17.10"
