@@ -1,6 +1,11 @@
 {
   "extends": "../tsconfig.editor.json",
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@overmindbots/shared-utils/*": ["./src/*"],
+      "@overmindbots/shared-utils": ["./src/index"],
+      
+    }
   }
 }
