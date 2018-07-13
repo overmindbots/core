@@ -23,10 +23,16 @@ jobs:
       - checkout
       - run:
           name: install
-          command: yarn global add lerna lerna-changelog
+          command: yarn global add lerna
       - run:
           name: bootstrap lerna
           command: yarn bootstrap
       - run:
+          name: git status 1
+          command: git status
+      - run:
           name: lerna release
           command: yarn publish-dependencies --yes
+      - run:
+          name: git status 2
+          command: git status
