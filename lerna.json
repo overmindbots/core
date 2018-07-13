@@ -3,14 +3,6 @@
   "packages": [
     "packages/*"
   ],
-  "changelog": {
-    "repo": "overmindbots/core",
-    "labels": {
-      "tag: new feature": ":rocket: New Feature",
-      "tag: bug fix": ":bug: Bug Fix",
-      "tag: enhancement": ":nail_care: Enhancement"
-    }
-  },
   "commands": {
     "publish": {
       "allowBranch": ["development"],
