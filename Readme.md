@@ -12,7 +12,7 @@ Install Lerna
 - `yarn global add lerna`
 
 Install dependencies of all packages
-- `lerna bootstrap --hoist`
+- `lerna bootstrap`
 
 # Usage
 
