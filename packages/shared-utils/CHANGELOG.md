@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.1-beta.1"></a>
+## [1.0.1-beta.1](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@1.0.1-beta.0...@overmindbots/shared-utils@1.0.1-beta.1) (2018-07-13)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-utils
+
 <a name="1.0.1-beta.0"></a>
 ## 1.0.1-beta.0 (2018-07-13)
 
