@@ -1,4 +1,20 @@
 version: 2
+workflows:
+  version: 2
+  release-staging:
+    jobs:
+      - release-staging:
+          context: staging
+          filters:
+            branches:
+              only: development
+  release-production:
+    jobs:
+      - release-production:
+          context: production
+          filters:
+            branches:
+              only: master
 jobs:
   build:
     docker:
@@ -7,7 +23,10 @@ jobs:
       - checkout
       - run:
           name: install
-          command: npm install
+          command: yarn install
       - run:
-          name: release
+          name: lerna release
+          command: yarn publish-dependencies
+      - run:
+          name: semantic release
           command: npm run semantic-release || true

@@ -13,7 +13,7 @@
   },
   "commands": {
     "publish": {
-      "allowBranch": ["master", "development"],
+      "allowBranch": ["development"],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "preid": "beta",
