@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/shared-models",
-  "version": "1.0.1",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
     "clean:build": "rm -rf ./build",
