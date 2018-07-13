@@ -10,6 +10,10 @@
     "start-build": "node ./build/index.js",
     "build": "webpack --config webpack.config.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:overmindbots/bot-referral-ranks.git"
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
     "@google-cloud/logging-winston": "^0.9.0",

@@ -5,12 +5,15 @@
   "engines": {
     "node": ">=9.11.2"
   },
-  "author": "Rafael Vidaurre <narzerus@gmail.com>",
   "scripts": {
     "test": "echo \"no tests yet\"",
     "start": "webpack --watch",
     "start-build": "node ./build/index.js",
     "build": "webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:overmindbots/service-bot-manager.git"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",

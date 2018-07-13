@@ -6,6 +6,10 @@
     "clean:build": "rm -rf ./build",
     "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:overmindbots/shared-models.git"
+  },
   "engines": {
     "node": ">=9.11.2"
   },
