@@ -24,7 +24,7 @@ jobs:
       - run:
           name: install
           command: yarn global add lerna
-      - run
+      - run:
           name: bootstrap lerna
           command: yarn bootstrap
       - run:
