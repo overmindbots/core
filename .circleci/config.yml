@@ -28,8 +28,5 @@ jobs:
           name: bootstrap lerna
           command: yarn bootstrap
       - run:
-          name: generate changelog
-          command: yarn lerna-changelog
-      - run:
           name: lerna release
           command: yarn publish-dependencies --yes
