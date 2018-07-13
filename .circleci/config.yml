@@ -23,7 +23,10 @@ jobs:
       - checkout
       - run:
           name: install
-          command: yarn install
+          command: yarn global add lerna
+      - run
+          name: bootstrap lerna
+          command: yarn bootstrap
       - run:
           name: lerna release
           command: yarn publish-dependencies --yes --skip-npm
