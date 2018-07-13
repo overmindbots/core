@@ -16,7 +16,21 @@ workflows:
             branches:
               only: master
 jobs:
-  build:
+  release-staging:
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: yarn install
+      - run:
+          name: lerna release
+          command: yarn publish-dependencies
+      - run:
+          name: semantic release
+          command: npm run semantic-release || true
+  release-production:
     docker:
       - image: 'circleci/node:latest'
     steps:
