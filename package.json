@@ -8,8 +8,7 @@
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "bootstrap": "lerna bootstrap",
-    "semantic-release": "semantic-release",
-
+    "semantic-release": "lerna-semantic-release pre && lerna-semantic-release post && lerna-semantic-release perform",
     "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
     "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager"
   },
@@ -23,6 +22,7 @@
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
     "lerna-changelog": "^0.8.0",
+    "lerna-semantic-release": "^9.1.0",
     "semantic-release": "^15.7.1",
     "semantic-release-cli": "^4.0.6"
   },
@@ -44,12 +44,13 @@
       "**/@overmindbots/shared-utils",
       "**/@overmindbots/shared-models",
       "**/@overmindbots/discord.js-command-manager",
-      "**/@overmindbots/bot-referral-ranks/**",
-      "**/@types/**",
-      "**/pkginfo/**"
+      "**/@overmindbots/bot-referral-ranks",
+      "**/@overmindbots/shared-utils/**",
+      "**/@overmindbots/shared-models/**",
+      "**/@overmindbots/discord.js-command-manager/**",
+      "**/@overmindbots/bot-referral-ranks/**"
     ]
   },
-  
   "publishConfig": {
     "access": "restricted"
   }
