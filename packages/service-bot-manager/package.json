@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/service-bot-manager",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.1-beta.1",
   "engines": {
     "node": ">=9.11.2"
   },
