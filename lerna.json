@@ -13,7 +13,7 @@
   },
   "commands": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "development"],
       "cdVersion": "prerelease",
       "conventionalCommits": true,
       "gitRemote": "origin",
