@@ -3,6 +3,54 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.0-alpha.711622ae"></a>
+# [0.1.0-alpha.711622ae](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.711622ae) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
+<a name="0.1.0-alpha.e34bb48c"></a>
+# [0.1.0-alpha.e34bb48c](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.e34bb48c) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
+<a name="0.1.0-alpha.6fee2461"></a>
+# [0.1.0-alpha.6fee2461](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.6fee2461) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
+<a name="0.1.0-alpha.699619c2"></a>
+# [0.1.0-alpha.699619c2](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.699619c2) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
+<a name="0.1.0-alpha.e516a72f"></a>
+# [0.1.0-alpha.e516a72f](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.e516a72f) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
+<a name="0.1.0-alpha.6f1ccab4"></a>
+# [0.1.0-alpha.6f1ccab4](https://github.com/overmindbots/shared-models/compare/v0.0.2...v0.1.0-alpha.6f1ccab4) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
 <a name="0.0.2"></a>
 ## [0.0.2](https://github.com/overmindbots/shared-models/compare/v0.0.1...v0.0.2) (2018-07-13)
 
