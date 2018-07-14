@@ -26,6 +26,9 @@ jobs:
           name: bootstrap dependencies
           command: yarn bootstrap
       - run:
+          name: lerna updated
+          command: lerna updated
+      - run:
           name: lerna release
           command: yarn publish-dependencies --yes --canary
       - run:
@@ -42,6 +45,9 @@ jobs:
       - run:
           name: bootstrap dependencies
           command: yarn bootstrap
+      - run:
+          name: lerna updated
+          command: lerna updated
       - run:
           name: lerna release
           command: yarn publish-dependencies --yes
