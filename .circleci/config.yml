@@ -23,10 +23,36 @@ jobs:
       - checkout
       - run:
           name: install
+          command: yarn global add lerna lerna-changelog
+      - run:
+          name: bootstrap lerna
+          command: yarn bootstrap
+      - run:
+          name: changelog
+          command: lerna-changelog
+      - run:
+          name: git status 1
+          command: git status
+      - run:
+          name: lerna release
+          command: yarn publish-dependencies --yes --canary
+      - run:
+          name: git status 2
+          command: git status
+  release-production:
+    docker:
+      - image: 'circleci/node:latest'
+    steps:
+      - checkout
+      - run:
+          name: install
           command: yarn global add lerna
       - run:
           name: bootstrap lerna
           command: yarn bootstrap
+      - run:
+          name: changelog
+          command: lerna-changelog
       - run:
           name: git status 1
           command: git status
