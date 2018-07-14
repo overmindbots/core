@@ -1,15 +1,13 @@
 version: 2
 workflows:
   version: 2
-  release-staging:
+  release:
     jobs:
       - release-staging:
           context: staging
           filters:
             branches:
               only: development
-  release-production:
-    jobs:
       - release-production:
           context: production
           filters:
@@ -22,22 +20,16 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install
-          command: yarn global add lerna lerna-changelog
+          name: install lerna
+          command: yarn global add lerna
       - run:
-          name: bootstrap lerna
+          name: bootstrap dependencies
           command: yarn bootstrap
-      - run:
-          name: changelog
-          command: lerna-changelog
-      - run:
-          name: git status 1
-          command: git status
       - run:
           name: lerna release
           command: yarn publish-dependencies --yes --canary
       - run:
-          name: git status 2
+          name: print git status
           command: git status
   release-production:
     docker:
@@ -45,20 +37,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install
+          name: install lerna
           command: yarn global add lerna
       - run:
-          name: bootstrap lerna
+          name: bootstrap dependencies
           command: yarn bootstrap
-      - run:
-          name: changelog
-          command: lerna-changelog
-      - run:
-          name: git status 1
-          command: git status
       - run:
           name: lerna release
           command: yarn publish-dependencies --yes
       - run:
-          name: git status 2
+          name: print git status
           command: git status
