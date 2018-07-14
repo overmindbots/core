@@ -41,12 +41,12 @@ export enum DiscordPermissions {
   MANAGE_EMOJIS = 'MANAGE_EMOJIS',
 }
 export enum ArgsPatternTypes {
-  ROLE = 'Role', // TODO: Implement
-  CHANNEL = 'Channel', // TODO: Implement
+  ROLE = 'Role',
+  CHANNEL = 'Channel',
   NUMBER = 'Number',
   STRING = 'String',
-  USER = 'User', // TODO: Implement
-  BOOLEAN = 'Boolean', // TODO: Implement
+  USER = 'User',
+  BOOLEAN = 'Boolean',
 }
 export enum CommandExecuteResultCodes {
   SUCCESS = 'SUCCESS',
