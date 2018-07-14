@@ -1,10 +1,10 @@
+import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
+import { createAsyncCatcher } from '@overmindbots/shared-utils';
 import P from 'bluebird';
 import Discord from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
 import { BOT_TOKEN, TOTAL_SHARDS } from '~/constants';
-import { Referral } from '~/shared/models/referralRanks';
-import { createAsyncCatcher } from '~/shared/utils';
 
 /**
  * TODO:
