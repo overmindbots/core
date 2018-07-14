@@ -39,7 +39,9 @@ jobs:
           command: git status
       - run:
           name: push changes
-          command: git push origin development
+          command: |
+            git pull origin development
+            git push origin development
   release-production:
     docker:
       - image: 'circleci/node:latest'
