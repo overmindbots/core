@@ -16,6 +16,10 @@ export { MemberDocument, MemberModel } from './Member';
 export { Role } from './Role';
 export { RoleDocument, RoleModel } from './Role';
 
+import * as referralRanks from './referralRanks';
+
+export { referralRanks };
+
 export { OwnerNotificationMessage } from './OwnerNotificationMessage';
 export {
   OwnerNotificationMessageDocument,

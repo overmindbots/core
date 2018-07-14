@@ -1,5 +1,5 @@
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
-import { createAsyncCatcher } from '@overmindbots/shared-utils';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import Discord from 'discord.js';
 import _ from 'lodash';
