@@ -30,7 +30,7 @@ jobs:
           command: yarn lerna updated
       - run:
           name: lerna release
-          command: yarn publish-dependencies --yes --canary=commit
+          command: yarn publish-dependencies --yes --canary
       - run:
           name: print git status
           command: git status
