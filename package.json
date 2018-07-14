@@ -35,7 +35,7 @@
     "repo": "overmindbots/core",
     "cacheDir": ".changelog"
   },
-  "version": "1.0.2",
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
