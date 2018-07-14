@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.0-alpha.72a53f8c"></a>
+# [0.1.0-alpha.72a53f8c](https://github.com/overmindbots/service-bot-manager/compare/v0.0.2...v0.1.0-alpha.72a53f8c) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/service-bot-manager
+
+<a name="0.1.0-alpha.69ef52f8"></a>
+# [0.1.0-alpha.69ef52f8](https://github.com/overmindbots/service-bot-manager/compare/v0.0.2...v0.1.0-alpha.69ef52f8) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/service-bot-manager
+
+<a name="0.1.0-alpha.80bd9dc9"></a>
+# [0.1.0-alpha.80bd9dc9](https://github.com/overmindbots/service-bot-manager/compare/v0.0.2...v0.1.0-alpha.80bd9dc9) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/service-bot-manager
+
+<a name="0.1.0-alpha.5e87467e"></a>
+# [0.1.0-alpha.5e87467e](https://github.com/overmindbots/service-bot-manager/compare/v0.0.2...v0.1.0-alpha.5e87467e) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/service-bot-manager
+
 <a name="0.1.0-alpha.4132447a"></a>
 # [0.1.0-alpha.4132447a](https://github.com/overmindbots/service-bot-manager/compare/v0.0.2...v0.1.0-alpha.4132447a) (2018-07-14)
 
