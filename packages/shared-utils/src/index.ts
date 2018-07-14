@@ -1,6 +1,5 @@
-import * as constants from './constants';
-import * as errors from './errors';
-import * as graphqlErrors from './graphqlErrors';
-import * as models from './models';
+import * as constants from '@overmindbots/shared-utils/constants';
+import * as errors from '@overmindbots/shared-utils/errors';
+import * as graphqlErrors from '@overmindbots/shared-utils/graphqlErrors';
 
-export { constants, graphqlErrors, errors, models };
+export { constants, graphqlErrors, errors };
