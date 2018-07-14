@@ -33,7 +33,7 @@ jobs:
           command: yarn publish-dependencies --yes --canary
       - run:
           name: commit changelogs
-          command: git add . && git commit -m "chore(release): pre-release"
+          command: "git add . && git commit -m \"chore(release): pre-release\""
       - run:
           name: print git status
           command: git status
