@@ -1,3 +1,5 @@
+import '~/startup';
+
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
