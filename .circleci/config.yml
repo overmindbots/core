@@ -60,3 +60,9 @@ jobs:
       - run:
           name: print git status
           command: git status
+      - run:
+          name: back-merge development
+          command: |
+            git checkout development
+            git merge master
+            git push origin development
