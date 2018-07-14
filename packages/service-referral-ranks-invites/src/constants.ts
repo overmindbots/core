@@ -5,6 +5,10 @@ if (!process.env.BOT_TOKEN) {
 if (!process.env.TOTAL_SHARDS) {
   throw new Error('Missing env variable TOTAL_SHARDS');
 }
+if (!process.env.SHARD_ID) {
+  throw new Error('Missing env variable SHARD_ID');
+}
 
 export const BOT_TOKEN = process.env.BOT_TOKEN;
+export const SHARD_ID = parseInt(process.env.SHARD_ID, 10);
 export const TOTAL_SHARDS = parseInt(process.env.TOTAL_SHARDS, 10);

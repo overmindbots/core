@@ -6,7 +6,7 @@ import P from 'bluebird';
 import Discord from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
-import { BOT_TOKEN, TOTAL_SHARDS } from '~/constants';
+import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS } from '~/constants';
 
 /**
  * TODO:
@@ -121,7 +121,7 @@ const client = new Discord.Client({
   fetchAllMembers: false,
   messageCacheMaxSize: 1,
   shardCount: TOTAL_SHARDS,
-  shardId: 0,
+  shardId: SHARD_ID,
 });
 
 client.login(BOT_TOKEN);
