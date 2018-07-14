@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.0-alpha.a9976a7d"></a>
+# [0.1.0-alpha.a9976a7d](https://github.com/overmindbots/shared-utils/compare/v0.0.2...v0.1.0-alpha.a9976a7d) (2018-07-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-utils
+
 <a name="0.1.0-alpha.624e8d16"></a>
 # [0.1.0-alpha.624e8d16](https://github.com/overmindbots/shared-utils/compare/v0.0.2...v0.1.0-alpha.624e8d16) (2018-07-14)
 
