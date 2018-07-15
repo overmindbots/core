@@ -1,4 +1,5 @@
-import '~/startup';
+// tslint:disable ordered-imports
+import './startup';
 
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
@@ -6,7 +7,8 @@ import P from 'bluebird';
 import Discord from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
-import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS } from '~/constants';
+
+import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS } from './constants';
 
 /**
  * TODO:
