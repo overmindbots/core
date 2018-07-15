@@ -2,3 +2,6 @@ node_modules
 lerna-debug.log
 yarn-error.log
 build
+k8s-generated/*.yaml
+.env
+overmindbots-secrets-staging.yaml

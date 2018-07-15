@@ -8,11 +8,24 @@ Right now this is just a "working" demo of a monorepo setup.
 - Commit flow and release versioning is working well. (Except for pre-releases that need to be tested)
 
 # Setup instructions
+
+## To run locally
 Install Lerna
 - `yarn global add lerna`
 
 Install dependencies of all packages
 - `lerna bootstrap`
+
+## Tools for easier access to remote Kubernetes
+- install `kubectx` (link missing)
+
+## To have terminal access to Google Cloud Platform
+- install the gcloud cli
+- `gcloud auth login` and login with your overmindbots.com account
+- `gcloud config set project overmind-bots`
+- `gcloud container clusters get-credentials staging` to setup staging access
+- `kubens overmindbots` to set the default namespace
+
 
 # Usage
 
@@ -35,9 +48,6 @@ This is a set of conventions that is followed in this repository
 ## Package naming
 We name our packages based on what they are:
 
-### Core
-Our apps and services, they live in `core/*`
-
 - **Bots:** Bots can have a master service and some slave services to do specialized work
   * **Master service:** `bot-<name-of-bot>`
     * Example: `bot-referral-ranks`,
@@ -53,6 +63,9 @@ Our apps and services, they live in `core/*`
 - **Services:** Standalone services that are not part of a bigger one
   * Naming:  `service-<name-of-service>`
   * Example: `service-bot-manager`, `service-spam-mailer-cannon`
+- **Shared:** Shared code
+  * Naming: `shared-<name-of-package>`
+  * Example: `shared-models`
 
 ### Shared Packages
 Our shared code packages. They live in `packages/shared/*`, no naming convention.
@@ -60,7 +73,7 @@ Our shared code packages. They live in `packages/shared/*`, no naming convention
 ### Public Packages
 Packages that are open source and potentially published to NPM. They live in `packages/public/*`, no naming convention.
 
-# Notes
+# Extra notes
 Updated dependencies in `app-bots-web-panel-web-client`. If anything fails, these were the old ones:
 
 ```

@@ -1,6 +1,6 @@
 import { each, reduce } from 'lodash';
 
-import { DISCORD_BASE_ADD_BOT_URL } from './constants';
+import { DISCORD_BASE_ADD_BOT_URL } from '@overmindbots/shared-utils/constants';
 
 /**
  * Verifies that a list environment variables exist

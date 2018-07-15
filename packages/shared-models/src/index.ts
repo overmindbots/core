@@ -1,34 +1,27 @@
-export { BotInstance } from '@overmindbots/shared-models/BotInstance';
-export {
-  BotInstanceDocument,
-  BotInstanceModel,
-} from '@overmindbots/shared-models/BotInstance';
+export { BotInstance } from './BotInstance';
+export { BotInstanceDocument, BotInstanceModel } from './BotInstance';
 
-export { Guild } from '@overmindbots/shared-models/Guild';
-export { GuildDocument, GuildModel } from '@overmindbots/shared-models/Guild';
+export { Guild } from './Guild';
+export { GuildDocument, GuildModel } from './Guild';
 
-export { Session } from '@overmindbots/shared-models/Session';
-export {
-  SessionDocument,
-  SessionModel,
-} from '@overmindbots/shared-models/Session';
+export { Session } from './Session';
+export { SessionDocument, SessionModel } from './Session';
 
-export { User } from '@overmindbots/shared-models/User';
-export { UserDocument, UserModel } from '@overmindbots/shared-models/User';
+export { User } from './User';
+export { UserDocument, UserModel } from './User';
 
-export { Member } from '@overmindbots/shared-models/Member';
-export {
-  MemberDocument,
-  MemberModel,
-} from '@overmindbots/shared-models/Member';
+export { Member } from './Member';
+export { MemberDocument, MemberModel } from './Member';
 
-export { Role } from '@overmindbots/shared-models/Role';
-export { RoleDocument, RoleModel } from '@overmindbots/shared-models/Role';
+export { Role } from './Role';
+export { RoleDocument, RoleModel } from './Role';
 
-export {
-  OwnerNotificationMessage,
-} from '@overmindbots/shared-models/OwnerNotificationMessage';
+import * as referralRanks from './referralRanks';
+
+export { referralRanks };
+
+export { OwnerNotificationMessage } from './OwnerNotificationMessage';
 export {
   OwnerNotificationMessageDocument,
   OwnerNotificationMessageModel,
-} from '@overmindbots/shared-models/OwnerNotificationMessage';
+} from './OwnerNotificationMessage';
