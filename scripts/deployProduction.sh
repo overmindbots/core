@@ -15,5 +15,3 @@ docker push $serviceReferralRanksInvitesImgUrl
 } || {
   echo "Did not apply"
 }
-
-kubectl delete -l app=service-referral-ranks-invites

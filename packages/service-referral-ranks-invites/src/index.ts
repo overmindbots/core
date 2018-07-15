@@ -8,9 +8,9 @@ import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
 
-import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS, MONGODB_URI } from '~/constants';
+import { BOT_TOKEN, MONGODB_URI, SHARD_ID, TOTAL_SHARDS } from '~/constants';
 
-logger.info(`=== Booting Service: Referral Ranks Invites ===`);
+logger.info('=== Booting Service: Referral Ranks Invites ===');
 logger.info(`=> MONGODB_URI: ${MONGODB_URI}`);
 logger.info(`=> BOT_TOKEN: ${BOT_TOKEN}`);
 logger.info(`=> SHARD_ID: ${SHARD_ID}`);
