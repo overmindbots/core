@@ -3,11 +3,11 @@ workflows:
   version: 2
   release:
     jobs:
-      - release-staging:
-          context: staging
-          filters:
-            branches:
-              only: beta
+      # - release-staging:
+      #     context: staging
+      #     filters:
+      #       branches:
+      #         only: development
       - deploy-staging:
           context: staging
           filters:
