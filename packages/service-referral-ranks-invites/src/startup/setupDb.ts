@@ -3,7 +3,7 @@ import logger from 'winston';
 import { MONGODB_URI } from '~/constants';
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(encodeURIComponent(MONGODB_URI))
   .then(() => {
     logger.info('Database connected.');
   })
