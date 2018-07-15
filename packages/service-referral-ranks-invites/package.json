@@ -7,8 +7,10 @@
   },
   "scripts": {
     "start": "webpack --watch",
-    "start-build": "node ./build/index.js",
-    "build": "webpack --config webpack.config.js"
+    "start:dev": "node ./build/index.js",
+    "start:production": "node ./production-build/index.js",
+    "build": "webpack --config webpack.config.js",
+    "build:production": "webpack --config webpack.production.config.js"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",

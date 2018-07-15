@@ -1,23 +1,10 @@
 {
-  "presets": [
-    [
-      "@babel/env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ],
-    "@babel/typescript"
-  ],
-
   "plugins": [
-    "@babel/plugin-transform-runtime",
-    "@babel/plugin-proposal-class-properties",
+    "@babel/transform-runtime",
     [
       "module-resolver",
       {
-        "extensions": [".js", ".ts"],
+        "extensions": [".js"],
         "root": ["./src"],
         "alias": {
           "~": "./src"
