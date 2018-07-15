@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-mkdir k8s-generated
-touch k8s-generated/.gitkeep
-
 # === Build Kubernetes templates === #
 yarn build-templates
 
