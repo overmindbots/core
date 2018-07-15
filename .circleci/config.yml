@@ -13,11 +13,11 @@ workflows:
           filters:
             branches:
               only: development
-      - release-production:
-          context: production
-          filters:
-            branches:
-              only: master
+      # - release-production:
+      #     context: production
+      #     filters:
+      #       branches:
+      #         only: master
 jobs:
   deploy-staging:
     docker:
@@ -53,11 +53,8 @@ jobs:
           name: Install node deps
           command: npm install handlebars lodash dotenv
       - run:
-          name: install lerna
-          command: yarn global add lerna
-      - run:
-          name: bootstrap dependencies
-          command: yarn bootstrap
+          name: Install dependencies
+          command: yarn install
       - run:
           name: Deploy
           command: bash ./scripts/deployProduction.sh
