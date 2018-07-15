@@ -8,12 +8,53 @@ workflows:
           filters:
             branches:
               only: beta
+      - deploy-staging:
+          context: staging
+          filters:
+            branches:
+              only: beta
       - release-production:
           context: production
           filters:
             branches:
               only: master
 jobs:
+  deploy-staging:
+    docker:
+      - image: google/cloud-sdk
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: install yarn
+          command: |
+            curl -sL https://deb.nodesource.com/setup_10.x | bash - 
+            curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+            apt-get update
+            apt-get install -y nodejs
+            apt-get install yarn
+      - run:
+          name: Store Service Account
+          command: echo $GCLOUD_SERVICE_KEY | base64 --decode > ${HOME}/gcloud-service-key.json
+      - run:
+          name: Setup gcloud client
+          command: | 
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
+      - setup-docker-engine
+      - run:
+          name: Setup docker client
+          command: gcloud auth configure-docker
+      - run:
+          # move this to a safe place
+          name: Install node deps
+          command: yarn install handlebars lodash dotenv
+      - run:
+          name: Deploy
+          command: bash ./scripts/deployProduction.sh
   release-staging:
     docker:
       - image: 'circleci/node:latest'
