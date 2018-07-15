@@ -28,14 +28,14 @@ export class PodStatusServer {
    */
   public async setLivenessStatus(statusCode: LIVENESS_STATUSES) {
     this.livenessStatus = statusCode;
-    logger.info(`==> Pod Liveness status set. Code: ${statusCode}`);
+    logger.info(`==> Pod Liveness status set: ${statusCode}`);
   }
   /**
    * Sets the server's readiness status
    */
   public async setReadinessStatus(statusCode: READINESS_STATUSES) {
     this.readinessStatus = statusCode;
-    logger.info(`==> Pod Readiness status set. Code: ${statusCode}`);
+    logger.info(`==> Pod Readiness status set: ${statusCode}`);
   }
   /**
    * Call when the service is ready to work

@@ -30,9 +30,9 @@ if (CIRCLE_BRANCH === 'UNSET') {
 
 if (deploymentStage === 'development') {
   // Validate dev env variables
-  if (!process.env.BOT_TOKEN) {
+  if (!process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS) {
     throw new Error(
-      'BOT_TOKEN env must be defined in a .env file in the root directory'
+      'SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS env must be defined in a .env file in the root directory'
     );
   }
   if (!process.env.MONGODB_URI) {
