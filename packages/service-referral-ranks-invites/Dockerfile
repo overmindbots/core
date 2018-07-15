@@ -1,13 +1,15 @@
 FROM mhart/alpine-node:10
 
+RUN ls
+
 RUN mkdir /root/repo
 WORKDIR /root/repo
-COPY package.json yarn.lock node_modules ./
-COPY packages/ .
 
+COPY package.json yarn.lock ./
+COPY packages/service-referral-ranks-invites ./packages/service-referral-ranks-invites
+COPY packages/shared-utils ./packages/shared-utils
+COPY packages/shared-models ./packages/shared-models
 
 RUN yarn
 
-EXPOSE 4001
-
-CMD ["npm", "run", "start-production"]
+CMD ["yarn start-production:service-referral-ranks-invites"]

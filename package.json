@@ -11,7 +11,8 @@
     "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
     "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager",
     "semantic-release": "semantic-release",
-    "publish-dependencies": "lerna publish"
+    "publish-dependencies": "lerna publish",
+    "start-production:service-referral-ranks-invites": "cd ./packages/service-referral-ranks-invites && yarn start:production"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",

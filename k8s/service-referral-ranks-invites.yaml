@@ -9,12 +9,12 @@ spec:
   selector:
     matchLabels:
       app: service-referral-ranks-invites
-      shardId: {{shardId}}
+      shardId: "{{shardId}}"
   template:
     metadata:
       labels:
         app: service-referral-ranks-invites
-        shardId: {{shardId}}
+        shardId: "{{shardId}}"
     spec:
       affinity:
         podAntiAffinity:
@@ -34,18 +34,18 @@ spec:
         imagePullPolicy: {{imagePullPolicy}}
         ports:
           - containerPort: 7000
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /liveness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
         env:
         - name: NODE_ENV
           value: production
@@ -56,14 +56,14 @@ spec:
             fieldRef:
               fieldPath: metadata.name
         - name: SHARD_ID
-          value: {{shardId}}
+          value: "{{shardId}}"
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
-              name: overmindbots-secret
+              name: overmindbots-secrets
               key: MONGODB_URI
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
-              name: overmindbots-secret
+              name: overmindbots-secrets
               key: BOT_TOKEN

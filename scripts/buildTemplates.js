@@ -3,6 +3,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const dotenv = require('dotenv');
 
+dotenv.config();
 dotenv.config({
   path: '.env.local',
 });
@@ -22,15 +23,17 @@ function compileTemplate(path, name, values, writeName, cb) {
 }
 
 let serviceReferralRanksInvitesImgUrl;
+let imagePullPolicy;
 let serviceReferralRanksInvitesTotalShards = parseInt(
   process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS,
   10
 );
-let imagePullPolicy;
 
 const GOOGLE_PROJECT_ID = process.env.GOOGLE_PROJECT_ID || 'UNSET';
 const CIRCLE_BRANCH = process.env.CIRCLE_BRANCH || 'UNSET';
 const CIRCLE_BUILD_NUM = process.env.CIRCLE_BUILD_NUM || 'UNSET';
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!serviceReferralRanksInvitesTotalShards) {
   throw new Error('SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS not set');
@@ -47,14 +50,19 @@ if (CIRCLE_BRANCH === 'UNSET') {
 switch (deploymentStage) {
   case 'development': {
     imagePullPolicy = 'IfNotPresent';
+    serviceReferralRanksInvitesImgUrl =
+      'service-referral-ranks-invites:develop';
     break;
   }
   case 'staging': {
     imagePullPolicy = 'Always';
+    serviceReferralRanksInvitesImgUrl =
+      'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
     break;
   }
   case 'production': {
     imagePullPolicy = 'Always';
+    'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
     break;
   }
   default: {
@@ -65,6 +73,21 @@ switch (deploymentStage) {
 const baseTemplateConfig = {
   imagePullPolicy,
 };
+
+compileTemplate(
+  'k8s',
+  'overmindbots-secrets',
+  {
+    botToken: Buffer.from(BOT_TOKEN).toString('base64'),
+    mongoDbUri: Buffer.from(MONGODB_URI).toString('base64'),
+  },
+  `overmindbots-secrets`,
+  err => {
+    if (err) {
+      throw err;
+    }
+  }
+);
 
 _.each(_.range(0, serviceReferralRanksInvitesTotalShards), shardId => {
   compileTemplate(

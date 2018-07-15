@@ -3,8 +3,6 @@ set -e
 
 kubectx minikube
 
-lerna bootstrap
-
 rm -rf k8s-generated
 mkdir k8s-generated
 touch k8s-generated/.gitkeep
@@ -26,6 +24,8 @@ touch k8s-generated/.gitkeep
 serviceReferralRanksInvites=service-referral-ranks-invites:develop
 
 docker build -t $serviceReferralRanksInvites -f packages/service-referral-ranks-invites/Dockerfile .
+
+node ./scripts/buildTemplates.js
 
 {
   kubectl apply -f ./k8s-generated
