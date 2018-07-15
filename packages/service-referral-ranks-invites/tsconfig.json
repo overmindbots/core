@@ -1,0 +1,6 @@
+{
+  "extends": "../tsconfig.editor.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  }
+}

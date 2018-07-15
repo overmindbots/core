@@ -55,7 +55,6 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "concurrently": "^3.6.0",
     "jest": "^23.1.0",
-    "lerna-semantic-release": "^9.1.0",
     "nodemon": "^1.17.3",
     "nodemon-webpack-plugin": "next",
     "prettier": "^1.13.6",

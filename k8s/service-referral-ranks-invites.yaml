@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: service-referral-ranks-invites-{{shardId}}
+  namespace: overmindbots
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-referral-ranks-invites
+      shardId: "{{shardId}}"
+  template:
+    metadata:
+      labels:
+        app: service-referral-ranks-invites
+        shardId: "{{shardId}}"
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - service-referral-ranks-invites
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: service-referral-ranks-invites
+        image: {{{imageUrl}}}
+        imagePullPolicy: {{imagePullPolicy}}
+        ports:
+          - containerPort: 7000
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /liveness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DEPLOYMENT_STAGE
+          value: {{deploymentStage}}
+        - name: POD_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: SHARD_ID
+          value: "{{shardId}}"
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: MONGODB_URI
+        - name: BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: BOT_TOKEN

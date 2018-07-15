@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 export interface InviteDocument extends mongoose.Document {
   guildDiscordId: string;
-  inviterDiscordId: string;
+  inviterDiscordId: string | null;
   code: string;
   uses: number;
 }
@@ -17,7 +17,7 @@ const schema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  inviterId: {
+  inviterDiscordId: {
     type: String,
   },
   uses: {
