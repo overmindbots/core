@@ -50,6 +50,7 @@ if (CIRCLE_BRANCH === 'UNSET') {
 
 mongoDbUri = MONGODB_URI;
 
+// TODO: Dry these
 switch (deploymentStage) {
   case 'development': {
     imagePullPolicy = 'IfNotPresent';
@@ -61,13 +62,12 @@ switch (deploymentStage) {
   }
   case 'staging': {
     imagePullPolicy = 'Always';
-    serviceReferralRanksInvitesImgUrl =
-      'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
+    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   case 'production': {
     imagePullPolicy = 'Always';
-    'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
+    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   default: {
@@ -77,22 +77,25 @@ switch (deploymentStage) {
 
 const baseTemplateConfig = {
   imagePullPolicy,
+  deploymentStage,
 };
 
-compileTemplate(
-  'k8s',
-  'overmindbots-secrets',
-  {
-    botToken: Buffer.from(BOT_TOKEN).toString('base64'),
-    mongoDbUri: Buffer.from(mongoDbUri).toString('base64'),
-  },
-  `overmindbots-secrets`,
-  err => {
-    if (err) {
-      throw err;
+if (deploymentStage === 'development') {
+  compileTemplate(
+    'k8s',
+    'overmindbots-secrets',
+    {
+      botToken: Buffer.from(BOT_TOKEN).toString('base64'),
+      mongoDbUri: Buffer.from(mongoDbUri).toString('base64'),
+    },
+    `overmindbots-secrets`,
+    err => {
+      if (err) {
+        throw err;
+      }
     }
-  }
-);
+  );
+}
 
 _.each(_.range(0, serviceReferralRanksInvitesTotalShards), shardId => {
   compileTemplate(
