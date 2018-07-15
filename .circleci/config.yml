@@ -12,7 +12,7 @@ workflows:
           context: staging
           filters:
             branches:
-              only: beta
+              only: development
       - release-production:
           context: production
           filters:
