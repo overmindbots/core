@@ -8,7 +8,7 @@ mkdir k8s-generated
 touch k8s-generated/.gitkeep
 
 {
-  helm install --name bot-alchemy-mongodb stable/mongodb --namespace overmindbots --set mongodbUsername=dev,mongodbPassword=dev,mongodbDatabase=overmindbots
+  helm install --name overmindbots-mongodb stable/mongodb --namespace overmindbots --set mongodbUsername=dev,mongodbPassword=dev,mongodbDatabase=overmindbots
 } || {
   echo "Already installed mongodb"
 }

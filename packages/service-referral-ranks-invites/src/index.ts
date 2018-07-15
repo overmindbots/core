@@ -1,18 +1,23 @@
-// tslint:disable ordered-imports
-import './startup';
+// tslint:disable-next-line ordered-imports
+import '~/startup';
 
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
-import Discord from 'discord.js';
+import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
 
-import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS } from './constants';
+import { BOT_TOKEN, SHARD_ID, TOTAL_SHARDS, MONGODB_URI } from '~/constants';
+
+logger.info(`=== Booting Service: Referral Ranks Invites ===`);
+logger.info(`=> MONGODB_URI: ${MONGODB_URI}`);
+logger.info(`=> BOT_TOKEN: ${BOT_TOKEN}`);
+logger.info(`=> SHARD_ID: ${SHARD_ID}`);
+logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
 
 /**
  * TODO:
- * - Assign shards correctly and prep for test run
  * - Decide what to do with database insert errors
  * - Decide what to do with mongoose create and model constructors not being
  *   strongly typed
@@ -453,9 +458,16 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
   }
 };
 
+const discordErrorHandler = async (error: DiscordAPIError) => {
+  logger.error(error.message);
+  // tslint:disable-next-line no-console
+  console.log(error);
+};
+
 client.on('ready', eventAsyncCatcher('ready')(readyHandler));
 client.on('guildCreate', eventAsyncCatcher('guildCreate')(guildCreateHandler));
 client.on(
   'guildMemberAdd',
   eventAsyncCatcher('guildMemberAdd')(guildMemberAddHandler)
 );
+client.on('error', eventAsyncCatcher('error')(discordErrorHandler));

@@ -8,7 +8,11 @@ if (!process.env.TOTAL_SHARDS) {
 if (!process.env.SHARD_ID) {
   throw new Error('Missing env variable SHARD_ID');
 }
+if (!process.env.MONGODB_URI) {
+  throw new Error('Missing env variable MONGODB_URI');
+}
 
 export const BOT_TOKEN = process.env.BOT_TOKEN;
 export const SHARD_ID = parseInt(process.env.SHARD_ID, 10);
 export const TOTAL_SHARDS = parseInt(process.env.TOTAL_SHARDS, 10);
+export const MONGODB_URI = process.env.MONGODB_URI;

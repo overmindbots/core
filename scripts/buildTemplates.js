@@ -28,6 +28,7 @@ let serviceReferralRanksInvitesTotalShards = parseInt(
   process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS,
   10
 );
+let mongoDbUri;
 
 const GOOGLE_PROJECT_ID = process.env.GOOGLE_PROJECT_ID || 'UNSET';
 const CIRCLE_BRANCH = process.env.CIRCLE_BRANCH || 'UNSET';
@@ -47,11 +48,15 @@ if (CIRCLE_BRANCH === 'UNSET') {
   deploymentStage = 'production';
 }
 
+mongoDbUri = MONGODB_URI;
+
 switch (deploymentStage) {
   case 'development': {
     imagePullPolicy = 'IfNotPresent';
     serviceReferralRanksInvitesImgUrl =
       'service-referral-ranks-invites:develop';
+    mongoDbUri =
+      'mongodb://dev:dev@overmindbots-mongodb-mongodb.overmindbots.svc.cluster.local:27017/overmindbots';
     break;
   }
   case 'staging': {
@@ -79,7 +84,7 @@ compileTemplate(
   'overmindbots-secrets',
   {
     botToken: Buffer.from(BOT_TOKEN).toString('base64'),
-    mongoDbUri: Buffer.from(MONGODB_URI).toString('base64'),
+    mongoDbUri: Buffer.from(mongoDbUri).toString('base64'),
   },
   `overmindbots-secrets`,
   err => {
