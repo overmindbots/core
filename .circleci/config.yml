@@ -51,7 +51,7 @@ jobs:
       - run:
           # move this to a safe place
           name: Install node deps
-          command: yarn add handlebars lodash dotenv
+          command: yarn global add handlebars lodash dotenv
       - run:
           name: Deploy
           command: bash ./scripts/deployProduction.sh
