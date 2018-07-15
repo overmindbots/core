@@ -24,6 +24,7 @@ function compileTemplate(path, name, values, writeName, cb) {
 
 let serviceReferralRanksInvitesImgUrl;
 let imagePullPolicy;
+let deploymentStage;
 let serviceReferralRanksInvitesTotalShards = parseInt(
   process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS,
   10
