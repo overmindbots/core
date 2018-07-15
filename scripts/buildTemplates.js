@@ -50,6 +50,7 @@ if (CIRCLE_BRANCH === 'UNSET') {
 
 mongoDbUri = MONGODB_URI;
 
+// TODO: Dry these
 switch (deploymentStage) {
   case 'development': {
     imagePullPolicy = 'IfNotPresent';
@@ -61,13 +62,12 @@ switch (deploymentStage) {
   }
   case 'staging': {
     imagePullPolicy = 'Always';
-    serviceReferralRanksInvitesImgUrl =
-      'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
+    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   case 'production': {
     imagePullPolicy = 'Always';
-    'service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}';
+    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   default: {
