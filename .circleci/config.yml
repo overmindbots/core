@@ -8,18 +8,23 @@ workflows:
       #     filters:
       #       branches:
       #         only: development
-      - deploy-staging:
+      - deploy:
           context: staging
           filters:
             branches:
               only: development
+      - deploy:
+          context: production
+          filters:
+            branches:
+              only: master
       # - release-production:
       #     context: production
       #     filters:
       #       branches:
       #         only: master
 jobs:
-  deploy-staging:
+  deploy:
     docker:
       - image: google/cloud-sdk
     working_directory: ~/repo
