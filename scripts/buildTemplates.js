@@ -63,12 +63,12 @@ switch (deploymentStage) {
   }
   case 'staging': {
     imagePullPolicy = 'Always';
-    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
+    serviceReferralRanksInvitesImgUrl = `gcr.io/overmind-bots/service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   case 'production': {
     imagePullPolicy = 'Always';
-    serviceReferralRanksInvitesImgUrl = `service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
+    serviceReferralRanksInvitesImgUrl = `gcr.io/overmind-bots/service-referral-ranks-invites:${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}`;
     break;
   }
   default: {
