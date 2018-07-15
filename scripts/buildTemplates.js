@@ -77,22 +77,25 @@ switch (deploymentStage) {
 
 const baseTemplateConfig = {
   imagePullPolicy,
+  deploymentStage,
 };
 
-compileTemplate(
-  'k8s',
-  'overmindbots-secrets',
-  {
-    botToken: Buffer.from(BOT_TOKEN).toString('base64'),
-    mongoDbUri: Buffer.from(mongoDbUri).toString('base64'),
-  },
-  `overmindbots-secrets`,
-  err => {
-    if (err) {
-      throw err;
+if (deploymentStage === 'development') {
+  compileTemplate(
+    'k8s',
+    'overmindbots-secrets',
+    {
+      botToken: Buffer.from(BOT_TOKEN).toString('base64'),
+      mongoDbUri: Buffer.from(mongoDbUri).toString('base64'),
+    },
+    `overmindbots-secrets`,
+    err => {
+      if (err) {
+        throw err;
+      }
     }
-  }
-);
+  );
+}
 
 _.each(_.range(0, serviceReferralRanksInvitesTotalShards), shardId => {
   compileTemplate(

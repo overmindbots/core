@@ -8,11 +8,24 @@ Right now this is just a "working" demo of a monorepo setup.
 - Commit flow and release versioning is working well. (Except for pre-releases that need to be tested)
 
 # Setup instructions
+
+## To run locally
 Install Lerna
 - `yarn global add lerna`
 
 Install dependencies of all packages
 - `lerna bootstrap`
+
+## Tools for easier access to remote Kubernetes
+- install `kubectx` (link missing)
+
+## To have terminal access to Google Cloud Platform
+- install the gcloud cli
+- `gcloud auth login` and login with your overmindbots.com account
+- `gcloud config set project overmind-bots`
+- `gcloud container clusters get-credentials staging` to setup staging access
+- `kubens overmindbots` to set the default namespace
+
 
 # Usage
 
