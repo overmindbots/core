@@ -53,6 +53,9 @@ jobs:
           name: Install node deps
           command: npm install handlebars lodash dotenv
       - run:
+          name: yarn install
+          command: yarn install
+      - run:
           name: Deploy
           command: bash ./scripts/deployProduction.sh
   release-staging:
