@@ -1,12 +1,3 @@
-# State of this repo
-Right now this is just a "working" demo of a monorepo setup.
-
-- Packages are not currently being pushed to separate repositories though that is configurable.
-- Dependencies still need to be correctly configured
-- File structure is only temporary and should be discussed
-- Ci and compilation are not yet set-up
-- Commit flow and release versioning is working well. (Except for pre-releases that need to be tested)
-
 # Setup instructions
 
 ## To run locally
@@ -16,15 +7,37 @@ Install Lerna
 Install dependencies of all packages
 - `lerna bootstrap`
 
-## Tools for easier access to remote Kubernetes
-- install `kubectx` (link missing)
+Create .env in repos
+- create a .env with the required environment variables in any repo you want to run, (this should be improved).
+- use `yarn start` inside a package's directory to run it
 
-## To have terminal access to Google Cloud Platform
-- install the gcloud cli
+# Install cli tools to access our remote cluster
+
+## Google Cloud CLI
+- install [gcloud](https://cloud.google.com/sdk/) to access Google Cloud
 - `gcloud auth login` and login with your overmindbots.com account
 - `gcloud config set project overmind-bots`
 - `gcloud container clusters get-credentials staging` to setup staging access
-- `kubens overmindbots` to set the default namespace
+- `gcloud container clusters get-credentials production` to setup staging access
+
+## Kubectx
+- install [kubectx](https://github.com/ahmetb/kubectx) to change kubernetes contexts more easily
+- `kubectx` in the Terminal to get a list of contexts
+- `kubectx <contexName>` to switch to that context
+- `kubens overmindbots` to set the namespace (otherwise you wont see running components)
+
+## Managing the remote cluster
+- `kubectl get pods` to get the list of running pods
+- `kubectl logs -f pods/<podId>` to get realtime logs of a pod
+
+You can also visit [Our cluster in the browser](https://console.cloud.google.com/kubernetes/workload?project=overmind-bots)
+
+## Deploying
+- Staging will be automatically deployed when `development` gets a new commit
+- Production will be automatically deployed when `master` gets a new commit
+
+You should have access to [Our CircleCI](https://circleci.com/gh/overmindbots). You can
+see how the deployments are doing there
 
 
 # Usage
@@ -38,40 +51,8 @@ ensure that the message is compliant with the `conventional-commits` standard.
 - All merges to `master` are deployed to production
 - All merges to `development` are deployed to staging (pending `beta` branch to control staging)
 
-Releases will be generated when development is updated, no new releases are generated
-on merge to master
+Releases feature is pending since it was causing deployments to fail
 
-# Conventions
-
-This is a set of conventions that is followed in this repository
-
-## Package naming
-We name our packages based on what they are:
-
-- **Bots:** Bots can have a master service and some slave services to do specialized work
-  * **Master service:** `bot-<name-of-bot>`
-    * Example: `bot-referral-ranks`,
-  * **Slave service:** `bot-<name-of-bot>-<name-of-service>-service`
-    * Example: `bot-referral-ranks-invites-service`
-- **Apps:** Apps (web apps, mobile apps, landing pages etc...)
-  * Naming `app-<name-of-app>[-<scope>][-client,-server]`
-    * Examples:
-      * `app-bots-web-panel-web-client`
-      * `app-bots-web-panel-ios-client`
-      * `app-bots-web-panel-api-server`
-      * `app-bot-referral-ranks-landing`
-- **Services:** Standalone services that are not part of a bigger one
-  * Naming:  `service-<name-of-service>`
-  * Example: `service-bot-manager`, `service-spam-mailer-cannon`
-- **Shared:** Shared code
-  * Naming: `shared-<name-of-package>`
-  * Example: `shared-models`
-
-### Shared Packages
-Our shared code packages. They live in `packages/shared/*`, no naming convention.
-
-### Public Packages
-Packages that are open source and potentially published to NPM. They live in `packages/public/*`, no naming convention.
 
 # Extra notes
 Updated dependencies in `app-bots-web-panel-web-client`. If anything fails, these were the old ones:
