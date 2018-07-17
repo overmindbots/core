@@ -1,24 +1,27 @@
 {
-  "lerna": "2.11.0",
   "packages": [
     "packages/*"
   ],
-  "commands": {
+  "version": "independent",
+  "allowedBranches": [
+    "master",
+    "develop"
+  ],
+  "command": {
     "publish": {
-      "ignoreChanges": [
-        "*.md"
-      ],
-      "allowBranch": [
-        "development",
-        "master"
-      ],
+      "allowBranch": "master",
+      "cdVersion": "prerelease",
       "conventionalCommits": true,
-      "gitRemote": "origin",
+      "gitRemote": "upstream",
       "preid": "beta",
       "message": "chore(release): publish %s"
     }
   },
-  "npmClient": "yarn",
+  "ignoreChanges": [
+    "**/__fixtures__/**",
+    "**/__tests__/**",
+    "**/*.md"
+  ],
   "useWorkspaces": true,
-  "version": "0.0.0"
+  "npmClient": "yarn"
 }
