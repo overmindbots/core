@@ -53,7 +53,8 @@
       "**/@overmindbots/discord.js-command-manager",
       "**/@overmindbots/bot-referral-ranks",
       "**/discord.js",
-      "**/discord.js/**"
+      "**/discord.js/**",
+      "**/jest*"
     ]
   },
   "publishConfig": {
