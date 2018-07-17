@@ -28,7 +28,7 @@
       {
         "limit": 80,
         "ignore-pattern":
-          "^import |^export {(.*?)}|class [a-zA-Z]+ implements |//|^describe(|^it("
+          "^import |^export {(.*?)}|class [a-zA-Z]+ implements |//|^\\s*(?:describe|it|test)[\\.\\(]"
       }
     ],
     "member-ordering": [
