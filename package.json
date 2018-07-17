@@ -10,9 +10,10 @@
     "bootstrap": "lerna bootstrap",
     "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
     "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager",
+    "semantic-release": "semantic-release",
+    "publish-dependencies": "lerna publish",
     "start-production:service-referral-ranks-invites": "cd ./packages/service-referral-ranks-invites && yarn start:production",
-    "deploy:dev": "sh ./scripts/deployDev.sh",
-    "publish": "lerna publish"
+    "deploy:dev": "sh ./scripts/deployDev.sh"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
@@ -22,9 +23,22 @@
     "cz-lerna-changelog": "^1.2.1",
     "git-branch-is": "^2.0.0",
     "husky": "^0.14.3",
-    "lerna": "2.11.0",
-    "lodash": "^4.17.10"
+    "lerna": "^2.11.0",
+    "lerna-changelog": "^0.8.0",
+    "lodash": "^4.17.10",
+    "semantic-release": "^15.7.1",
+    "semantic-release-cli": "^4.0.6"
   },
+  "config": {
+    "commitizen": {
+      "path": "cz-lerna-changelog"
+    }
+  },
+  "changelog": {
+    "repo": "overmindbots/core",
+    "cacheDir": ".changelog"
+  },
+  "version": "0.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/overmindbots/core.git"
@@ -45,10 +59,5 @@
   },
   "publishConfig": {
     "access": "restricted"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-lerna-changelog"
-    }
   }
 }
