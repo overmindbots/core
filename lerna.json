@@ -12,7 +12,7 @@
       "conventionalCommits": true,
       "gitRemote": "origin",
       "preid": "beta",
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish release"
     }
   },
   "ignoreChanges": [
