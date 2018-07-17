@@ -3,14 +3,9 @@
     "packages/*"
   ],
   "version": "independent",
-  "allowedBranches": [
-    "master",
-    "develop",
-    "implement-releases"
-  ],
   "command": {
     "publish": {
-      "allowBranch": "master",
+      "allowBranch": ["master", "development", "implement-releases"],
       "cdVersion": "prerelease",
       "conventionalCommits": true,
       "gitRemote": "upstream",
