@@ -58,6 +58,7 @@
     "nodemon": "^1.17.3",
     "nodemon-webpack-plugin": "next",
     "prettier": "^1.13.6",
+    "ts-jest": "^23.0.1",
     "ts-loader": "^4.4.2",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.10.0",
