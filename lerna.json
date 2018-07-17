@@ -1,13 +1,13 @@
 {
-  "lerna": "2.11.0",
   "packages": [
     "packages/*"
   ],
-  "commands": {
+  "version": "independent",
+  "command": {
     "publish": {
       "allowBranch": [
-        "beta",
-        "master"
+        "master",
+        "next"
       ],
       "conventionalCommits": true,
       "gitRemote": "origin",
@@ -15,7 +15,12 @@
       "message": "chore(release): publish %s"
     }
   },
-  "npmClient": "yarn",
+  "ignoreChanges": [
+    "**/__fixtures__/**",
+    "**/__tests__/**",
+    "**/*.md"
+  ],
   "useWorkspaces": true,
-  "version": "0.0.0"
+  "npmClient": "yarn",
+  "lerna": "2.11.0"
 }

@@ -470,5 +470,3 @@ export default abstract class Command extends CommandBase {
   static permissionsRequired: DiscordPermissions[]; // Improve typing
   abstract run(message: Message, args: CommandArgs): Promise<any>;
 }
-
-// TODO: Remove this line
