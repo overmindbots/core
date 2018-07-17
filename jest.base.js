@@ -14,5 +14,4 @@ module.exports = {
     '@overmindbots/discord.js-command-manager(.+)':
       '<rootDir>/node_modules/@overmindbots/discord.js-command-manager/src/$1',
   },
-  setupTestFrameworkScriptFile: '<rootDir>/test/setupTests.ts',
 };
