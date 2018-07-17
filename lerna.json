@@ -5,8 +5,11 @@
   ],
   "commands": {
     "publish": {
+      "ignoreChanges": [
+        "*.md"
+      ],
       "allowBranch": [
-        "beta",
+        "development",
         "master"
       ],
       "conventionalCommits": true,
