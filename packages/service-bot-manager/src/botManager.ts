@@ -54,7 +54,7 @@ function isUTF8Message(message: IMessage): message is UTF8Message {
 export class BotManager {
   public wss: WebSocketServer;
   public httpServer: http.Server;
-  private shardsData: ShardsData;
+  readonly shardsData: ShardsData;
   private totalShards: number;
 
   constructor(totalShards: number) {

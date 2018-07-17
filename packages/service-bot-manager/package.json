@@ -6,7 +6,7 @@
     "node": ">=9.11.2"
   },
   "scripts": {
-    "test": "echo \"no tests yet\"",
+    "test": "jest",
     "start": "webpack --watch",
     "start-build": "node ./build/index.js",
     "build": "webpack --config webpack.config.js"
