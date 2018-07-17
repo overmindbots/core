@@ -5,7 +5,8 @@
   "version": "independent",
   "allowedBranches": [
     "master",
-    "develop"
+    "develop",
+    "implement-releases"
   ],
   "command": {
     "publish": {
