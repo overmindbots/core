@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/service-referral-ranks-invites",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "engines": {
     "node": ">=9.0.0"
@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.1",
-    "@overmindbots/shared-utils": "^0.0.1",
+    "@overmindbots/shared-models": "^0.1.0",
+    "@overmindbots/shared-utils": "^0.1.0",
     "@types/express": "^4.16.0",
     "bluebird": "^3.5.1",
     "discord.js": "^11.3.2",
