@@ -8,7 +8,7 @@
       "allowBranch": ["master", "development", "implement-releases"],
       "cdVersion": "prerelease",
       "conventionalCommits": true,
-      "gitRemote": "upstream",
+      "gitRemote": "origin",
       "preid": "beta",
       "message": "chore(release): publish %s"
     }
