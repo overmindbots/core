@@ -7,8 +7,7 @@
     "publish": {
       "allowBranch": [
         "master",
-        "development",
-        "implement-releases"
+        "next"
       ],
       "conventionalCommits": true,
       "gitRemote": "origin",
