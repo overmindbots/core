@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.2-beta.0"></a>
+## [0.1.2-beta.0](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.1.1...@overmindbots/bot-referral-ranks@0.1.2-beta.0) (2018-07-17)
+
+
+### Features
+
+* fake feature ([cc6dca4](https://github.com/overmindbots/bot-referral-ranks/commit/cc6dca4))
+
+
+
+
 <a name="0.1.1"></a>
 ## 0.1.1 (2018-07-17)
 
