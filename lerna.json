@@ -5,7 +5,11 @@
   "version": "independent",
   "command": {
     "publish": {
-      "allowBranch": ["master", "development", "implement-releases"],
+      "allowBranch": [
+        "master",
+        "development",
+        "implement-releases"
+      ],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "preid": "beta",
@@ -18,5 +22,6 @@
     "**/*.md"
   ],
   "useWorkspaces": true,
-  "npmClient": "yarn"
+  "npmClient": "yarn",
+  "lerna": "2.11.0"
 }

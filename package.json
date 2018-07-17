@@ -22,7 +22,7 @@
     "cz-lerna-changelog": "^1.2.1",
     "git-branch-is": "^2.0.0",
     "husky": "^0.14.3",
-    "lerna": "^3.0.0-beta.21",
+    "lerna": "^2.11.0",
     "lodash": "^4.17.10",
     "semantic-release": "^15.7.1",
     "semantic-release-cli": "^4.0.6"
@@ -50,7 +50,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-lerna-changelog"
     }
   }
 }
