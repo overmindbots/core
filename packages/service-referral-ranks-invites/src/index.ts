@@ -131,7 +131,9 @@ const client = new Discord.Client({
   shardId: SHARD_ID,
 });
 
-client.login(BOT_TOKEN);
+client.login(BOT_TOKEN).catch(err => {
+  logger.error(err);
+});
 
 const genericAsyncCatcher = createAsyncCatcher(async error => {
   logger.error(error.message, error);
@@ -294,7 +296,7 @@ const assignReferrals = (
   const guildId = guild.id;
   const newMembers = dequeue(guildId, delta);
   const certainty = 1 / delta;
-  const timestamp = new Date().getMilliseconds();
+  const timestamp = Date.now();
 
   logger.info(
     `Assigning referrals for guild "${guild.name}" (${guild.id})\
@@ -309,7 +311,9 @@ const assignReferrals = (
         timestamp,
         certainty,
       });
-      newReferral.save();
+      newReferral.save().catch(err => {
+        logger.error(err);
+      });
     });
   });
 };
@@ -356,7 +360,7 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
   }
 
   if (noNewUsesCount < noNewUsesThreshold) {
-    requestGuildInvites(guild);
+    await requestGuildInvites(guild);
   }
 };
 
@@ -402,12 +406,12 @@ const readyHandler = async () => {
       `Reading guilds ${chunkIndex * 100} through ${(chunkIndex + 1) * 100}`
     );
 
-    await P.map(guildsChunk, (guild, index) => {
+    await P.map(guildsChunk, async (guild, index) => {
       logger.info(
         `Reading guild ${index}: "${guild.name}" (${guild.memberCount} members)`
       );
 
-      fetchInitialInvites(guild);
+      await fetchInitialInvites(guild);
     });
   });
 };
@@ -420,7 +424,7 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
     `Received late guild "${guild.name}" (${guild.memberCount} members)`
   );
 
-  fetchInitialInvites(guild);
+  await fetchInitialInvites(guild);
 };
 
 /**
@@ -454,7 +458,7 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
 
   // If the request loop is idle, start it
   if (guildMetaData.noNewUsesCount >= noNewUsesThreshold) {
-    requestGuildInvites(guild);
+    await requestGuildInvites(guild);
   }
 };
 
