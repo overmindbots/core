@@ -6,6 +6,7 @@
     "ecmaVersion": 6
   },
   "rules": {
-    "no-undef": 1
+    "no-undef": 1,
+    "no-shadow": 1
   }
 }
