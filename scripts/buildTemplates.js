@@ -34,11 +34,11 @@ function getPackageNames() {
       return;
     }
 
-    const packageName = require(packageJsonPath).name;
-    if (!packageName.startsWith('@overmindbots')) {
+    const jsonPackageName = require(packageJsonPath).name;
+    if (!jsonPackageName.startsWith('@overmindbots')) {
       return;
     }
-    const cleanedPackageName = packageName.split('@overmindbots/')[1];
+    const cleanedPackageName = jsonPackageName.split('@overmindbots/')[1];
 
     packages.add(cleanedPackageName);
   });
