@@ -103,6 +103,7 @@
       "check-separator",
       "check-type",
       "check-typecast"
-    ]
+    ],
+    "no-floating-promises": true
   }
 }
