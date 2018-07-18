@@ -4,7 +4,6 @@ import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 // TODO: Pass this through an env variable on build time
 const pkginfo = require('../../package.json');
 
-// TODO: Assert env variables better
 if (!process.env.BOT_MANAGER_SERVICE_HOST) {
   throw new Error('BOT_MANAGER_SERVICE_HOST missing');
 }

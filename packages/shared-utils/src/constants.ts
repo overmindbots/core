@@ -8,7 +8,7 @@ export interface ReferralRanksBotConfig {
 
 export const POD_STATUS_SERVER_PORT =
   process.env.POD_STATUS_SERVER_PORT || 7000;
-// TODO: Change this to an array of permissions and convert programatically
+// TODO: Change this to an array of permissions and generate programatically
 export const BOTS = {
   [BOT_TYPES.REFERRAL_RANKS]: {
     name: 'Referral Ranks',

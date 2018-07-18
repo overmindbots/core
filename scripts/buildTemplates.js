@@ -43,7 +43,7 @@ if (!serviceReferralRanksInvitesTotalShards) {
 
 if (CIRCLE_BRANCH === 'UNSET') {
   deploymentStage = 'development';
-} else if (CIRCLE_BRANCH === 'development') {
+} else if (CIRCLE_BRANCH === 'next') {
   deploymentStage = 'staging';
 } else if (CIRCLE_BRANCH === 'master') {
   deploymentStage = 'production';
