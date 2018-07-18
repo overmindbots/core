@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Deploy
           command: bash ./scripts/deployProduction.sh
-  release-staging:
+  prerelease:
     docker:
       - image: 'circleci/node:latest'
     steps:
