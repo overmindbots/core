@@ -6,7 +6,7 @@
   "commands": {
     "publish": {
       "allowBranch": [
-        "beta",
+        "next",
         "master"
       ],
       "conventionalCommits": true,
