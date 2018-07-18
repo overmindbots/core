@@ -11,7 +11,7 @@ const path = require('path');
 const printHelp = () => {
   console.log('Wrong number of arguments.\n');
   console.log('Usage:');
-  console.log("\t./script '<publish-command>'\n");
+  console.log("\t./publishAndBuildTemplates.js '<publish-command>'\n");
   console.log(
     '** Remember to add surrounding quotes to the <publish-command>.'
   );
@@ -30,10 +30,10 @@ const execute = command =>
 
 
 // TODO: Add documentation
-const getUpdatedPackages = out => {
-  if (!out) return [];
+const getUpdatedPackages = publishOutput => {
+  if (!publishOutput) return [];
 
-  const packages = out.split('\n').reduce((arr, line) => {
+  const packages = publishOutput.split('\n').reduce((arr, line) => {
     const match = line.match(/-\s@[^\/]+\/([^:]+)/);
     if (match && match[1]) {
       arr.push(match[1]);
@@ -53,8 +53,8 @@ if (process.argv.length !== 3) {
 async function main() {
   const publishCommand = process.argv[2];
 
-  const out = await execute(publishCommand);
-  const updatedPackages = getUpdatedPackages(out);
+  const output = await execute(publishCommand);
+  const updatedPackages = getUpdatedPackages(output);
 
   const buildTemplatePath = path.resolve('./scripts/buildTemplates.js');
   const buildCommand = package => `node ${buildTemplatePath} ${package}`;
