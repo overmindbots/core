@@ -136,7 +136,7 @@ dotenv.config({ path: '.env.test' });
 // logger.remove(logger.transports.Console);
 ```
 
-Now that we created our setup file, we need to tell jest to load this setup file before running any test, this will be achieved by adding the `setupTestFramworkScriptFile` config.
+Now that we created our setup file, we need to tell jest to load this setup file before running any test, this will be achieved by adding the `setupTestFrameworkScriptFile` config.
 
 **Example:**
 
