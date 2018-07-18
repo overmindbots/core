@@ -6,16 +6,16 @@
   "commands": {
     "publish": {
       "allowBranch": [
-        "beta",
+        "next",
         "master"
       ],
       "conventionalCommits": true,
       "gitRemote": "origin",
       "preid": "beta",
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish release"
     }
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "version": "0.0.0"
+  "version": "0.0.1-beta.0"
 }

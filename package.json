@@ -13,7 +13,8 @@
     "semantic-release": "semantic-release",
     "publish-dependencies": "lerna publish",
     "start-production:service-referral-ranks-invites": "cd ./packages/service-referral-ranks-invites && yarn start:production",
-    "deploy:dev": "sh ./scripts/deployDev.sh"
+    "deploy:dev": "sh ./scripts/deployDev.sh",
+    "lerna-publish": "lerna publish"
   },
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",

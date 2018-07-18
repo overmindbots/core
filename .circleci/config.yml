@@ -1,28 +1,34 @@
 version: 2
 workflows:
   version: 2
-  release:
+  release-and-deploy-staging:
     jobs:
-      # - release-staging:
-      #     context: staging
-      #     filters:
-      #       branches:
-      #         only: development
-      - deploy:
+      - prerelease:
           context: staging
           filters:
             branches:
-              only: development
+              only: next
       - deploy:
+          context: staging
+          requires:
+            - prerelease
+          filters:
+            branches:
+              only: next
+  release-and-deploy-production:
+    jobs:
+      - release:
           context: production
           filters:
             branches:
               only: master
-      # - release-production:
-      #     context: production
-      #     filters:
-      #       branches:
-      #         only: master
+      - deploy:
+          context: production
+          requires:
+            - release
+          filters:
+            branches:
+              only: master
 jobs:
   deploy:
     docker:
@@ -63,7 +69,7 @@ jobs:
       - run:
           name: Deploy
           command: bash ./scripts/deployProduction.sh
-  release-staging:
+  prerelease:
     docker:
       - image: 'circleci/node:latest'
     steps:
@@ -79,8 +85,8 @@ jobs:
           command: yarn lerna updated
       - run:
           name: lerna release
-          command: yarn publish-dependencies --yes --canary
-  release-production:
+          command: yarn lerna-publish --cd-version prerelease --yes
+  release:
     docker:
       - image: 'circleci/node:latest'
     steps:
@@ -96,4 +102,4 @@ jobs:
           command: yarn lerna updated
       - run:
           name: lerna release
-          command: yarn publish-dependencies --yes
+          command: yarn lerna-publish --yes
