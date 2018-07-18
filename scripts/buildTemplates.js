@@ -5,7 +5,7 @@ const companyPrefix = '@overmindbots';
 const packagesDirPath = path.resolve(process.cwd(), './packages');
 const packageBuildScriptsDir = path.resolve(
   process.cwd(),
-  './scripts/kubernetesConfigBuilders'
+  './scripts/templateBuilders'
 );
 const packageName = process.argv[2];
 const packages = new Set();
