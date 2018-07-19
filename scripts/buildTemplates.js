@@ -35,10 +35,10 @@ function getPackageNames() {
     }
 
     const jsonPackageName = require(packageJsonPath).name;
-    if (!jsonPackageName.startsWith('@overmindbots')) {
+    if (!jsonPackageName.startsWith(companyPrefix)) {
       return;
     }
-    const cleanedPackageName = jsonPackageName.split('@overmindbots/')[1];
+    const cleanedPackageName = jsonPackageName.split(`${companyPrefix}/`)[1];
 
     packages.add(cleanedPackageName);
   });
