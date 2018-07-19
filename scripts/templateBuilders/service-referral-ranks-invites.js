@@ -32,6 +32,7 @@ dotenv.config();
 dotenv.config({ path: '.env.local' });
 
 const totalShards = process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS;
+const repoName = process.env.CIRCLE_PROJECT_REPONAME;
 if (!totalShards) {
   throw new Error(
     `Environment variable missing: SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS`
@@ -82,12 +83,12 @@ let imageUrl;
 let imagePullPolicy;
 
 if (deploymentStage === 'development') {
-  imageUrl = `gcr.io/overmind-bots/${packageName}:development`;
+  imageUrl = `gcr.io/${repoName}:development`;
   imagePullPolicy = `Always`;
 } else {
-  imageUrl = `gcr.io/overmind-bots/service-referral-ranks-invites:${
-    process.env.CIRCLE_BRANCH
-  }-${process.env.CIRCLE_BUILD_NUM}`;
+  imageUrl = `gcr.io/${repoName}:${process.env.CIRCLE_BRANCH}-${
+    process.env.CIRCLE_BUILD_NUM
+  }`;
   imagePullPolicy = `IfNotPresent`;
 }
 
