@@ -8,7 +8,13 @@ import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
 
-import { BOT_TOKEN, MONGODB_URI, SHARD_ID, TOTAL_SHARDS } from '~/constants';
+import {
+  BOT_TOKEN,
+  CHUNK_SIZE,
+  MONGODB_URI,
+  SHARD_ID,
+  TOTAL_SHARDS,
+} from '~/constants';
 
 logger.info('=== Booting Service: Referral Ranks Invites ===');
 logger.info(`=> MONGODB_URI: ${MONGODB_URI}`);
@@ -23,6 +29,7 @@ logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
  *   strongly typed
  * - Force resuming of the session to receive lost events. Until then,
  *   all new invite uses cannot be assigned to an invitee
+ * 
  */
 
 /**
@@ -230,11 +237,13 @@ const fetchInitialInvites = async (guild: Discord.Guild) => {
     invites = (await guild.fetchInvites()).array();
   } catch (e) {
     if (e.code !== 50013) {
-      logger.error(`Error ${e.message} on invite request for guild ${guildId}, retrying...`);
+      logger.error(
+        `Error ${e.message} on invite request for guild ${guildId}, retrying...`
+      );
       await fetchInitialInvites(guild);
       return;
     } else {
-      logger.info(
+      logger.debug(
         `Permissions missing for guild ${guildId} (initial invites read)`
       );
     }
@@ -260,7 +269,7 @@ const fetchInitialInvites = async (guild: Discord.Guild) => {
 
   guildMetaDataStore[guildId].ready = true;
 
-  // logger.info(`Guild "${guild.name} (${guildId}) ready."`);
+  logger.info(`Guild "${guild.name} (${guildId}) ready."`);
 };
 
 /**
@@ -338,6 +347,12 @@ with ${certainty * 100}% certainty`
   );
   _.forEach(usedInvites, usedInvite => {
     _.forEach(newMembers, newMember => {
+      if (!usedInvite.inviter) {
+        logger.debug(`Invite '${usedInvite.code}' in guild '${guildId}' \
+has no inviter. Skipping...`);
+        return;
+      }
+
       const newReferral = new Referral({
         guildDiscordId: guildId,
         inviterDiscordId: usedInvite.inviter.id,
@@ -371,24 +386,26 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
     invites = (await guild.fetchInvites()).array();
   } catch (e) {
     if (e.code !== 50013) {
-      logger.error(`Error ${e.message} on invite request for guild ${guildId}, retrying...`);
+      logger.error(
+        `Error ${e.message} on invite request for guild ${guildId}, retrying...`
+      );
       await requestGuildInvites(guild);
-      return;
-    } else {
-      logger.info(`Permissions missing for guild ${guildId} (request invites)`);
-    }
-  }
 
-  if (!invites) {
-    logger.info(`HERE WE RETURN! ${guildId}`);
-    return;
+      return;
+    } else { // Permissions required, we set the loop to idle and clear the user queue
+      guildMetaData.noNewUsesCount = noNewUsesThreshold + 1;
+      newMemberQueues[guildId] = [];
+      logger.debug(
+        `Permissions missing for guild ${guildId} (request invites)`
+      );
+
+      return;
+    }
   }
 
   const usedInvites = calculateUsedInvites(invites, guildId);
   const delta = calculateDelta(usedInvites);
   const queue = newMemberQueues[guildId];
-
-  logger.info(`Delta for ${guildId} is ${delta}`);
 
   const queueLength = queue ? queue.length : 0;
 
@@ -397,27 +414,36 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
    * and wait for new users to join
    */
   if (delta > queueLength) {
-    logger.info(
+    logger.debug(
       `Waiting for lock on ${guildId}, delta: ${delta}, \
 queue length: ${queueLength}`
     );
     await setLock(guildId, delta).lock;
-    logger.info(`Lock released for ${guildId}`);
+    logger.debug(`Lock released for ${guildId}`);
   }
-
-  assignReferrals(usedInvites, guild, delta);
 
   /**
    * If there were no new uses, we update the count. If the count is lower than
    * the threshold, we continue the request loop
    */
   if (delta === 0) {
+    const usedInvitesLength = usedInvites.length;
+    if (usedInvitesLength > 0) { // This should never happen
+      logger.error(`Calculation error for guild ${guildId}, \
+${usedInvitesLength} used invites, delta = 0`);
+    }
     noNewUsesCount += 1;
     guildMetaData.noNewUsesCount = noNewUsesCount;
+  } else if (delta > 0) {
+    assignReferrals(usedInvites, guild, delta);
+  } else { // Delta < 0, this should never happen
+    logger.error(`Calculation error for guild ${guildId}, delta < 0`);
   }
 
   if (noNewUsesCount < noNewUsesThreshold) {
     await requestGuildInvites(guild);
+  } else {
+    logger.debug(`Stopping loop for ${guildId}`);
   }
 };
 
@@ -455,18 +481,21 @@ const readyHandler = async () => {
 
   logger.info(`UNAVAILABLE GUILDS: ${unavailableGuilds}`);
 
-  // Fetch invites in chunks of 100 guilds at a time
-  const chunkedGuilds = _.chunk(guilds.array(), 100);
+  // Fetch invites in chunks of <CHUNK_SIZE> guilds at a time
+  const chunkedGuilds = _.chunk(guilds.array(), CHUNK_SIZE);
 
   await P.each(chunkedGuilds, async (guildsChunk, chunkIndex) => {
+    const baseIndex = chunkIndex * CHUNK_SIZE + 1;
     logger.info(
-      `Reading guilds ${chunkIndex * 100} through ${(chunkIndex + 1) * 100}`
+      `Reading guilds ${baseIndex} through ${baseIndex +
+        CHUNK_SIZE - 1}`
     );
 
     await P.map(guildsChunk, async (guild, index) => {
-      // logger.info(
-      //   `Reading guild ${index}: "${guild.name}" (${guild.memberCount} members)`
-      // );
+      logger.info(
+        `Reading guild ${baseIndex + index}: "${guild.name}" \
+(${guild.memberCount} members)`
+      );
 
       await fetchInitialInvites(guild);
     });
@@ -478,7 +507,7 @@ const readyHandler = async () => {
  */
 const guildCreateHandler = async (guild: Discord.Guild) => {
   logger.info(
-    `Received late guild "${guild.name}" (${guild.memberCount} members)`
+    `Received new guild "${guild.name}" (${guild.memberCount} members)`
   );
 
   await fetchInitialInvites(guild);
@@ -500,11 +529,11 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
     return;
   }
 
-  logger.info(`New member added on guild "${guild.name}" (${guildId}).`);
-
   pushToQueue(guildMember);
 
   const queue = newMemberQueues[guildId];
+
+  logger.info(`New member added on guild "${guild.name}" (${guildId}).`);
 
   const guildLock = guildLocks[guildId];
 
@@ -513,8 +542,9 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
     guildLock.unlock();
   }
 
-  // If the request loop is idle, start it
+  // If the request loop is idle, start it and reset the count
   if (guildMetaData.noNewUsesCount >= noNewUsesThreshold) {
+    guildMetaData.noNewUsesCount = 0;
     await requestGuildInvites(guild);
   }
 };

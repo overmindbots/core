@@ -22,6 +22,7 @@
     "@commitlint/prompt": "^7.0.0",
     "commitizen": "^2.10.1",
     "cz-lerna-changelog": "^1.2.1",
+    "eslint": "^5.1.0",
     "git-branch-is": "^2.0.0",
     "husky": "^0.14.3",
     "lerna": "^2.11.0",
