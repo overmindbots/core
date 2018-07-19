@@ -2,7 +2,7 @@
 set -e
 
 # === Check if files were generated === #
-files=`ls k8s-generated | wc -l`
+files=`ls ../k8s-generated | wc -l`
 if [ "$files" -eq 0 ]; then
   echo "Nothing to deploy"
   exit 0
