@@ -71,7 +71,7 @@ function buildPackageKubeTemplate() {
     );
   }
   console.log(
-    `\n===> Running template build script for ${companyPrefix}${packageName}`
+    `\n===> Running template build script for ${companyPrefix}/${packageName}`
   );
   require(buildScriptPath);
 }
