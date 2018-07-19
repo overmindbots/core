@@ -29,7 +29,7 @@ logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
  *   strongly typed
  * - Force resuming of the session to receive lost events. Until then,
  *   all new invite uses cannot be assigned to an invitee
- * 
+ *
  */
 
 /**
@@ -75,7 +75,7 @@ const guildLocks: {
 
 /**
  * Set guild lock to a locked state waiting for a specific length of the
- * member queue and returns the guild lock
+ * member queue and return the guild lock
  */
 const setLock = (guildId: string, expectedMemberCount: number = 0) => {
   let guildLock = guildLocks[guildId];
@@ -226,6 +226,22 @@ const dequeue = (guildId: string, amount: number = 1) => {
 };
 
 /**
+ * Initialize a guild's metadata and lock
+ */
+const initializeGuild = (guildId: string) => {
+  /**
+   * Start with count greater than threshold to indicate that the request
+   * loop is idle
+   */
+  guildMetaDataStore[guildId] = {
+    ready: false,
+    noNewUsesCount: noNewUsesThreshold + 1,
+  };
+
+  setLock(guildId);
+};
+
+/**
  * - Fetches invites for a guild and populates the invite store
  * - Marks the guild as ready to listen to new member events
  */
@@ -256,15 +272,6 @@ const fetchInitialInvites = async (guild: Discord.Guild) => {
         newUses: 0,
       };
     });
-  }
-
-  let guildMetaData = guildMetaDataStore[guildId];
-
-  if (!guildMetaData) {
-    guildMetaDataStore[guildId] = {
-      ready: true,
-      noNewUsesCount: noNewUsesThreshold + 1,
-    };
   }
 
   guildMetaDataStore[guildId].ready = true;
@@ -392,7 +399,8 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
       await requestGuildInvites(guild);
 
       return;
-    } else { // Permissions required, we set the loop to idle and clear the user queue
+    } else {
+      // Permissions required, we set the loop to idle and clear the user queue
       guildMetaData.noNewUsesCount = noNewUsesThreshold + 1;
       newMemberQueues[guildId] = [];
       logger.debug(
@@ -428,7 +436,8 @@ queue length: ${queueLength}`
    */
   if (delta === 0) {
     const usedInvitesLength = usedInvites.length;
-    if (usedInvitesLength > 0) { // This should never happen
+    if (usedInvitesLength > 0) {
+      // This should never happen
       logger.error(`Calculation error for guild ${guildId}, \
 ${usedInvitesLength} used invites, delta = 0`);
     }
@@ -436,7 +445,8 @@ ${usedInvitesLength} used invites, delta = 0`);
     guildMetaData.noNewUsesCount = noNewUsesCount;
   } else if (delta > 0) {
     assignReferrals(usedInvites, guild, delta);
-  } else { // Delta < 0, this should never happen
+  } else {
+    // Delta < 0, this should never happen
     logger.error(`Calculation error for guild ${guildId}, delta < 0`);
   }
 
@@ -465,18 +475,7 @@ const readyHandler = async () => {
       unavailableGuilds += 1;
     }
 
-    const guildId = guild.id;
-
-    /**
-     * Start with count greater than threshold to indicate that the request
-     * loop is idle
-     */
-    guildMetaDataStore[guildId] = {
-      ready: false,
-      noNewUsesCount: noNewUsesThreshold + 1,
-    };
-
-    setLock(guildId);
+    initializeGuild(guild.id);
   });
 
   logger.info(`UNAVAILABLE GUILDS: ${unavailableGuilds}`);
@@ -487,8 +486,7 @@ const readyHandler = async () => {
   await P.each(chunkedGuilds, async (guildsChunk, chunkIndex) => {
     const baseIndex = chunkIndex * CHUNK_SIZE + 1;
     logger.info(
-      `Reading guilds ${baseIndex} through ${baseIndex +
-        CHUNK_SIZE - 1}`
+      `Reading guilds ${baseIndex} through ${baseIndex + CHUNK_SIZE - 1}`
     );
 
     await P.map(guildsChunk, async (guild, index) => {
@@ -509,6 +507,8 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
   logger.info(
     `Received new guild "${guild.name}" (${guild.memberCount} members)`
   );
+
+  initializeGuild(guild.id);
 
   await fetchInitialInvites(guild);
 };
