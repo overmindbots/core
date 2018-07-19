@@ -19,15 +19,19 @@ const printHelp = () => {
 
 const execute = command =>
   new Promise((resolve, reject) => {
-    exec(command, function(error, stdout, stderr) {
+    console.log(command);
+
+    const cmd = exec(command, function(error, stdout) {
       if (error) {
         return reject(error);
       }
 
       resolve(stdout);
     });
-  });
 
+    cmd.stdout.pipe(process.stdout);
+    cmd.stderr.pipe(process.stderr);
+  });
 
 // TODO: Add documentation
 const getUpdatedPackages = publishOutput => {
@@ -59,30 +63,22 @@ async function main() {
   const buildTemplatePath = path.resolve('./scripts/buildTemplates.js');
   const buildCommand = package => `node ${buildTemplatePath} ${package}`;
 
-  await Promise.all(
-    updatedPackages.map(package =>
-      execute(buildCommand(package))
-        .then(() => package)
-        .catch(err => {
-          console.log('[ERROR]');
-          console.log('Command failed:', `'${buildCommand(package)}'`);
-          console.log('err:', err);
-          throw err;
-        })
-    )
-  )
-    .then(packages => {
-      console.log('[SUCCESS]\n');
-      console.log('Updated packages:');
-      packages.forEach(package => {
-        console.log('  -', package);
-      });
-      console.log('\nProgram finished without errors.');
-    })
-    .catch(err => {
+  for (const package of updatedPackages) {
+    try {
+      await execute(buildCommand(package));
+    } catch (_) {
+      console.log('Command failed:', `'${buildCommand(package)}'`);
       console.log('\nProgram finished with errors.');
       process.exit(1);
-    });
+    }
+  }
+
+  console.log('[SUCCESS]\n');
+  console.log('Updated packages:');
+  updatedPackages.forEach(package => {
+    console.log('  -', package);
+  });
+  console.log('\nProgram finished without errors.');
 }
 
 main();
