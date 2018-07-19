@@ -32,6 +32,15 @@
     "semantic-release-cli": "^4.0.6"
   },
   "config": {
+    "overmindbots": {
+      "companyPrefix": "@overmindbots",
+      "deployment": {
+        "kubernetesTemplatesDir": "./k8s",
+        "kubernetesGeneratedTemplatesDir": "./k8s-generated",
+        "stagingBranch": "next",
+        "productionBranch": "master"
+      }
+    },
     "commitizen": {
       "path": "cz-lerna-changelog"
     }

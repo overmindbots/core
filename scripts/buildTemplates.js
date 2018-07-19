@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-const companyPrefix = '@overmindbots';
+const utils = require('./templateBuilders/shared/utils');
+const config = utils.getConfig();
+const companyPrefix = config.companyPrefix;
 const packagesDirPath = path.resolve(process.cwd(), './packages');
 const packageBuildScriptsDir = path.resolve(
   process.cwd(),

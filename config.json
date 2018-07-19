@@ -1,6 +1,0 @@
-{
-  "deployment": {
-    "stagingBranch": "next",
-    "productionBranch": "master"
-  }
-}
