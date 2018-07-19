@@ -1,26 +1,3 @@
-/*
- * Builds a k8s template file into k8s-generated
- * 
- * * Template variables provided
- * - imageUrl
-
- * - shardId
- * - deploymentStage
- *
- * == Shared ==
- * - shardID:
- *  passed iteratively
- * - deploymentStage
- *  inferred from context
- * 
- * == Inside CI ==
- * imageUrl:
- * - GOOGLE_PROJECT_ID
- * - CIRCLE_BRANCH
- * - CIRCLE_BUILD_NUM
- * 
- * == Locally ==
- */
 const fs = require('fs');
 const path = require('path');
 const handlebars = require('handlebars');
