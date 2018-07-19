@@ -3,34 +3,20 @@ workflows:
   version: 2
   release-and-deploy-staging:
     jobs:
-      - prerelease:
+      - release-and-deploy:
           context: staging
-          filters:
-            branches:
-              only: next
-      - deploy:
-          context: staging
-          requires:
-            - prerelease
           filters:
             branches:
               only: next
   release-and-deploy-production:
     jobs:
-      - release:
+      - release-and-deploy:
           context: production
-          filters:
-            branches:
-              only: master
-      - deploy:
-          context: production
-          requires:
-            - release
           filters:
             branches:
               only: master
 jobs:
-  deploy:
+  release-and-deploy:
     docker:
       - image: google/cloud-sdk
     working_directory: ~/repo
@@ -64,42 +50,14 @@ jobs:
           name: Install node deps
           command: npm install handlebars lodash dotenv
       - run:
-          name: Install dependencies
-          command: yarn install
+          name: Publish and build templates
+          command: |
+            if [ "$ {CIRCLE_BRANCH}" == "next" ]; then
+              node ./scripts/publishAndBuildTemplates.js 'lerna publish --cd-version prerelease'
+            fi
+            if [ "$ {CIRCLE_BRANCH}" == "master" ]; then
+              node ./scripts/publishAndBuildTemplates.js 'lerna publish'
+            fi
       - run:
           name: Deploy
-          command: bash ./scripts/deployProduction.sh
-  prerelease:
-    docker:
-      - image: 'circleci/node:latest'
-    steps:
-      - checkout
-      - run:
-          name: install lerna
-          command: yarn global add lerna
-      - run:
-          name: bootstrap dependencies
-          command: yarn bootstrap
-      - run:
-          name: lerna updated
-          command: yarn lerna updated
-      - run:
-          name: lerna release
-          command: yarn lerna-publish --cd-version prerelease --yes
-  release:
-    docker:
-      - image: 'circleci/node:latest'
-    steps:
-      - checkout
-      - run:
-          name: install lerna
-          command: yarn global add lerna
-      - run:
-          name: bootstrap dependencies
-          command: yarn bootstrap
-      - run:
-          name: lerna updated
-          command: yarn lerna updated
-      - run:
-          name: lerna release
-          command: yarn lerna-publish --yes
+          command: bash ./scripts/deploy.sh
