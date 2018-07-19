@@ -11,7 +11,7 @@ const packageName = process.argv[2];
 const packages = new Set();
 
 if (!packageName) {
-  throw new Error("an app's name has to be pawssed as an argument");
+  throw new Error("an app's name has to be passed as an argument");
 }
 
 /**
