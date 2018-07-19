@@ -1,4 +1,5 @@
 {
+  "extends": "eslint:recommended",
   "env": {
     "node": true
   },
@@ -6,7 +7,6 @@
     "ecmaVersion": 6
   },
   "rules": {
-    "no-undef": 1,
-    "no-shadow": 1
+    
   }
 }
