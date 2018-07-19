@@ -9,5 +9,6 @@
   "tslint.packageManager": "yarn",
   "tslint.run": "onSave",
   "editor.formatOnSave": true,
-  "eslint.enable": true
+  "eslint.enable": true,
+  "eslint.run": "onType"
 }
