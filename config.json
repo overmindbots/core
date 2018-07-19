@@ -1,9 +1,0 @@
-{
-  "companyPrefix": "@overmindbots",
-  "deployment": {
-    "kubernetesTemplatesDir": "./k8s",
-    "kubernetesGeneratedTemplatesDir": "./k8s-generated",
-    "stagingBranch": "next",
-    "productionBranch": "master"
-  }
-}

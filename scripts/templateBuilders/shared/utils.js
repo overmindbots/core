@@ -1,8 +1,9 @@
 const path = require('path');
-const config = require('../../../config.json');
+const pkgJson = require('../../../package.json');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
+const config = pkgJson.config.overmindbots;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
 const deploymentStages = {
   development: 'development',
@@ -10,6 +11,13 @@ const deploymentStages = {
   production: 'production',
 };
 
+/**
+ * Gets the project's global config
+ */
+function getConfig() {
+  const pkgJson = require('../../../package.json');
+  return pkgJson.config.overmindbots;
+}
 /**
  * Get the current deployment stage
  *
@@ -95,4 +103,5 @@ module.exports = {
   buildTemplate,
   getDeploymentStage,
   getBaseTemplateData,
+  getConfig,
 };
