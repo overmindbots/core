@@ -41,7 +41,7 @@ spec:
           - name: DEPLOYMENT_STAGE
             value: {{deploymentStage}}
           - name: BOT_REFERRAL_RANKS_REPLICAS_COUNT
-            value: "{{choose botReferralRanksReplicas 4}}"
+            value: "{{botReferralRanksTotalShards}}"
           - name: POD_ID
             valueFrom:
               fieldRef:

@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const config = require('../config.json');
 
-const companyPrefix = '@overmindbots';
+const companyPrefix = config.companyPrefix;
 const packagesDirPath = path.resolve(process.cwd(), './packages');
 const packageBuildScriptsDir = path.resolve(
   process.cwd(),
