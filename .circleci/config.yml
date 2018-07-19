@@ -45,9 +45,9 @@ jobs:
       - run:
           name: Setup docker client
           command: gcloud auth configure-docker
-      - run:	
-          name: install lerna	
-          command: yarn global add lerna  
+      - run:
+          name: install lerna
+          command: yarn global add lerna
       - run:
           # move this to a safe place
           name: Install node deps
