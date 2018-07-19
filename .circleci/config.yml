@@ -55,10 +55,10 @@ jobs:
       - run:
           name: Publish and build templates
           command: |
-            if [ "$ {CIRCLE_BRANCH}" == "next" ]; then
+            if [ "${CIRCLE_BRANCH}" == "next" ]; then
               node ./scripts/publishAndBuildTemplates.js 'lerna publish --cd-version prerelease'
             fi
-            if [ "$ {CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
               node ./scripts/publishAndBuildTemplates.js 'lerna publish'
             fi
       - run:
