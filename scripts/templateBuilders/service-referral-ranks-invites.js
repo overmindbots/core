@@ -1,12 +1,11 @@
+require('./shared/init');
+
 const fs = require('fs');
 const path = require('path');
 const handlebars = require('handlebars');
 const _ = require('lodash');
-const dotenv = require('dotenv');
-const config = require('../../config.json');
 
-dotenv.config();
-dotenv.config({ path: '.env.local' });
+const utils = require('./shared/utils');
 
 const totalShards = process.env.SERVICE_REFERRAL_RANKS_INVITES_TOTAL_SHARDS;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME;
@@ -18,17 +17,6 @@ if (!totalShards) {
 
 const packageName = 'service-referral-ranks-invites';
 
-function getDeploymentStage() {
-  if (!process.env.CIRCLE_BRANCH) {
-    return 'development';
-  }
-  if (process.env.CIRCLE_BRANCH === config.deployment.stagingBranch) {
-    return 'staging';
-  }
-  if (process.env.CIRCLE_BRANCH === config.deployment.productionBranch) {
-    return 'production';
-  }
-}
 /**
  * Builds the kubernetes config from the template file
  */
@@ -55,7 +43,7 @@ function buildTemplate(baseTemplateValues, shardId) {
   fs.writeFileSync(generatedFilePath, compiled);
 }
 
-const deploymentStage = getDeploymentStage();
+const deploymentStage = utils.getDeploymentStage();
 let imageUrl;
 let imagePullPolicy;
 
