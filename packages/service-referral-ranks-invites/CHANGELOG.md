@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.2"></a>
+## [0.0.1-beta.2](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.1...@overmindbots/service-referral-ranks-invites@0.0.1-beta.2) (2018-07-19)
+
+
+### Bug Fixes
+
+* fix new guilds not being initialized in memory ([6663b4a](https://github.com/overmindbots/core/commit/6663b4a)), closes [#57](https://github.com/overmindbots/core/issues/57)
+
+
+
+
 <a name="0.0.1-beta.1"></a>
 ## [0.0.1-beta.1](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.0...@overmindbots/service-referral-ranks-invites@0.0.1-beta.1) (2018-07-19)
 
