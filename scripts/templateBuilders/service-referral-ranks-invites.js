@@ -13,7 +13,6 @@ if (!totalShards) {
 }
 
 const packageName = path.basename(__filename).split('.js')[0];
-console.log('packageName', packageName);
 const templateValues = utils.getBaseTemplateData();
 
 // Generate one deployment per shardId
