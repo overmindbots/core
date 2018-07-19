@@ -30,6 +30,8 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: service-referral-ranks-invites
+        command: ["/bin/sh","-c"]
+        args: ["cd packages/service-referral-ranks-invites; npm run production:start"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
