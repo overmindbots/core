@@ -5,7 +5,7 @@ metadata:
   name: bot-referral-ranks
   namespace: bot-alchemy
 spec:
-  replicas: {{choose botReferralRanksReplicas 4}}
+  replicas: {{totalShards}}
   selector:
     matchLabels:
       app: bot-referral-ranks
@@ -28,6 +28,8 @@ spec:
               topologyKey: kubernetes.io/hostname
       containers:
       - name: bot-alchemy-referral-ranks
+        command: ["/bin/sh","-c"]
+        args: ["cd packages/bot-referral-ranks; npm run production:start"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
