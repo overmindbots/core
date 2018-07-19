@@ -21,11 +21,11 @@ touch k8s-generated/.gitkeep
 
 # === Build images === #
 
-serviceReferralRanksInvites=service-referral-ranks-invites:develop
+serviceReferralRanksInvites=service-referral-ranks-invites:development
 
 docker build -t $serviceReferralRanksInvites -f packages/service-referral-ranks-invites/Dockerfile .
 
-node ./scripts/buildTemplates.js
+node ./scripts/buildTemplates.js service-referral-ranks-invites
 
 {
   kubectl apply -f ./k8s-generated
