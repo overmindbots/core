@@ -75,12 +75,10 @@ export class PodStatusServer {
   }
   private async livenessRequest(res: Response) {
     res.writeHead(this.livenessStatus);
-    logger.info(`==> Probe request. Replied with: ${this.livenessStatus}`);
     res.send();
   }
   private async readinessRequest(res: Response) {
     res.writeHead(this.readinessStatus);
-    logger.info(`==> Probe request. Replied with: ${this.readinessStatus}`);
     res.send();
   }
 }
