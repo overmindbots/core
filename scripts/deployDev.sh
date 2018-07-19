@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+monorepoImageUrl=gcr.io/overmindbots/core:development
+
 kubectx minikube
 
 rm -rf k8s-generated
@@ -19,13 +21,13 @@ touch k8s-generated/.gitkeep
   echo "Did not create overmindbots namespace"
 }
 
-# === Build images === #
+# === Build image === #
 
-serviceReferralRanksInvites=service-referral-ranks-invites:development
-
-docker build -t $serviceReferralRanksInvites -f packages/service-referral-ranks-invites/Dockerfile .
+docker build -t $monorepoImageUrl -f Dockerfile .
 
 node ./scripts/buildTemplates.js service-referral-ranks-invites
+node ./scripts/buildTemplates.js service-bot-manager
+node ./scripts/buildTemplates.js bot-referral-ranks
 
 {
   kubectl apply -f ./k8s-generated
