@@ -67,10 +67,10 @@ function buildPackageKubeTemplate() {
   );
   const packageBuildScriptExists = fs.existsSync(buildScriptPath);
   if (!packageBuildScriptExists) {
-    throw new Error(
-      `Package of name ${packageName} has no build script. \n` +
-        `Create one at ${packageBuildScriptsDir}\n`
+    console.warn(
+      `===X Skipping template build for ${packageName}. No build script`
     );
+    return;
   }
   console.log(
     `\n===> Running template build script for ${companyPrefix}/${packageName}`

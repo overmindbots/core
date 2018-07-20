@@ -12,7 +12,7 @@ export class CustomError extends Error {
 }
 
 /**
- * Used for type refinement. This error should never be actually thrown and
+ * Used for type refinement. This error shouldn't be actually thrown and
  * is the equivalent of a TypeError in runtime
  */
 export class AssertionError extends Error {
