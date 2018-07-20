@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.11"></a>
+## [0.0.1-beta.11](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.10...@overmindbots/service-referral-ranks-invites@0.0.1-beta.11) (2018-07-20)
+
+
+### Bug Fixes
+
+* add missing default env variable ([9c6f644](https://github.com/overmindbots/core/commit/9c6f644))
+
+
+
+
 <a name="0.0.1-beta.10"></a>
 ## [0.0.1-beta.10](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.9...@overmindbots/service-referral-ranks-invites@0.0.1-beta.10) (2018-07-20)
 
