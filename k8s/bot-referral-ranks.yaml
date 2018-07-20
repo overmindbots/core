@@ -3,7 +3,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: bot-referral-ranks
-  namespace: bot-alchemy
+  namespace: overmindbots
 spec:
   replicas: {{totalShards}}
   selector:
@@ -27,7 +27,7 @@ spec:
                   - bot-referral-ranks
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: bot-alchemy-referral-ranks
+      - name: overmindbots-core
         command: ["/bin/sh","-c"]
         args: ["cd packages/bot-referral-ranks; npm run production:start"]
         image: {{{imageUrl}}}
@@ -58,10 +58,10 @@ spec:
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
-              name: bot-alchemy-secret
+              name: overmindbots-secret
               key: MONGODB_URI
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
-              name: bot-alchemy-secret
+              name: overmindbots-secret
               key: BOT_TOKEN
