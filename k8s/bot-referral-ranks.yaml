@@ -58,10 +58,10 @@ spec:
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
-              name: overmindbots-secret
+              name: overmindbots-secrets
               key: MONGODB_URI
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
-              name: overmindbots-secret
+              name: overmindbots-secrets
               key: BOT_TOKEN
