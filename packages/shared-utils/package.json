@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/shared-utils",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1-beta.6",
   "private": true,
   "scripts": {
     "clean:build": "rm -rf ./build",
