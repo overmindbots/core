@@ -3,7 +3,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: bot-manager
-  namespace: bot-alchemy
+  namespace: overmindbots
   labels:
     app: bot-manager
 spec:
@@ -17,7 +17,7 @@ spec:
         app: bot-manager
     spec:
       containers:
-      - name: bot-alchemy-bot-manager
+      - name: overmindbots-core
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
@@ -49,14 +49,14 @@ spec:
           - name: MONGODB_URI
             valueFrom:
               secretKeyRef:
-                name: bot-alchemy-secret
+                name: overmindbots-secrets
                 key: MONGODB_URI
 ---
 apiVersion: v1
 kind: Service  
 metadata:  
   name: bot-manager
-  namespace: bot-alchemy
+  namespace: overmindbots
   labels:
     app: bot-manager
 spec:  
