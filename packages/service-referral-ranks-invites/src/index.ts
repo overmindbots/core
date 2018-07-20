@@ -393,7 +393,10 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
 
   let invites;
 
-  logger.debug(`[${guildId}] Fetching invites`);
+  // Only log if this is the first fetch in a while
+  if (noNewUsesCount === 0) {
+    logger.debug(`[${guildId}] Fetching invites`);
+  }
 
   try {
     invites = (await guild.fetchInvites()).array();
@@ -423,10 +426,13 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
 
   const queueLength = queue ? queue.length : 0;
 
-  logger.debug(
-    `[${guildId}] Invites fetched. DELTA = ${delta} accross \
+  // Only log if this is the first fetch in a while or if there are new uses
+  if (noNewUsesCount === 0 || delta) {
+    logger.debug(
+      `[${guildId}] Invites fetched. DELTA = ${delta} accross \
 ${usedInvites.length} invites, QUEUE_LENGTH = ${queueLength}`
-  );
+    );
+  }
 
   /**
    * If there are more new uses than users in the queue we reset the guild lock
