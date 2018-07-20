@@ -5,6 +5,7 @@ const handlebars = require('handlebars');
 
 const config = pkgJson.config.overmindbots;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
+const projectId = process.env.GOOGLE_PROJECT_ID;
 const deploymentStages = {
   development: 'development',
   staging: 'staging',
@@ -43,7 +44,7 @@ function getImageUrl() {
   if (deploymentStage === deploymentStages.development) {
     return `gcr.io/${repoName}:development`;
   }
-  return `gcr.io/${repoName}:${process.env.CIRCLE_BRANCH}-${
+  return `gcr.io/${projectId}/${repoName}:${process.env.CIRCLE_BRANCH}-${
     process.env.CIRCLE_BUILD_NUM
   }`;
 }

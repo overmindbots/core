@@ -5,7 +5,7 @@ import { DISCORD_BASE_ADD_BOT_URL } from '@overmindbots/shared-utils/constants';
 /**
  * Verifies that a list environment variables exist
  * @param names environment variable names to define
- * TODO: Improve type inference, right now it doesn't return the right types
+ * TODO: Improve type inference: right now it doesn't return the right types
  */
 export function verifyEnvVariables(names: string[]) {
   interface EnvVar {
