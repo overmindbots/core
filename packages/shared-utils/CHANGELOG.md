@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.5"></a>
+## [0.0.1-beta.5](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.1-beta.4...@overmindbots/shared-utils@0.0.1-beta.5) (2018-07-20)
+
+
+### Bug Fixes
+
+* correct Docker image building ([13d91c8](https://github.com/overmindbots/shared-utils/commit/13d91c8))
+* fix again ([9451326](https://github.com/overmindbots/shared-utils/commit/9451326))
+
+
+
+
 <a name="0.0.1-beta.4"></a>
 ## [0.0.1-beta.4](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.1-beta.3...@overmindbots/shared-utils@0.0.1-beta.4) (2018-07-20)
 
