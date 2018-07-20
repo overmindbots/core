@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.1"></a>
+## [0.0.1-beta.1](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.1-beta.0...@overmindbots/shared-utils@0.0.1-beta.1) (2018-07-20)
+
+
+### Bug Fixes
+
+* make comment more explanatory ([16ad804](https://github.com/overmindbots/shared-utils/commit/16ad804))
+
+
+
+
 <a name="0.0.1-beta.0"></a>
 ## 0.0.1-beta.0 (2018-07-18)
 
