@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/service-referral-ranks-invites",
-  "version": "0.0.1-beta.8",
+  "version": "0.0.1-beta.9",
   "private": true,
   "engines": {
     "node": ">=9.0.0"

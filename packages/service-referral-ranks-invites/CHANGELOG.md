@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.9"></a>
+## [0.0.1-beta.9](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.8...@overmindbots/service-referral-ranks-invites@0.0.1-beta.9) (2018-07-20)
+
+
+### Bug Fixes
+
+* add missing webpack dev ([739551b](https://github.com/overmindbots/core/commit/739551b))
+
+
+
+
 <a name="0.0.1-beta.8"></a>
 ## [0.0.1-beta.8](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.1-beta.7...@overmindbots/service-referral-ranks-invites@0.0.1-beta.8) (2018-07-20)
 
