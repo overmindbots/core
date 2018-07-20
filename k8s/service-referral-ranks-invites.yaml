@@ -29,7 +29,7 @@ spec:
                   - service-referral-ranks-invites
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: service-referral-ranks-invites
+      - name: overmindbots-core
         command: ["/bin/sh","-c"]
         args: ["cd packages/service-referral-ranks-invites; npm run production:start"]
         image: {{{imageUrl}}}
