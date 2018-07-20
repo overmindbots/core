@@ -4,6 +4,7 @@ RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 RUN mkdir /root/repo
 WORKDIR /root/repo
 
+COPY webpack.production.config.js .
 COPY package.json yarn.lock ./
 COPY packages packages
 
