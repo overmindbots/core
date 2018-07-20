@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/shared-models",
-  "version": "0.0.1-beta.2",
+  "version": "0.0.1-beta.3",
   "private": true,
   "scripts": {
     "clean:build": "rm -rf ./build",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-utils": "^0.0.1-beta.2",
+    "@overmindbots/shared-utils": "^0.0.1-beta.3",
     "discord.js": "^11.3.2",
     "mongoose": "^5.2.2"
   },
