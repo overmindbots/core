@@ -16,7 +16,7 @@ export class CustomGraphQLError extends Error {
   }
 }
 /**
- * Thrown when a request in a protected endpoint is not Authenticated
+ * Thrown when a request to a protected endpoint is not Authenticated
  */
 export class GraphQLUnauthenticatedError extends CustomGraphQLError {
   constructor(extra?: string) {
