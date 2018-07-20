@@ -24,7 +24,7 @@ export class PodStatusServer {
     this.httpServer = null;
   }
   /**
-   * Sets the server's liveness status.
+   * Sets the server's liveness status
    */
   public async setLivenessStatus(statusCode: LIVENESS_STATUSES) {
     this.livenessStatus = statusCode;
