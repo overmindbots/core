@@ -33,7 +33,7 @@ export class GraphQLUnauthorizedError extends CustomGraphQLError {
 }
 
 /**
- * When a request is incorrectly formed
+ * Thrown when a request is incorrectly formed
  */
 export class GraphQLBadRequestError extends CustomGraphQLError {
   constructor(extra?: string) {
