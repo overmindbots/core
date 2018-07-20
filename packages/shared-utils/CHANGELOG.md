@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1"></a>
+## [0.0.1](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.1-beta.6...@overmindbots/shared-utils@0.0.1) (2018-07-20)
+
+
+### Bug Fixes
+
+* another fake fix ([13acb99](https://github.com/overmindbots/shared-utils/commit/13acb99))
+* correct comment ([24662c7](https://github.com/overmindbots/shared-utils/commit/24662c7))
+* face fix for bump ([83c43d7](https://github.com/overmindbots/shared-utils/commit/83c43d7))
+* fake fix ([f2b9df3](https://github.com/overmindbots/shared-utils/commit/f2b9df3))
+
+
+
+
 <a name="0.0.1-beta.6"></a>
 ## [0.0.1-beta.6](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.1-beta.5...@overmindbots/shared-utils@0.0.1-beta.6) (2018-07-20)
 
