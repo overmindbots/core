@@ -2,7 +2,10 @@
 import '~/startup';
 
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
-import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import {
+  asyncDelay,
+  createAsyncCatcher,
+} from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
@@ -11,6 +14,7 @@ import logger from 'winston';
 import {
   BOT_TOKEN,
   CHUNK_SIZE,
+  FETCH_LOOP_DELAY,
   MONGODB_URI,
   NO_NEW_USES_THRESHOLD,
   SHARD_ID,
@@ -396,9 +400,11 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
   let invites;
 
   // Only log if this is the first fetch in a while
-  if (noNewUsesCount === 0) {
+  if (noNewUsesCount === 0) {
     logger.debug(`[${guildId}] Fetching invites`);
   }
+
+  const startTimestamp = Date.now();
 
   try {
     invites = (await guild.fetchInvites()).array();
@@ -466,7 +472,17 @@ ${usedInvitesLength} used invites, delta = 0`);
     assignReferrals(usedInvites, guild, delta);
   } else {
     // Delta < 0, this should never happen
-    logger.error(`Calculation error for guild ${guildId}, delta < 0`);
+    logger.error(`[${guildId}] Calculation error for guild, delta < 0`);
+  }
+
+  const finishTimestamp = Date.now();
+
+  const fetchDelay = finishTimestamp - startTimestamp;
+
+  const timeForNextFetch = FETCH_LOOP_DELAY - fetchDelay;
+
+  if (timeForNextFetch > 0) {
+    await asyncDelay(timeForNextFetch);
   }
 
   if (noNewUsesCount < noNewUsesThreshold) {
