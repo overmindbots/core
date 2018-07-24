@@ -53,7 +53,6 @@ spec:
               secretKeyRef:
                 name: overmindbots-secrets
                 key: MONGODB_URI
-        
 ---
 apiVersion: v1
 kind: Service  
