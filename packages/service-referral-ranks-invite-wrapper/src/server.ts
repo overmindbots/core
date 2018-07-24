@@ -3,6 +3,12 @@ import cors from 'cors';
 import express from 'express';
 import passport from 'passport';
 import logger from 'winston';
+import {
+  API_URL,
+  DISCORD_CLIENT_ID,
+  OAUTH_AUTHORIZATION_URL,
+  PORT,
+} from '~/constants';
 
 const asyncCatcher = createAsyncCatcher();
 
@@ -14,38 +20,42 @@ app.use((req, res, next) => {
   next();
 });
 app.use(passport.initialize());
+
+/**
+ * Initial route that redirects to oauth dialog
+ * FIXME: This route should change to use guildId and userId
+ */
 app.get(
   '/oauth',
-  passport.authenticate('discord', {
+  passport.authenticate('oauth2', {
     scope: ['identify'],
   })
 );
+/**
+ * Where the user is redirected after a successful Authentication
+ */
 app.get(
   '/oauth/callback',
-  passport.authenticate('discord', {
-    // failureRedirect: `${CLIENT_URL}/login`, // Redirect back to oauth dialog
+  passport.authenticate('oauth2', {
+    // NOTE: Maybe we want to redirect somewhere else to get data of people who rejected
+    failureRedirect: OAUTH_AUTHORIZATION_URL,
     session: false,
   }),
-  asyncCatcher(
-    async (req: { user: { _id: string } }, res: Express.Response) => {
-      const { _id: userId } = req.user;
-      logger.debug(req.user);
-      logger.debug(`=> Received auth of userId: ${userId}`);
-      // const user = await User.findOne(userId);
-      // if (!user) {
-      //   throw new Error('Unauthorized');
-      // }
-      // const { token } = await user.createSession();
-
-      // res.redirect(inviteUrl); // Redirect to inviteUrl
-    }
-  )
+  asyncCatcher(async (req, res) => {
+    // const { id, username, discriminator } = req.user;
+    // - Create/Get invite link for redirect
+    // - ...Do stuff
+    // - Redirect to invite link
+    // res.redirect('<invite link here>'); // Redirect to inviteUrl
+  })
 );
 const server = app.listen(PORT, () => {
-  // tslint:disable-next-line
-  console.log(`
+  logger.info(`
     == Started server ==
     PORT: ${PORT}
-    ...
+    API_URL: ${API_URL}
+    DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
   `);
 });
+
+// TODO: Close on sigint/sigterm
