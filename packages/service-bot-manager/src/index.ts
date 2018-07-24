@@ -3,7 +3,7 @@ import startup from '~/startup';
 
 import logger from 'winston';
 import { BotManager } from '~/botManager';
-import { BOT_REFERRAL_RANKS_REPLICAS_COUNT } from '~/constants';
+import { BOT_REFERRAL_RANKS_TOTAL_SHARDS } from '~/constants';
 
 /**
  * Returns the total amount of shards the cluster will run.
@@ -13,7 +13,7 @@ import { BOT_REFERRAL_RANKS_REPLICAS_COUNT } from '~/constants';
  * what amount of replicas are configured and return that
  */
 async function getTotalShards() {
-  return BOT_REFERRAL_RANKS_REPLICAS_COUNT;
+  return BOT_REFERRAL_RANKS_TOTAL_SHARDS;
   // }
   // const ext = new Api.Extensions(Api.config.getInCluster());
   // const namespace = ext.namespaces && (ext.namespaces('bot-alchemy') as any);
