@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.4"></a>
+## [0.0.2-beta.4](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.3...@overmindbots/service-bot-manager@0.0.2-beta.4) (2018-07-24)
+
+
+### Bug Fixes
+
+* use new url parser to avoid crashes on db startup ([53b7705](https://github.com/overmindbots/service-bot-manager/commit/53b7705))
+
+
+
+
 <a name="0.0.2-beta.3"></a>
 ## [0.0.2-beta.3](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.2...@overmindbots/service-bot-manager@0.0.2-beta.3) (2018-07-24)
 
