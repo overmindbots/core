@@ -1,5 +1,5 @@
 {
-  "name": "@overmindbots/service-referral-ranks-invite-wrapper",
+  "name": "@overmindbots/app-referral-ranks-invite-wrapper",
   "version": "0.0.0",
   "private": true,
   "engines": {
