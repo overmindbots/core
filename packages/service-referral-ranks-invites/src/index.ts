@@ -2,7 +2,10 @@
 import '~/startup';
 
 import { Referral } from '@overmindbots/shared-models/referralRanks/Referral';
-import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import {
+  asyncDelay,
+  createAsyncCatcher,
+} from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
@@ -11,6 +14,7 @@ import logger from 'winston';
 import {
   BOT_TOKEN,
   CHUNK_SIZE,
+  FETCH_LOOP_DELAY,
   MONGODB_URI,
   NO_NEW_USES_THRESHOLD,
   SHARD_ID,
@@ -37,9 +41,11 @@ logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
  * In-memory storage of all invites
  */
 const inviteStore: {
-  [code: string]: {
-    invite: Discord.Invite;
-    newUses: number;
+  [guildId: string]: {
+    [code: string]: {
+      invite: Discord.Invite;
+      newUses: number;
+    };
   };
 } = {};
 
@@ -226,7 +232,7 @@ const dequeue = (guildId: string, amount: number = 1) => {
 };
 
 /**
- * Initialize a guild's metadata and lock
+ * Initialize a guild's metadata, invite store and lock
  */
 const initializeGuild = (guildId: string) => {
   /**
@@ -238,11 +244,13 @@ const initializeGuild = (guildId: string) => {
     noNewUsesCount: noNewUsesThreshold + 1,
   };
 
+  inviteStore[guildId] = {};
+
   setLock(guildId);
 };
 
 /**
- * - Fetches invites for a guild and populates the invite store
+ * - Fetches invites for a guild and populates its invite store
  * - Marks the guild as ready to listen to new member events
  */
 const fetchInitialInvites = async (guild: Discord.Guild) => {
@@ -259,15 +267,14 @@ const fetchInitialInvites = async (guild: Discord.Guild) => {
       await fetchInitialInvites(guild);
       return;
     } else {
-      logger.debug(
-        `[${guildId}] Permissions missing (initial invites read)`
-      );
+      logger.debug(`[${guildId}] Permissions missing (initial invites read)`);
     }
   }
 
   if (invites) {
     invites.forEach(invite => {
-      inviteStore[invite.code] = {
+      const guildInvites = inviteStore[guildId];
+      guildInvites[invite.code] = {
         invite,
         newUses: 0,
       };
@@ -283,10 +290,7 @@ const fetchInitialInvites = async (guild: Discord.Guild) => {
  * Calculate total new uses across invites for a guild
  */
 const calculateDelta = (guildId: string) => {
-  const guildInvites = _.filter(
-    inviteStore,
-    inviteData => inviteData.invite.guild.id === guildId
-  );
+  const guildInvites = inviteStore[guildId];
 
   return _.reduce(
     guildInvites,
@@ -298,12 +302,13 @@ const calculateDelta = (guildId: string) => {
 /**
  * Get an array of the invites that have new uses in the guild
  */
-const calculateUsedInvites = (invites: Discord.Invite[]) => {
+const calculateUsedInvites = (invites: Discord.Invite[], guildId: string) => {
   const usedInvites: Discord.Invite[] = [];
+  const guildInvites = inviteStore[guildId];
 
   _.forEach(invites, invite => {
     const code = invite.code;
-    const storedInvite = inviteStore[code];
+    const storedInvite = guildInvites[code];
 
     let previousUses: number;
 
@@ -317,7 +322,7 @@ const calculateUsedInvites = (invites: Discord.Invite[]) => {
     const newUses = invite.uses - previousUses;
 
     // Store the new invite information in memory and update the new uses count
-    inviteStore[code] = {
+    guildInvites[code] = {
       invite,
       newUses,
     };
@@ -344,6 +349,7 @@ const assignReferrals = (
   const newMembers = dequeue(guildId, delta);
   const certainty = 1 / delta;
   const timestamp = Date.now();
+  const guildInvites = inviteStore[guildId];
 
   _.forEach(usedInvites, usedInvite => {
     if (!usedInvite.inviter) {
@@ -355,7 +361,7 @@ Skipping...`);
     /**
      * There's more certainty if the invite has more uses
      */
-    const inviteCertainty = certainty * inviteStore[usedInvite.code].newUses;
+    const inviteCertainty = certainty * guildInvites[usedInvite.code].newUses;
 
     logger.info(
       `[${guildId}] Assigning ${newMembers.length} members to invite \
@@ -394,9 +400,11 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
   let invites;
 
   // Only log if this is the first fetch in a while
-  if (noNewUsesCount === 0) {
+  if (noNewUsesCount === 0) {
     logger.debug(`[${guildId}] Fetching invites`);
   }
+
+  const startTimestamp = Date.now();
 
   try {
     invites = (await guild.fetchInvites()).array();
@@ -420,7 +428,7 @@ const requestGuildInvites = async (guild: Discord.Guild) => {
     }
   }
 
-  const usedInvites = calculateUsedInvites(invites);
+  const usedInvites = calculateUsedInvites(invites, guildId);
   const delta = calculateDelta(guildId);
   const queue = newMemberQueues[guildId];
 
@@ -439,9 +447,7 @@ ${usedInvites.length} invites, QUEUE_LENGTH = ${queueLength}`
    * and wait for new users to join
    */
   if (delta > queueLength) {
-    logger.debug(
-      `[${guildId}] Waiting for lock`
-    );
+    logger.debug(`[${guildId}] Waiting for lock`);
     await setLock(guildId, delta).lock;
     logger.debug(`[${guildId}] Lock released`);
   }
@@ -466,7 +472,17 @@ ${usedInvitesLength} used invites, delta = 0`);
     assignReferrals(usedInvites, guild, delta);
   } else {
     // Delta < 0, this should never happen
-    logger.error(`Calculation error for guild ${guildId}, delta < 0`);
+    logger.error(`[${guildId}] Calculation error for guild, delta < 0`);
+  }
+
+  const finishTimestamp = Date.now();
+
+  const fetchDelay = finishTimestamp - startTimestamp;
+
+  const timeForNextFetch = FETCH_LOOP_DELAY - fetchDelay;
+
+  if (timeForNextFetch > 0) {
+    await asyncDelay(timeForNextFetch);
   }
 
   if (noNewUsesCount < noNewUsesThreshold) {

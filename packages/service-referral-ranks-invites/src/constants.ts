@@ -17,11 +17,17 @@ if (!process.env.CHUNK_SIZE) {
 if (!process.env.NO_NEW_USES_THRESHOLD) {
   throw new Error('Missing env variable NO_NEW_USES_THRESHOLD');
 }
+if (!process.env.FETCH_LOOP_DELAY) {
+  throw new Error('Missing env variable FETCH_LOOP_DELAY');
+}
 
 export const BOT_TOKEN = process.env.BOT_TOKEN;
 export const SHARD_ID = parseInt(process.env.SHARD_ID, 10);
 export const TOTAL_SHARDS = parseInt(process.env.TOTAL_SHARDS, 10);
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE, 10);
-export const NO_NEW_USES_THRESHOLD = parseInt(process.env.NO_NEW_USES_THRESHOLD,
-  10);
+export const NO_NEW_USES_THRESHOLD = parseInt(
+  process.env.NO_NEW_USES_THRESHOLD,
+  10
+);
+export const FETCH_LOOP_DELAY = parseInt(process.env.FETCH_LOOP_DELAY, 10);
