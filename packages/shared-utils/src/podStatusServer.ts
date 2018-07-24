@@ -24,14 +24,14 @@ export class PodStatusServer {
     this.httpServer = null;
   }
   /**
-   * Sets the liveness status of the server
+   * Set the liveness status of the server
    */
   public async setLivenessStatus(statusCode: LIVENESS_STATUSES) {
     this.livenessStatus = statusCode;
     logger.info(`==> Pod Liveness status set: ${statusCode}`);
   }
   /**
-   * Sets the liveness status of the server
+   * Set the liveness status of the server
    */
   public async setReadinessStatus(statusCode: READINESS_STATUSES) {
     this.readinessStatus = statusCode;
