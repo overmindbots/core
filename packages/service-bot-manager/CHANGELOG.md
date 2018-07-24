@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.3"></a>
+## [0.0.2-beta.3](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.2...@overmindbots/service-bot-manager@0.0.2-beta.3) (2018-07-24)
+
+
+### Bug Fixes
+
+* add missing arguments and commands for deployment ([1844593](https://github.com/overmindbots/service-bot-manager/commit/1844593))
+
+
+
+
 <a name="0.0.2-beta.2"></a>
 ## [0.0.2-beta.2](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.1...@overmindbots/service-bot-manager@0.0.2-beta.2) (2018-07-24)
 
