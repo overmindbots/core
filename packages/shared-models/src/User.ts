@@ -31,6 +31,15 @@ export interface UserModel extends mongoose.Model<UserDocument> {
   createOrUpdateFromOauth(
     args: CreateOrUpdateFromOauthArgs
   ): Promise<typeof User>;
+  getUserData(
+    accessToken: string
+  ): Promise<{
+    id: string;
+    username: string;
+    email?: string;
+    avatar: string;
+    discriminator: string;
+  }>;
 }
 
 const schema = new mongoose.Schema(
@@ -66,19 +75,6 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-async function getUserData(accessToken: string) {
-  const requestUrl = `${DISCORD_API_BASE_URL}/users/@me`;
-
-  const result = await fetch(requestUrl, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const resultBody = await result.json();
-
-  return resultBody;
-}
-
 schema.statics.createOrUpdateFromOauth = async ({
   accessToken,
   refreshToken,
@@ -90,7 +86,7 @@ schema.statics.createOrUpdateFromOauth = async ({
     username: displayName,
     avatar,
     error,
-  } = await getUserData(accessToken);
+  } = await schema.statics.getUserData(accessToken);
 
   if (error) {
     throw new Error(`Discord OAuth2: ${error}`);
@@ -118,6 +114,19 @@ schema.statics.createOrUpdateFromOauth = async ({
   await user.save();
 
   return user;
+};
+
+schema.statics.getUserData = async function getUserData(accessToken: string) {
+  const requestUrl = `${DISCORD_API_BASE_URL}/users/@me`;
+
+  const result = await fetch(requestUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const resultBody = await result.json();
+
+  return resultBody;
 };
 
 schema.methods.isOauthTokenExpired = function isOauthTokenExpired() {
