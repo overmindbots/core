@@ -42,7 +42,8 @@
       },
       "disabledApps": [
         "service-bot-manager",
-        "bot-referral-ranks"
+        "bot-referral-ranks",
+        "service-referral-ranks-invites"
       ]
     },
     "commitizen": {
