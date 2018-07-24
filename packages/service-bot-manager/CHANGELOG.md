@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.0"></a>
+## [0.0.2-beta.0](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.1...@overmindbots/service-bot-manager@0.0.2-beta.0) (2018-07-24)
+
+
+### Bug Fixes
+
+* correct bad build-time variable namings ([46e4f0c](https://github.com/overmindbots/service-bot-manager/commit/46e4f0c))
+
+
+
+
 <a name="0.0.1"></a>
 ## [0.0.1](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.1-beta.6...@overmindbots/service-bot-manager@0.0.1) (2018-07-20)
 
