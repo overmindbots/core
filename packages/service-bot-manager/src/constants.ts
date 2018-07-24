@@ -1,8 +1,8 @@
-let botReferralRanksReplicasCount = 0;
+let botReferralRanksTotalShards = 0;
 
-if (process.env.BOT_REFERRAL_RANKS_REPLICAS_COUNT) {
-  botReferralRanksReplicasCount = parseInt(
-    process.env.BOT_REFERRAL_RANKS_REPLICAS_COUNT,
+if (process.env.BOT_REFERRAL_RANKS_TOTAL_SHARDS) {
+  botReferralRanksTotalShards = parseInt(
+    process.env.BOT_REFERRAL_RANKS_TOTAL_SHARDS,
     10
   );
 }
@@ -23,4 +23,4 @@ export const BOT_MANAGER_SERVICE_PORT = parseInt(
 );
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const BOT_MANAGER_SERVICE_HOST = process.env.BOT_MANAGER_SERVICE_HOST;
-export const BOT_REFERRAL_RANKS_REPLICAS_COUNT = botReferralRanksReplicasCount;
+export const BOT_REFERRAL_RANKS_TOTAL_SHARDS = botReferralRanksTotalShards;

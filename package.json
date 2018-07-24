@@ -39,7 +39,12 @@
         "kubernetesGeneratedTemplatesDir": "./k8s-generated",
         "stagingBranch": "next",
         "productionBranch": "master"
-      }
+      },
+      "disabledApps": [
+        "service-bot-manager",
+        "bot-referral-ranks",
+        "service-referral-ranks-invites"
+      ]
     },
     "commitizen": {
       "path": "cz-lerna-changelog"

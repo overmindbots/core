@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const _ = require('lodash');
 
 const utils = require('./templateBuilders/shared/utils');
 const config = utils.getConfig();
@@ -65,6 +66,10 @@ function buildPackageKubeTemplate() {
     packageBuildScriptsDir,
     `${packageName}.js`
   );
+  if (_.includes(config.disabledApps, packageName)) {
+    console.warn(`===! Skipping ${packageName}. Disabled in config`);
+    return;
+  }
   const packageBuildScriptExists = fs.existsSync(buildScriptPath);
   if (!packageBuildScriptExists) {
     console.warn(
