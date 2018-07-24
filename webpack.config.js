@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 
-const getBaseConfig = (dirname) => ({
+const getBaseConfig = dirname => ({
   entry: ['./src/index.ts'],
   output: {
     path: path.join(dirname, 'build'),
@@ -19,7 +19,7 @@ const getBaseConfig = (dirname) => ({
       whitelist: /^@overmindbots\/.*/,
     }),
   ],
-  mode: 'none',
+  mode: process.env.NODE_ENV || 'development',
   plugins: [
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',
