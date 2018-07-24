@@ -53,15 +53,20 @@ spec:
               secretKeyRef:
                 name: overmindbots-secrets
                 key: MONGODB_URI
+          - name: ROLLBAR_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: overmindbots-secrets
+                key: ROLLBAR_ACCESS_TOKEN
 ---
 apiVersion: v1
-kind: Service  
-metadata:  
+kind: Service
+metadata:
   name: service-bot-manager
   namespace: overmindbots
   labels:
     app: service-bot-manager
-spec:  
+spec:
   selector:
     app: service-bot-manager
   ports:
