@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.0"></a>
+## [0.0.2-beta.0](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.1...@overmindbots/shared-models@0.0.2-beta.0) (2018-07-24)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/shared-models
+
 <a name="0.0.1"></a>
 ## [0.0.1](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.1-beta.6...@overmindbots/shared-models@0.0.1) (2018-07-20)
 
