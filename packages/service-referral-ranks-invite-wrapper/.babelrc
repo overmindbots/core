@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "@babel/transform-runtime",
+    [
+      "module-resolver",
+      {
+        "extensions": [".js"],
+        "root": ["./src"],
+        "alias": {
+          "~": "./src"
+        }
+      }
+    ]
+  ]
+}
