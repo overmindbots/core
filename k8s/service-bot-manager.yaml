@@ -18,6 +18,8 @@ spec:
     spec:
       containers:
       - name: overmindbots-core
+        command: ["/bin/sh","-c"]
+        args: ["cd packages/service-bot-manager; npm run production:start"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
@@ -51,6 +53,7 @@ spec:
               secretKeyRef:
                 name: overmindbots-secrets
                 key: MONGODB_URI
+        
 ---
 apiVersion: v1
 kind: Service  
