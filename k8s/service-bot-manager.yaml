@@ -2,19 +2,19 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: bot-manager
+  name: service-bot-manager
   namespace: overmindbots
   labels:
-    app: bot-manager
+    app: service-bot-manager
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bot-manager
+      app: service-bot-manager
   template:
     metadata:
       labels:
-        app: bot-manager
+        app: service-bot-manager
     spec:
       containers:
       - name: overmindbots-core
@@ -40,7 +40,7 @@ spec:
             value: production
           - name: DEPLOYMENT_STAGE
             value: {{deploymentStage}}
-          - name: BOT_REFERRAL_RANKS_REPLICAS_COUNT
+          - name: BOT_REFERRAL_RANKS_TOTAL_SHARDS
             value: "{{botReferralRanksTotalShards}}"
           - name: POD_ID
             valueFrom:
@@ -55,13 +55,13 @@ spec:
 apiVersion: v1
 kind: Service  
 metadata:  
-  name: bot-manager
+  name: service-bot-manager
   namespace: overmindbots
   labels:
-    app: bot-manager
+    app: service-bot-manager
 spec:  
   selector:
-    app: bot-manager
+    app: service-bot-manager
   ports:
   - name: ws-server-port
     port: 4000
