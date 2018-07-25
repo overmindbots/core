@@ -3,7 +3,7 @@ set -e
 
 monorepoImageUrl=gcr.io/overmindbots/core:development
 
-kubectx minikube
+kubectx docker-for-desktop
 
 rm -rf k8s-generated
 mkdir k8s-generated
