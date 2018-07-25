@@ -8,11 +8,7 @@
     "commit": "git-cz",
     "commitmsg": "commitlint -E GIT_PARAMS",
     "bootstrap": "lerna bootstrap",
-    "build-bot-manager": "lerna run build --scope=@overmindbots/service-bot-manager",
-    "start-bot-manager": "lerna run start --scope=@overmindbots/service-bot-manager",
-    "semantic-release": "semantic-release",
     "publish-dependencies": "lerna publish",
-    "start-production:service-referral-ranks-invites": "cd ./packages/service-referral-ranks-invites && yarn start:production",
     "deploy:dev": "sh ./scripts/deployDev.sh",
     "lerna-publish": "lerna publish"
   },
