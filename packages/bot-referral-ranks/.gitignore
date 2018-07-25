@@ -4,3 +4,4 @@ npm-debug.log
 .env
 build
 yarn-error.log
+production-build

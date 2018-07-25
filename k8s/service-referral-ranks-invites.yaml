@@ -31,7 +31,7 @@ spec:
       containers:
       - name: overmindbots-core
         command: ["/bin/sh","-c"]
-        args: ["cd packages/service-referral-ranks-invites; npm run production:start"]
+        args: ["cd packages/service-referral-ranks-invites; npm run start:production"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
