@@ -1,6 +1,7 @@
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import { Guild } from '@overmindbots/shared-models';
 import cors from 'cors';
-import express from 'express';
+import express, { Request } from 'express';
 import passport from 'passport';
 import logger from 'winston';
 import {
@@ -11,8 +12,18 @@ import {
   PORT,
 } from '~/constants';
 
-const asyncCatcher = createAsyncCatcher();
+interface InviteRequest extends Request {
+  params: {
+    inviterDiscordId: string;
+    guildDiscordId: string;
+  };
+}
 
+function isInviteRequest(request: Request): request is InviteRequest {
+  return !!request.params.inviterDiscordId && !!request.params.guildDiscordId;
+}
+
+const asyncCatcher = createAsyncCatcher();
 const app = express();
 
 app.use(cors());
@@ -74,6 +85,33 @@ app.get(
     next();
   })
 );
+
+/**
+ * Route: /invite
+ * validates that the guild exists and returns an html document with:
+ * - OG Tags to display
+ * - A js snippet to redirect to the invite link
+ */
+app.get(
+  '/invite/:guildDiscordId/:inviterDiscordId',
+  asyncCatcher(async (req, res) => {
+    if (!isInviteRequest(req)) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const { guildDiscordId, inviterDiscordId } = req.params;
+
+    const guild = await Guild.findOne({ discordId: guildDiscordId });
+    if (!guild) {
+      // TODO: Send sexier 404 page
+      res.sendStatus(404);
+    }
+
+    console.log('guild', guild);
+  })
+);
+
 const server = app.listen(PORT, () => {
   logger.info(`
     == Started server ==
@@ -83,12 +121,9 @@ const server = app.listen(PORT, () => {
   `);
 });
 
-/**
- * Do all cleanup operations
- */
-const terminate = () => {
+const gracefulShutdown = () => {
   server.close();
 };
 
-process.once('SIGINT', terminate);
-process.once('SIGTERM', terminate);
+process.once('SIGINT', gracefulShutdown);
+process.once('SIGTERM', gracefulShutdown);
