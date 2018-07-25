@@ -90,5 +90,5 @@ const terminate = () => {
   server.close();
 };
 
-process.on('SIGINT', terminate);
-process.on('SIGTERM', terminate);
+process.once('SIGINT', terminate);
+process.once('SIGTERM', terminate);
