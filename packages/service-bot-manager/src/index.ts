@@ -3,7 +3,7 @@ import startup from '~/startup';
 
 import logger from 'winston';
 import { BotManager } from '~/botManager';
-import { BOT_REFERRAL_RANKS_TOTAL_SHARDS } from '~/constants';
+import { BOT_REFERRAL_RANKS_TOTAL_SHARDS, MONGODB_URI } from '~/constants';
 
 /**
  * Returns the total amount of shards the cluster will run.
@@ -31,6 +31,7 @@ startup().then(async () => {
   const botManager = new BotManager(totalShards);
   botManager.start();
   logger.info('==> Bot Manager initialized.');
+  logger.info(`= MONGODB_URI: ${MONGODB_URI}`);
 
   process.once('SIGTERM', () => {
     botManager.shutDown();
