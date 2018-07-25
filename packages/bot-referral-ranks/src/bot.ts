@@ -57,7 +57,8 @@ const eventAsyncCatcher = (eventName: string) =>
     }
 
     logger.error(`Event error (${eventName})`);
-    logger.error(error);
+    /* tslint:disable-next-line no-console */
+    console.error(error);
   });
 
 /**
