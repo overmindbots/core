@@ -42,7 +42,7 @@ function getDeploymentStage() {
 function getImageUrl() {
   const deploymentStage = getDeploymentStage();
   if (deploymentStage === deploymentStages.development) {
-    return `gcr.io/${repoName}:development`;
+    return `gcr.io/overmindbots/core:development`;
   }
   return `gcr.io/${projectId}/${repoName}:${process.env.CIRCLE_BRANCH}-${
     process.env.CIRCLE_BUILD_NUM
@@ -54,7 +54,7 @@ function getImageUrl() {
 function getImagePullPolicy() {
   const deploymentStage = getDeploymentStage();
   if (deploymentStage === deploymentStages.development) {
-    return 'Always';
+    return 'Never';
   }
   return 'IfNotPresent';
 }

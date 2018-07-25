@@ -3,7 +3,10 @@ import logger from 'winston';
 import { MONGODB_URI } from '~/constants';
 
 mongoose
-  .connect(MONGODB_URI)
+  .connect(
+    MONGODB_URI,
+    { useNewUrlParser: true }
+  )
   .then(() => {
     logger.info('Database connected.');
   })
