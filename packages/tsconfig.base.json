@@ -19,6 +19,9 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
-  }
+    "noUnusedParameters": true,
+  },
+  "exclude": [
+    "node_modules/(!@overmindbots)**/*"
+  ]
 }
