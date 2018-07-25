@@ -1,13 +1,22 @@
 #!/bin/bash
 set -e
 
-monorepoImageUrl=gcr.io/overmindbots/core:development
+devDeployTimestamp=$(date +%s)
+monorepoImageUrl="gcr.io/overmindbots/core:$devDeployTimestamp"
 
 kubectx docker-for-desktop
 
 rm -rf k8s-generated
 mkdir k8s-generated
 touch k8s-generated/.gitkeep
+
+{
+  rm .devDeploy
+} || {
+  echo "Creating .devDeploy file"
+}
+touch .devDeploy
+echo $devDeployTimestamp > .devDeploy
 
 {
   helm install --name overmindbots-mongodb stable/mongodb --namespace overmindbots --set mongodbUsername=dev,mongodbPassword=dev,mongodbDatabase=overmindbots
@@ -23,7 +32,7 @@ touch k8s-generated/.gitkeep
 
 # === Build image === #
 
-docker build -t $monorepoImageUrl -f Dockerfile .
+docker build --no-cache -t $monorepoImageUrl -f Dockerfile .
 
 node ./scripts/buildTemplates.js service-referral-ranks-invites
 node ./scripts/buildTemplates.js service-bot-manager

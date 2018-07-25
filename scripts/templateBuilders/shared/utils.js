@@ -3,6 +3,10 @@ const pkgJson = require('../../../package.json');
 const fs = require('fs');
 const handlebars = require('handlebars');
 
+const res = fs.readFileSync('.devDeploy');
+const devDeployTimestamp = res.toString();
+console.log('res', devDeployTimestamp);
+
 const config = pkgJson.config.overmindbots;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
 const projectId = process.env.GOOGLE_PROJECT_ID;
@@ -42,7 +46,7 @@ function getDeploymentStage() {
 function getImageUrl() {
   const deploymentStage = getDeploymentStage();
   if (deploymentStage === deploymentStages.development) {
-    return `gcr.io/overmindbots/core:development`;
+    return `gcr.io/overmindbots/core:${devDeployTimestamp}`;
   }
   return `gcr.io/${projectId}/${repoName}:${process.env.CIRCLE_BRANCH}-${
     process.env.CIRCLE_BUILD_NUM
