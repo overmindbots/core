@@ -34,7 +34,15 @@ class Cache {
   }
 
   /**
-   * Get the prefix for a guild from the database
+   * Cache prefix for a guild
+   */
+  public setPrefix(guildDiscordId: string, value: string) {
+    set(this.store, `prefixes.${guildDiscordId}`, value);
+  }
+
+  /**
+   * Get and cache the prefix for a guild. It will get the value from the
+   * database if is not already cached
    */
   public getPrefix = async (
     guildDiscordId: string,
@@ -62,9 +70,11 @@ class Cache {
     const { prefix } = botInstance.config;
 
     if (!prefix) {
+      this.setPrefix(guildDiscordId, defaultValue);
       return defaultValue;
     }
 
+    this.setPrefix(guildDiscordId, prefix);
     return prefix;
   };
 }
