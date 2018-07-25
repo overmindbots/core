@@ -5,7 +5,6 @@ const handlebars = require('handlebars');
 
 const res = fs.readFileSync('.devDeploy');
 const devDeployTimestamp = res.toString();
-console.log('res', devDeployTimestamp);
 
 const config = pkgJson.config.overmindbots;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
