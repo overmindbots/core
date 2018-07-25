@@ -7,6 +7,7 @@ import {
   API_URL,
   DISCORD_CLIENT_ID,
   OAUTH_AUTHORIZATION_URL,
+  OAUTH_CALLBACK_URL,
   PORT,
 } from '~/constants';
 
@@ -15,7 +16,7 @@ const asyncCatcher = createAsyncCatcher();
 const app = express();
 
 app.use(cors());
-app.use((req, res, next) => {
+app.use(({}, {}, next) => {
   console.debug('>> Receiving request');
   next();
 });
@@ -26,9 +27,27 @@ app.use(passport.initialize());
  * FIXME: This route should change to use guildId and userId
  */
 app.get(
-  '/oauth',
-  passport.authenticate('oauth2', {
-    scope: ['identify'],
+  '/oauth/:guildId/:userId',
+  asyncCatcher(async (req, res) => {
+    const { guildId, userId }: { guildId: string; userId: string } = req.params;
+
+    const state = {
+      guildId,
+      userId,
+    };
+
+    const stateStr = JSON.stringify(state);
+    const encodedState = Buffer.from(stateStr).toString('base64');
+
+    const url =
+      `${OAUTH_AUTHORIZATION_URL}?` +
+      `client_id=${DISCORD_CLIENT_ID}` +
+      `&redirect_uri=${encodeURIComponent(OAUTH_CALLBACK_URL)}` +
+      '&response_type=code' +
+      '&scope=identify' +
+      `&state=${encodedState}`;
+
+    res.redirect(url);
   })
 );
 /**
@@ -41,12 +60,18 @@ app.get(
     failureRedirect: OAUTH_AUTHORIZATION_URL,
     session: false,
   }),
-  asyncCatcher(async (req, res) => {
+  asyncCatcher(async (req, res, next) => {
+    console.log(req.query);
+    const stateStr = Buffer.from(req.query.state, 'base64').toString();
+    const obj = JSON.parse(stateStr);
+    console.log(obj);
+    console.log(req.user);
     // const { id, username, discriminator } = req.user;
     // - Create/Get invite link for redirect
     // - ...Do stuff
     // - Redirect to invite link
     // res.redirect('<invite link here>'); // Redirect to inviteUrl
+    next();
   })
 );
 const server = app.listen(PORT, () => {
@@ -58,4 +83,12 @@ const server = app.listen(PORT, () => {
   `);
 });
 
-// TODO: Close on sigint/sigterm
+/**
+ * Do all cleanup operations
+ */
+const terminate = () => {
+  server.close();
+};
+
+process.on('SIGINT', terminate);
+process.on('SIGTERM', terminate);

@@ -9,6 +9,14 @@ import {
   OAUTH_TOKEN_URL,
 } from '~/constants';
 
+interface UserData {
+  id: string;
+  username: string;
+  email?: string | undefined;
+  avatar: string;
+  discriminator: string;
+}
+
 passport.use(
   new Strategy(
     {
@@ -18,7 +26,12 @@ passport.use(
       authorizationURL: OAUTH_AUTHORIZATION_URL,
       tokenURL: OAUTH_TOKEN_URL,
     },
-    async (accessToken: string, refreshToken: string, profile, callback) => {
+    async (
+      accessToken: string,
+      {},
+      {},
+      callback: (error: Error | null, user?: UserData) => {}
+    ) => {
       let user;
 
       try {
