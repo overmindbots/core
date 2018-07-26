@@ -5,6 +5,12 @@ export interface DiscordAPIGuildResponse {
   name: string;
   icon: string;
 }
+export interface DiscordAPIGuildChannelsResponse
+  extends Array<{
+      id: string;
+      type: number;
+    }> {}
+
 export enum DiscordAPIAuthTypes {
   BOT = 'Bot',
   APP = 'Bearer',
@@ -44,6 +50,20 @@ export class DiscordAPI {
     try {
       result = await this.makeRequest<DiscordAPIGuildResponse>(
         `guilds/${guildId}`
+      );
+    } catch (err) {
+      return null;
+    }
+
+    return result.data;
+  }
+
+  public async getGuildChannels(guildId: string) {
+    let result;
+
+    try {
+      result = await this.makeRequest<DiscordAPIGuildChannelsResponse>(
+        `guilds/${guildId}/channels`
       );
     } catch (err) {
       return null;
