@@ -3,7 +3,6 @@ import {
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
-import axios, { AxiosResponse } from 'axios';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
@@ -11,25 +10,23 @@ import logger from 'winston';
 import {
   API_URL,
   BOT_TOKEN,
-  DISCORD_API_URL,
   DISCORD_CLIENT_ID,
   OAUTH_AUTHORIZATION_URL,
   OAUTH_CALLBACK_URL,
   PORT,
 } from '~/constants';
 
+interface InviteParams {
+  guildDiscordId: string;
+  inviterDiscordId: string;
+}
+
 interface OauthRequest extends Request {
-  params: {
-    guildDiscordId: string;
-    userDiscordId: string;
-  };
+  params: InviteParams;
 }
 
 interface InviteRequest extends Request {
-  params: {
-    inviterDiscordId: string;
-    guildDiscordId: string;
-  };
+  params: InviteParams;
 }
 
 function isOauthRequest(request: Request): request is OauthRequest {
@@ -64,20 +61,14 @@ app.use(passport.initialize());
  * Initial route that redirects to oauth dialog
  */
 app.get(
-  '/oauth/:guildDiscordId/:userDiscordId',
+  '/oauth/:guildDiscordId/:inviterDiscordId',
   asyncCatcher(async (req: Request, res: Response) => {
     if (!isOauthRequest(req)) {
       res.sendStatus(404);
       return;
     }
-    const { guildDiscordId, userDiscordId } = req.params;
 
-    const state = {
-      guildDiscordId,
-      userDiscordId,
-    };
-
-    const stateStr = JSON.stringify(state);
+    const stateStr = JSON.stringify(req.params);
     const encodedState = Buffer.from(stateStr).toString('base64');
 
     const url =
@@ -102,11 +93,9 @@ app.get(
     session: false,
   }),
   asyncCatcher(async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.query);
     const stateStr = Buffer.from(req.query.state, 'base64').toString();
-    const obj = JSON.parse(stateStr);
-    console.log(obj);
-    console.log(req.user);
+    const state: InviteParams = JSON.parse(stateStr);
+
     // const { id, username, discriminator } = req.user;
     // - Create/Get invite link for redirect
     // - ...Do stuff
