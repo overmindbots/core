@@ -1,9 +1,9 @@
 {
-  "name": "@overmindbots/service-bot-manager",
-  "version": "0.0.2-beta.4",
+  "name": "@overmindbots/service-referral-ranks-invite-wrapper",
+  "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": ">=9.11.2"
+    "node": ">=9.0.0"
   },
   "scripts": {
     "start": "webpack --watch",
@@ -13,23 +13,17 @@
     "build:production": "webpack --config webpack.production.config.js",
     "production:start": "npm run build:production && npm run start:production"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:overmindbots/service-bot-manager.git"
-  },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.2-beta.2",
-    "@overmindbots/shared-utils": "^0.0.2-beta.2",
-    "dotenv": "^5.0.1",
+    "@overmindbots/shared-models": "^0.0.1-beta.0",
+    "@overmindbots/shared-utils": "^0.0.1-beta.0",
+    "bluebird": "^3.5.1",
+    "discord.js": "^11.3.2",
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
-    "kubernetes-client": "^5.3.1",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.1",
-    "node-fetch": "^2.1.2",
-    "tslint": "^5.10.0",
-    "websocket": "^1.0.26",
-    "winston": "^2.4.2"
+    "winston": "^2.4.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.53",
@@ -39,28 +33,20 @@
     "@babel/plugin-transform-runtime": "^7.0.0-beta.53",
     "@babel/preset-env": "^7.0.0-beta.53",
     "@babel/preset-typescript": "^7.0.0-beta.53",
+    "@types/bluebird": "^3.5.21",
     "@types/dotenv": "^4.0.3",
     "@types/express": "^4.16.0",
     "@types/jest": "^23.3.0",
-    "@types/lodash": "^4.14.108",
-    "@types/mongoose": "^5.0.16",
-    "@types/node": "^9.4.7",
-    "@types/websocket": "^0.0.39",
+    "@types/lodash": "^4.14.110",
+    "@types/mongoose": "^5.0.18",
     "@types/winston": "^2.3.9",
-    "babel-loader": "8.0.0-beta.3",
-    "babel-plugin-module-resolver": "^3.1.0",
-    "concurrently": "^3.6.0",
+    "babel-plugin-module-resolver": "^3.1.1",
     "jest": "^23.4.1",
-    "nodemon": "^1.17.4",
-    "nodemon-webpack-plugin": "next",
     "ts-jest": "^23.0.1",
     "ts-loader": "^4.4.2",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint-config-prettier": "^1.13.0",
-    "tslint-eslint-rules": "^5.3.1",
     "typescript": "^2.9.2",
-    "webpack": "^4.16.0",
-    "webpack-cli": "^3.0.8",
-    "webpack-node-externals": "^1.7.2"
+    "webpack": "^4.16.1"
   }
 }

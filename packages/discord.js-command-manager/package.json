@@ -7,14 +7,6 @@
   "engines": {
     "node": ">=9.11.2"
   },
-  "scripts": {
-    "start": "webpack --watch",
-    "start:dev": "node ./build/index.js",
-    "start:production": "node ./production-build/index.js",
-    "build": "webpack --config webpack.config.js",
-    "build:production": "webpack --config webpack.production.config.js",
-    "production:start": "npm run build:production && npm run start:production"
-  },
   "repository": {
     "type": "git",
     "url": "git@github.com:overmindbots/discord-js-command-manager.git"

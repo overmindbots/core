@@ -5,7 +5,7 @@ const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 
-const getBaseConfig = (dirname) => ({
+const getBaseConfig = dirname => ({
   entry: ['./src/index.ts'],
   output: {
     path: path.join(dirname, 'build'),
@@ -62,7 +62,7 @@ const getBaseConfig = (dirname) => ({
     // suppress "export not found" warnings about re-exported types
     warningsFilter: /(export .* was not found in)|(Critical dependency: the request of a dependency is an expression)/,
   },
-  devtool: 'sourcemap',
+  devtool: 'inline-source-map',
 });
 
 module.exports = getBaseConfig;
