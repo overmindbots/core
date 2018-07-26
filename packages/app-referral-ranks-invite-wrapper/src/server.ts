@@ -1,3 +1,7 @@
+import {
+  DiscordAPI,
+  DiscordAPIAuthTypes,
+} from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import axios, { AxiosResponse } from 'axios';
 import cors from 'cors';
@@ -25,7 +29,13 @@ function isInviteRequest(request: Request): request is InviteRequest {
   return !!request.params.inviterDiscordId && !!request.params.guildDiscordId;
 }
 
-const asyncCatcher = createAsyncCatcher();
+const discordAPIClient = new DiscordAPI({
+  token: BOT_TOKEN,
+  authType: DiscordAPIAuthTypes.BOT,
+});
+const asyncCatcher = createAsyncCatcher(error => {
+  console.error(error);
+});
 const app = express();
 
 app.use(cors());
@@ -104,31 +114,21 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = req.params;
 
-    const response = await axios.get(
-      `${DISCORD_API_URL}/guilds/${guildDiscordId}`,
-      {
-        headers: {
-          Authorization: `Bot ${BOT_TOKEN}`,
-          'User-Agent': 'Referral Ranks (http://referralranks.com)',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    console.log('guildDiscordId', guildDiscordId);
+    const guild = await discordAPIClient.getGuild(guildDiscordId);
 
-    if (!isGuildResponse(response)) {
+    console.log('guild', guild);
+
+    if (!guild) {
       res.sendStatus(404);
       return;
     }
-    const { icon, name } = response.data;
 
+    const { icon, name } = guild;
+
+    console.log('guild', guild);
     res.sendStatus(200);
-    // const guild = await Guild.findOne({ discordId: guildDiscordId });
-    // axios.get
-    // console.log('guild', guild);
-    // if (!guild) {
-    //   // TODO: Send sexier 404 page
-    //   res.sendStatus(404);
-    // }
+
     /**
      * 1. Get Icon URL
      * 2. Make template file

@@ -1,11 +1,9 @@
 import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/constants';
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
-export interface DiscordAPIGuildResponse extends AxiosResponse {
-  data: {
-    icon: string;
-    name: string;
-  };
+export interface DiscordAPIGuildResponse {
+  name: string;
+  icon: string;
 }
 export enum DiscordAPIAuthTypes {
   BOT = 'Bot',
@@ -14,36 +12,43 @@ export enum DiscordAPIAuthTypes {
 
 export class DiscordAPI {
   private token: string;
-  private tokenType: DiscordAPIAuthTypes;
+  private authType: DiscordAPIAuthTypes;
 
   constructor({
     token,
-    tokenType,
+    authType,
   }: {
     token: string;
-    tokenType: DiscordAPIAuthTypes;
+    authType: DiscordAPIAuthTypes;
   }) {
     this.token = token;
-    this.tokenType = tokenType;
+    this.authType = authType;
   }
 
-  private async makeRequest(url: string) {
-    const response = await axios.get<DiscordAPIGuildResponse>(
-      `${DISCORD_API_BASE_URL}/${url}`,
-      {
-        headers: {
-          Authorization: `${this.tokenType} ${this.token}`,
-          'User-Agent': 'Overmind Bots (http://overmindbots.com)',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+  // TODO: Add rate limit support
+  private async makeRequest<T>(url: string) {
+    const response = await axios.get<T>(`${DISCORD_API_BASE_URL}/${url}`, {
+      headers: {
+        Authorization: `${this.authType} ${this.token}`,
+        'User-Agent': 'Overmind Bots (http://overmindbots.com)',
+        'Content-Type': 'application/json',
+      },
+    });
 
     return response;
   }
 
   public async getGuild(guildId: string) {
-    const result = await this.makeRequest(`guilds/${guildId}`);
-    return result;
+    let result;
+
+    try {
+      result = await this.makeRequest<DiscordAPIGuildResponse>(
+        `guilds/${guildId}`
+      );
+    } catch (err) {
+      return null;
+    }
+
+    return result.data;
   }
 }
