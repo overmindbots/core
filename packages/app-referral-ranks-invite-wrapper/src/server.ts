@@ -1,5 +1,5 @@
-import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import { Guild } from '@overmindbots/shared-models';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
 import express, { Request } from 'express';
 import passport from 'passport';
