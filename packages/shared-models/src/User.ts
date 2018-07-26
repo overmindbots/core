@@ -1,5 +1,5 @@
+import axios from 'axios';
 import mongoose from 'mongoose';
-import fetch from 'node-fetch';
 
 import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/constants';
 import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/graphqlErrors';
@@ -11,6 +11,15 @@ export interface CreateOrUpdateFromOauthArgs {
   refreshToken: string;
   expiresIn: number;
 }
+
+export interface UserData {
+  id: string;
+  username: string;
+  email?: string | undefined;
+  avatar: string;
+  discriminator: string;
+}
+
 export interface UserDocument extends mongoose.Document {
   discordId: string;
   displayName: string;
@@ -31,15 +40,7 @@ export interface UserModel extends mongoose.Model<UserDocument> {
   createOrUpdateFromOauth(
     args: CreateOrUpdateFromOauthArgs
   ): Promise<typeof User>;
-  getUserData(
-    accessToken: string
-  ): Promise<{
-    id: string;
-    username: string;
-    email?: string;
-    avatar: string;
-    discriminator: string;
-  }>;
+  getUserData(accessToken: string): Promise<UserData>;
 }
 
 const schema = new mongoose.Schema(
@@ -119,12 +120,12 @@ schema.statics.createOrUpdateFromOauth = async ({
 schema.statics.getUserData = async function getUserData(accessToken: string) {
   const requestUrl = `${DISCORD_API_BASE_URL}/users/@me`;
 
-  const result = await fetch(requestUrl, {
+  const result = await axios.get<UserData>(requestUrl, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   });
-  const resultBody = await result.json();
+  const resultBody = await result.data;
 
   return resultBody;
 };
