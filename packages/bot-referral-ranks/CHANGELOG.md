@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.3"></a>
+## [0.0.2-beta.3](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.2...@overmindbots/bot-referral-ranks@0.0.2-beta.3) (2018-07-26)
+
+
+### Bug Fixes
+
+* fix incorrect mongo version ([8ceadb5](https://github.com/overmindbots/bot-referral-ranks/commit/8ceadb5))
+* use newUrlParser option for referral ranks ([2a9404b](https://github.com/overmindbots/bot-referral-ranks/commit/2a9404b))
+
+
+
+
 <a name="0.0.2-beta.2"></a>
 ## [0.0.2-beta.2](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.1...@overmindbots/bot-referral-ranks@0.0.2-beta.2) (2018-07-24)
 

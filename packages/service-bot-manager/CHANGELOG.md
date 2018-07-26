@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.5"></a>
+## [0.0.2-beta.5](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.4...@overmindbots/service-bot-manager@0.0.2-beta.5) (2018-07-26)
+
+
+### Bug Fixes
+
+* even out different mongo versions ([5622eff](https://github.com/overmindbots/service-bot-manager/commit/5622eff))
+* fix incorrect mongo version ([8ceadb5](https://github.com/overmindbots/service-bot-manager/commit/8ceadb5))
+
+
+
+
 <a name="0.0.2-beta.4"></a>
 ## [0.0.2-beta.4](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.3...@overmindbots/service-bot-manager@0.0.2-beta.4) (2018-07-24)
 
