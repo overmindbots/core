@@ -1,10 +1,13 @@
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import axios, { AxiosResponse } from 'axios';
 import cors from 'cors';
 import express, { Request } from 'express';
 import passport from 'passport';
 import logger from 'winston';
 import {
   API_URL,
+  BOT_TOKEN,
+  DISCORD_API_URL,
   DISCORD_CLIENT_ID,
   OAUTH_AUTHORIZATION_URL,
   OAUTH_CALLBACK_URL,
@@ -17,9 +20,18 @@ interface InviteRequest extends Request {
     guildDiscordId: string;
   };
 }
+interface GuildResponse extends AxiosResponse {
+  data: {
+    icon: string;
+    name: string;
+  };
+}
 
 function isInviteRequest(request: Request): request is InviteRequest {
   return !!request.params.inviterDiscordId && !!request.params.guildDiscordId;
+}
+function isGuildResponse(response: AxiosResponse): response is GuildResponse {
+  return response.data && !!response.data.id;
 }
 
 const asyncCatcher = createAsyncCatcher();
@@ -101,12 +113,33 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = req.params;
 
-    const guild = await Guild.findOne({ discordId: guildDiscordId });
-    console.log('guild', guild);
-    if (!guild) {
-      // TODO: Send sexier 404 page
+    const response = await axios.get(
+      `${DISCORD_API_URL}/guilds/${guildDiscordId}`,
+      {
+        headers: {
+          Authorization: `Bot ${BOT_TOKEN}`,
+          'User-Agent': 'Referral Ranks (http://referralranks.com)',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    if (!isGuildResponse(response)) {
       res.sendStatus(404);
+      return;
     }
+    const { icon, name } = response.data;
+
+    console.log('icon, name', icon, name);
+
+    res.sendStatus(200);
+    // const guild = await Guild.findOne({ discordId: guildDiscordId });
+    // axios.get
+    // console.log('guild', guild);
+    // if (!guild) {
+    //   // TODO: Send sexier 404 page
+    //   res.sendStatus(404);
+    // }
     /**
      * 1. Get Icon URL
      * 2. Make template file
