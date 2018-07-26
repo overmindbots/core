@@ -5,7 +5,9 @@ RUN mkdir /root/repo
 WORKDIR /root/repo
 
 COPY webpack.production.config.js .
+COPY lerna.json .
 COPY package.json yarn.lock ./
 COPY packages packages
 
 RUN yarn install
+RUN yarn lerna run build:production

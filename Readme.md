@@ -32,13 +32,25 @@ Create .env in repos
 
 You can also visit [Our cluster in the browser](https://console.cloud.google.com/kubernetes/workload?project=overmind-bots)
 
-## Deploying
+## Deploying remote
 - Staging will be automatically deployed when `development` gets a new commit
 - Production will be automatically deployed when `master` gets a new commit
 
 You should have access to [Our CircleCI](https://circleci.com/gh/overmindbots). You can
 see how the deployments are doing there
 
+## Deploying to local Kubernetes cluster
+**Setting up local kubernetes (osx)**
+- Update to latest Docker for MacOS app
+- Go to settings and install kubernetes setup cluster there (chose Kubernetes as an orchestrator, not swarm)
+
+**Installing Helm**
+- Install [helm](https://helm.sh/) (only needed for now for local mongodb)
+- Run `helm init --tiller-namespace overmindbots`
+
+**First local deploy**
+- Run `yarn deploy:dev` (dont clear the logs)
+- // Pending
 
 # Usage
 
