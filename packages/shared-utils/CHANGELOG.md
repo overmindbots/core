@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.3"></a>
+## [0.0.2-beta.3](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.2...@overmindbots/shared-utils@0.0.2-beta.3) (2018-07-26)
+
+
+### Bug Fixes
+
+* update old webpack configs in shared packages ([b6344b1](https://github.com/overmindbots/shared-utils/commit/b6344b1))
+
+
+
+
 <a name="0.0.2-beta.2"></a>
 ## [0.0.2-beta.2](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.1...@overmindbots/shared-utils@0.0.2-beta.2) (2018-07-24)
 
