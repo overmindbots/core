@@ -130,8 +130,6 @@ app.get(
     }
     const { icon, name } = response.data;
 
-    console.log('icon, name', icon, name);
-
     res.sendStatus(200);
     // const guild = await Guild.findOne({ discordId: guildDiscordId });
     // axios.get
