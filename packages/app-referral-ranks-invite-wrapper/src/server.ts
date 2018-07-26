@@ -3,7 +3,6 @@ import {
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
-import axios, { AxiosResponse } from 'axios';
 import cors from 'cors';
 import express, { Request } from 'express';
 import passport from 'passport';
