@@ -4,6 +4,7 @@ export enum BOT_TYPES {
 export interface ReferralRanksBotConfig {
   prefix: string;
   leaderboardSize?: number;
+  isNextVersion?: boolean;
 }
 
 export const POD_STATUS_SERVER_PORT =
