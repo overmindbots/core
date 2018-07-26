@@ -1,4 +1,3 @@
-import { Guild } from '@overmindbots/shared-models';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
 import express, { Request } from 'express';
@@ -102,18 +101,17 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = req.params;
 
-    const guilds = await Guild.find();
-    console.log('guilds', guilds);
     const guild = await Guild.findOne({ discordId: guildDiscordId });
+    console.log('guild', guild);
     if (!guild) {
       // TODO: Send sexier 404 page
       res.sendStatus(404);
     }
-
-    console.log('guildDiscordId', guildDiscordId);
-    console.log('inviterDiscordId', inviterDiscordId);
-
-    console.log('guild', guild);
+    /**
+     * 1. Get Icon URL
+     * 2. Make template file
+     * 3. Build template and send
+     */
   })
 );
 
