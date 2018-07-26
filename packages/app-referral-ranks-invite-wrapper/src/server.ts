@@ -109,6 +109,17 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = state;
 
+    const channels = await discordAPIClient.getGuildChannels(guildDiscordId);
+
+    if (!channels) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const defaultTextChannel = channels.filter(
+      channel => channel.type === 0
+    )[0];
+
     // const { id, username, discriminator } = req.user;
     // - Create/Get invite link for redirect
     // - ...Do stuff
