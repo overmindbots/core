@@ -1,7 +1,7 @@
 import { Guild } from '@overmindbots/shared-models';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
-import express, { Request } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import logger from 'winston';
 import {
@@ -12,6 +12,13 @@ import {
   PORT,
 } from '~/constants';
 
+interface OauthRequest extends Request {
+  params: {
+    guildDiscordId: string;
+    userDiscordId: string;
+  };
+}
+
 interface InviteRequest extends Request {
   params: {
     inviterDiscordId: string;
@@ -19,8 +26,16 @@ interface InviteRequest extends Request {
   };
 }
 
+function isOauthRequest(request: Request): request is OauthRequest {
+  const { guildDiscordId, userDiscordId } = request.params;
+
+  return !!guildDiscordId && !!userDiscordId;
+}
+
 function isInviteRequest(request: Request): request is InviteRequest {
-  return !!request.params.inviterDiscordId && !!request.params.guildDiscordId;
+  const { inviterDiscordId, guildDiscordId } = request.params;
+
+  return !!inviterDiscordId && !!guildDiscordId;
 }
 
 const asyncCatcher = createAsyncCatcher();
@@ -35,16 +50,19 @@ app.use(passport.initialize());
 
 /**
  * Initial route that redirects to oauth dialog
- * FIXME: This route should change to use guildId and userId
  */
 app.get(
-  '/oauth/:guildId/:userId',
-  asyncCatcher(async (req, res) => {
-    const { guildId, userId }: { guildId: string; userId: string } = req.params;
+  '/oauth/:guildDiscordId/:userDiscordId',
+  asyncCatcher(async (req: Request, res: Response) => {
+    if (!isOauthRequest(req)) {
+      res.sendStatus(404);
+      return;
+    }
+    const { guildDiscordId, userDiscordId } = req.params;
 
     const state = {
-      guildId,
-      userId,
+      guildDiscordId,
+      userDiscordId,
     };
 
     const stateStr = JSON.stringify(state);
@@ -71,7 +89,7 @@ app.get(
     failureRedirect: OAUTH_AUTHORIZATION_URL,
     session: false,
   }),
-  asyncCatcher(async (req, res, next) => {
+  asyncCatcher(async (req: Request, res: Response, next: NextFunction) => {
     console.log(req.query);
     const stateStr = Buffer.from(req.query.state, 'base64').toString();
     const obj = JSON.parse(stateStr);
