@@ -1,11 +1,17 @@
-import { Guild } from '@overmindbots/shared-models';
+import {
+  DiscordAPI,
+  DiscordAPIAuthTypes,
+} from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import axios, { AxiosResponse } from 'axios';
 import cors from 'cors';
 import express, { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import logger from 'winston';
 import {
   API_URL,
+  BOT_TOKEN,
+  DISCORD_API_URL,
   DISCORD_CLIENT_ID,
   OAUTH_AUTHORIZATION_URL,
   OAUTH_CALLBACK_URL,
@@ -38,7 +44,13 @@ function isInviteRequest(request: Request): request is InviteRequest {
   return !!inviterDiscordId && !!guildDiscordId;
 }
 
-const asyncCatcher = createAsyncCatcher();
+const discordAPIClient = new DiscordAPI({
+  token: BOT_TOKEN,
+  authType: DiscordAPIAuthTypes.BOT,
+});
+const asyncCatcher = createAsyncCatcher(error => {
+  console.error(error);
+});
 const app = express();
 
 app.use(cors());
@@ -120,18 +132,26 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = req.params;
 
-    const guilds = await Guild.find();
-    console.log('guilds', guilds);
-    const guild = await Guild.findOne({ discordId: guildDiscordId });
-    if (!guild) {
-      // TODO: Send sexier 404 page
-      res.sendStatus(404);
-    }
-
     console.log('guildDiscordId', guildDiscordId);
-    console.log('inviterDiscordId', inviterDiscordId);
+    const guild = await discordAPIClient.getGuild(guildDiscordId);
 
     console.log('guild', guild);
+
+    if (!guild) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const { icon, name } = guild;
+
+    console.log('guild', guild);
+    res.sendStatus(200);
+
+    /**
+     * 1. Get Icon URL
+     * 2. Make template file
+     * 3. Build template and send
+     */
   })
 );
 
