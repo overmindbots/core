@@ -20,18 +20,9 @@ interface InviteRequest extends Request {
     guildDiscordId: string;
   };
 }
-interface GuildResponse extends AxiosResponse {
-  data: {
-    icon: string;
-    name: string;
-  };
-}
 
 function isInviteRequest(request: Request): request is InviteRequest {
   return !!request.params.inviterDiscordId && !!request.params.guildDiscordId;
-}
-function isGuildResponse(response: AxiosResponse): response is GuildResponse {
-  return response.data && !!response.data.id;
 }
 
 const asyncCatcher = createAsyncCatcher();
