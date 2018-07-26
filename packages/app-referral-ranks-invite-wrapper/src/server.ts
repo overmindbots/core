@@ -41,6 +41,12 @@ function isInviteRequest(request: Request): request is InviteRequest {
   return !!inviterDiscordId && !!guildDiscordId;
 }
 
+function isInviteParams(params: any): params is InviteParams {
+  const { inviterDiscordId, guildDiscordId } = params;
+
+  return !!inviterDiscordId && !!guildDiscordId;
+}
+
 const discordAPIClient = new DiscordAPI({
   token: BOT_TOKEN,
   authType: DiscordAPIAuthTypes.BOT,
@@ -94,7 +100,14 @@ app.get(
   }),
   asyncCatcher(async (req: Request, res: Response, next: NextFunction) => {
     const stateStr = Buffer.from(req.query.state, 'base64').toString();
-    const state: InviteParams = JSON.parse(stateStr);
+    const state = JSON.parse(stateStr);
+
+    if (!isInviteParams(state)) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const { guildDiscordId, inviterDiscordId } = state;
 
     // const { id, username, discriminator } = req.user;
     // - Create/Get invite link for redirect
