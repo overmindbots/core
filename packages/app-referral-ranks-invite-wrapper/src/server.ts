@@ -102,11 +102,16 @@ app.get(
 
     const { guildDiscordId, inviterDiscordId } = req.params;
 
+    const guilds = await Guild.find();
+    console.log('guilds', guilds);
     const guild = await Guild.findOne({ discordId: guildDiscordId });
     if (!guild) {
       // TODO: Send sexier 404 page
       res.sendStatus(404);
     }
+
+    console.log('guildDiscordId', guildDiscordId);
+    console.log('inviterDiscordId', inviterDiscordId);
 
     console.log('guild', guild);
   })
