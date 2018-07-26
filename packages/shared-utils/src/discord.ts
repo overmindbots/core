@@ -11,6 +11,21 @@ export interface DiscordAPIGuildChannelsResponse
       type: number;
     }> {}
 
+export interface DiscordAPICreateChannelResponse {
+  code: string;
+  guild: {
+    id: string;
+    name: string;
+    splash: string | null;
+    icon: string | null;
+  };
+  channel: {
+    id: string;
+    name: string;
+    type: number;
+  };
+}
+
 export enum DiscordAPIAuthTypes {
   BOT = 'Bot',
   APP = 'Bearer',
@@ -32,7 +47,7 @@ export class DiscordAPI {
   }
 
   // TODO: Add rate limit support
-  private async makeRequest<T>(url: string) {
+  private async makeGetRequest<T>(url: string) {
     const response = await axios.get<T>(`${DISCORD_API_BASE_URL}/${url}`, {
       headers: {
         Authorization: `${this.authType} ${this.token}`,
@@ -44,11 +59,27 @@ export class DiscordAPI {
     return response;
   }
 
+  private async makePostRequest<T>(url: string, data: any) {
+    const response = await axios.post<T>(
+      `${DISCORD_API_BASE_URL}/${url}`,
+      data,
+      {
+        headers: {
+          Authorization: `${this.authType} ${this.token}`,
+          'User-Agent': 'Overmind Bots (http://overmindbots.com)',
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response;
+  }
+
   public async getGuild(guildId: string) {
     let result;
 
     try {
-      result = await this.makeRequest<DiscordAPIGuildResponse>(
+      result = await this.makeGetRequest<DiscordAPIGuildResponse>(
         `guilds/${guildId}`
       );
     } catch (err) {
@@ -62,8 +93,31 @@ export class DiscordAPI {
     let result;
 
     try {
-      result = await this.makeRequest<DiscordAPIGuildChannelsResponse>(
+      result = await this.makeGetRequest<DiscordAPIGuildChannelsResponse>(
         `guilds/${guildId}/channels`
+      );
+    } catch (err) {
+      return null;
+    }
+
+    return result.data;
+  }
+
+  public async createChannelInvite(
+    channelId: string,
+    options: {
+      max_age?: number;
+      max_uses?: number;
+      temporary?: boolean;
+      unique?: boolean;
+    }
+  ) {
+    let result;
+
+    try {
+      result = await this.makePostRequest<DiscordAPICreateChannelResponse>(
+        `channels/${channelId}/invites`,
+        options
       );
     } catch (err) {
       return null;
