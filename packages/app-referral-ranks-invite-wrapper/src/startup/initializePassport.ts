@@ -1,4 +1,4 @@
-import { User } from '@overmindbots/shared-models';
+import { User, UserData } from '@overmindbots/shared-models';
 import passport from 'passport';
 import { Strategy } from 'passport-oauth2';
 import {
@@ -8,14 +8,6 @@ import {
   OAUTH_CALLBACK_URL,
   OAUTH_TOKEN_URL,
 } from '~/constants';
-
-interface UserData {
-  id: string;
-  username: string;
-  email?: string | undefined;
-  avatar: string;
-  discriminator: string;
-}
 
 passport.use(
   new Strategy(
@@ -30,7 +22,7 @@ passport.use(
       accessToken: string,
       {},
       {},
-      callback: (error: Error | null, user?: UserData) => {}
+      callback: (error: Error | null, user?: UserData | undefined) => {}
     ) => {
       let user;
 
