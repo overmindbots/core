@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
 export interface InviteConvertionDocument extends mongoose.Document {
-  guildDiscordId: string;
-  inviterDiscordId: string;
-  inviteeDiscordId: string;
   converted: boolean;
+  guildDiscordId: string;
+  inviteeDiscordId: string;
+  inviterDiscordId: string;
 }
 
 export interface InviteConvertionModel
@@ -16,11 +16,11 @@ export interface InviteConvertionModel
 }
 
 const schema = new mongoose.Schema({
-  guildDiscordId: {
-    required: true,
-    type: String,
+  converted: {
+    default: false,
+    type: Boolean,
   },
-  inviterDiscordId: {
+  guildDiscordId: {
     required: true,
     type: String,
   },
@@ -28,9 +28,9 @@ const schema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  converted: {
-    default: false,
-    type: Boolean,
+  inviterDiscordId: {
+    required: true,
+    type: String,
   },
 });
 
