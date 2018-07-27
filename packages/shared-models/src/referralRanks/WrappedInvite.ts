@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 export interface WrappedInviteDocument extends mongoose.Document {
   guildDiscordId: string;
   code: string;
-  url: string;
 }
 export interface WrappedInviteModel
   extends mongoose.Model<WrappedInviteDocument> {}
@@ -17,13 +16,9 @@ const schema = new mongoose.Schema({
     required: true,
     type: String,
   },
-  url: {
-    required: true,
-    type: String,
-  },
 });
 
-schema.index({ guildDiscordId: 1 });
+schema.index({ guildDiscordId: 1 }, { unique: true });
 schema.index({ code: 1 }, { unique: true });
 
 /**
