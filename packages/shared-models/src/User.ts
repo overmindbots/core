@@ -20,6 +20,12 @@ export interface UserData {
   discriminator: string;
 }
 
+export function isUserData(user: any): user is UserData {
+  const { id, username, avatar, discriminator } = user;
+
+  return !!id && !!username && !!avatar && !!discriminator;
+}
+
 export interface UserDocument extends mongoose.Document {
   discordId: string;
   displayName: string;
