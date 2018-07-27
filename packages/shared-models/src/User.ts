@@ -16,14 +16,14 @@ export interface UserData {
   id: string;
   username: string;
   email?: string | undefined;
-  avatar: string;
+  avatar: string | null;
   discriminator: string;
 }
 
 export function isUserData(user: any): user is UserData {
-  const { id, username, avatar, discriminator } = user;
+  const { id, username, discriminator } = user;
 
-  return !!id && !!username && !!avatar && !!discriminator;
+  return !!id && !!username && !!discriminator;
 }
 
 export interface UserDocument extends mongoose.Document {
