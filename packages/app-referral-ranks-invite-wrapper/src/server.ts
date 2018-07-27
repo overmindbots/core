@@ -117,8 +117,23 @@ app.get(
       res.sendStatus(404);
       return;
     }
-
     const { guildDiscordId, inviterDiscordId } = req.params;
+
+    const state = {
+      guildDiscordId,
+      inviterDiscordId,
+    };
+
+    const stateStr = JSON.stringify(state);
+    const encodedState = Buffer.from(stateStr).toString('base64');
+    const redirectUrl =
+      `${OAUTH_AUTHORIZATION_URL}?` +
+      `client_id=${DISCORD_CLIENT_ID}` +
+      `&redirect_uri=${encodeURIComponent(OAUTH_CALLBACK_URL)}` +
+      '&response_type=code' +
+      '&scope=identify' +
+      `&state=${encodedState}`;
+
     const guild = await discordAPIClient.getGuild(guildDiscordId);
 
     if (!guild) {
@@ -164,6 +179,7 @@ app.get(
     );
 
     const htmlResponse = inviteViewTemplate({
+      redirectUrl,
       iconUrl,
       membersText,
       guildName: name,
