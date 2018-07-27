@@ -31,7 +31,7 @@ export const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const API_URL = process.env.API_URL;
 export const OAUTH_CALLBACK_URL = `${API_URL}/oauth/callback`;
-export const DISCORD_API_URL = 'https://discordapp.com/api/v7';
+export const DISCORD_INVITE_PREFIX = 'https://discord.gg';
 export const OAUTH_AUTHORIZATION_URL =
   'https://discordapp.com/api/oauth2/authorize';
 export const OAUTH_TOKEN_URL = 'https://discordapp.com/api/oauth2/token';
