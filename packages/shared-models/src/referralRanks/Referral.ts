@@ -5,7 +5,7 @@ export interface ReferralDocument extends mongoose.Document {
   inviterDiscordId: string | null;
   inviteeDiscordId: string;
   timestamp: number;
-  certainty: number;
+  fulfilled: boolean;
 }
 export interface ReferralModel extends mongoose.Model<ReferralDocument> {}
 
@@ -25,9 +25,9 @@ const schema = new mongoose.Schema({
     required: true,
     type: Number,
   },
-  certainty: {
+  fulfilled: {
     required: true,
-    type: Number,
+    type: Boolean,
   },
 });
 
