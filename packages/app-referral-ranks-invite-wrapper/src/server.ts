@@ -1,21 +1,27 @@
+import { Guild } from '@overmindbots/shared-models';
 import {
+  buildGuildIconUrl,
   DiscordAPI,
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
-import express, { Request } from 'express';
+import express, { Request, Response } from 'express';
+import formatNumber from 'format-number';
 import passport from 'passport';
 import logger from 'winston';
+import { isNumber } from 'lodash';
 import {
   API_URL,
   BOT_TOKEN,
-  DISCORD_API_URL,
   DISCORD_CLIENT_ID,
   OAUTH_AUTHORIZATION_URL,
   OAUTH_CALLBACK_URL,
   PORT,
 } from '~/constants';
+
+import inviteViewTemplate from './htmlTemplates/invite.html.handlebars';
+import { getGlobalUrl } from './utils/getGlobalUrl';
 
 interface InviteRequest extends Request {
   params: {
@@ -102,37 +108,91 @@ app.get(
  * validates that the guild exists and returns an html document with:
  * - OG Tags to display
  * - A js snippet to redirect to the invite link
+ * - Oembed url (which cointains the oembed response encoded in base64)
  */
 app.get(
   '/invite/:guildDiscordId/:inviterDiscordId',
-  asyncCatcher(async (req, res) => {
+  asyncCatcher(async (req: Request, res: Response) => {
     if (!isInviteRequest(req)) {
       res.sendStatus(404);
       return;
     }
 
     const { guildDiscordId, inviterDiscordId } = req.params;
-
-    console.log('guildDiscordId', guildDiscordId);
     const guild = await discordAPIClient.getGuild(guildDiscordId);
-
-    console.log('guild', guild);
 
     if (!guild) {
       res.sendStatus(404);
       return;
     }
 
-    const { icon, name } = guild;
+    let memberCount;
+    let onlineCount;
+    let membersText = '';
+    const { icon, name, id } = guild;
+    const dbGuild = await Guild.findOne({ discordId: id });
+    if (dbGuild) {
+      memberCount = formatNumber()(dbGuild.memberCount);
+      if (dbGuild.onlineCount) {
+        onlineCount = formatNumber()(dbGuild.onlineCount);
+      }
+    }
 
-    console.log('guild', guild);
-    res.sendStatus(200);
+    // TODO: Check what the caching time is
+    if (isNumber(memberCount)) {
+      membersText = `🔵️ ${memberCount} members`;
+      if (isNumber(onlineCount)) {
+        membersText += `\n⚪️ ${onlineCount} online`;
+      }
+    }
 
-    /**
-     * 1. Get Icon URL
-     * 2. Make template file
-     * 3. Build template and send
-     */
+    const iconUrl = buildGuildIconUrl(id, icon);
+    const globalUrl = await getGlobalUrl();
+    const oembedResponse = {
+      version: '1.0',
+      type: 'link',
+      membersText,
+      thumbnail_width: 400,
+      thumbnail_height: 100,
+      author_name: name,
+      provider_name: 'Powered by referralranks.com',
+      author_url: `${req.baseUrl}/${req.path}`,
+      thumbnail_url: 'http://placehold.it/400x100.png',
+      title: 'Join server',
+    };
+    const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
+      'base64'
+    );
+
+    const htmlResponse = inviteViewTemplate({
+      iconUrl,
+      guildName: name,
+      linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
+      oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
+    });
+
+    res.send(htmlResponse);
+    return;
+  })
+);
+/**
+ * Route: oembed invite endpoint
+ * Returns a json object with oembed content
+ */
+app.get(
+  '/oembed/invite/:encodedResponse.json',
+  asyncCatcher(async (req: Request, res: Response) => {
+    console.log('req', req.params);
+    const oembedResponse = Buffer.from(
+      req.params.encodedResponse,
+      'base64'
+    ).toString();
+    console.log('oembedResponse', oembedResponse);
+    const jsonResponse = JSON.parse(oembedResponse);
+    logger.info('==> Responding to oEmbed request with:');
+    logger.info(jsonResponse);
+    console.log('jsonResponse');
+    res.json(jsonResponse);
   })
 );
 

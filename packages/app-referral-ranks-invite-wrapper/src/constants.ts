@@ -35,6 +35,6 @@ export const DISCORD_API_URL = 'https://discordapp.com/api/v7';
 export const OAUTH_AUTHORIZATION_URL =
   'https://discordapp.com/api/oauth2/authorize';
 export const OAUTH_TOKEN_URL = 'https://discordapp.com/api/oauth2/token';
-export const PORT =
-  process.env.SERVICE_REFERRAL_RANKS_INVITE_WRAPPER || process.env.PORT;
+export const PORT = (process.env.SERVICE_REFERRAL_RANKS_INVITE_WRAPPER ||
+  process.env.PORT) as string;
 export const BOT_TOKEN = process.env.BOT_TOKEN;

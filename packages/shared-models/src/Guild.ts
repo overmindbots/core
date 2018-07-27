@@ -6,6 +6,7 @@ export interface GuildDocument extends mongoose.Document {
   name: string;
   icon: string;
   memberCount: number;
+  onlineCount?: number;
 }
 
 export interface GuildModel extends mongoose.Model<GuildDocument> {}
@@ -24,6 +25,7 @@ const schema = new mongoose.Schema({
     type: String,
   },
   memberCount: Number,
+  onlineCount: Number,
 });
 
 schema.index({ discordId: 1 }, { unique: true });
