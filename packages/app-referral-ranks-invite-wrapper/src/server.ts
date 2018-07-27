@@ -1,16 +1,22 @@
+import { isUserData } from '@overmindbots/shared-models';
+import {
+  Referral,
+  WrappedInvite,
+} from '@overmindbots/shared-models/referralRanks';
 import {
   DiscordAPI,
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import passport from 'passport';
 import logger from 'winston';
 import {
   API_URL,
   BOT_TOKEN,
   DISCORD_CLIENT_ID,
+  DISCORD_INVITE_PREFIX,
   OAUTH_AUTHORIZATION_URL,
   OAUTH_CALLBACK_URL,
   PORT,
@@ -30,9 +36,9 @@ interface InviteRequest extends Request {
 }
 
 function isOauthRequest(request: Request): request is OauthRequest {
-  const { guildDiscordId, userDiscordId } = request.params;
+  const { guildDiscordId, inviterDiscordId } = request.params;
 
-  return !!guildDiscordId && !!userDiscordId;
+  return !!inviterDiscordId && !!guildDiscordId;
 }
 
 function isInviteRequest(request: Request): request is InviteRequest {
@@ -51,14 +57,66 @@ const discordAPIClient = new DiscordAPI({
   token: BOT_TOKEN,
   authType: DiscordAPIAuthTypes.BOT,
 });
+
+/**
+ * Creates a unified invite for the specified guild via the Discord API
+ * and inserts it into the database. Returns the invite database object
+ *
+ * We use "find or create" strategies in both the Discord API and our database
+ * in case this function is called by multiple users at the same time
+ */
+const createGuildInvite = async (guildDiscordId: string) => {
+  const channels = await discordAPIClient.getGuildChannels(guildDiscordId);
+
+  if (!channels) {
+    throw new Error(`Couldn't retrieve channels for guild ${guildDiscordId}`);
+  }
+
+  const defaultTextChannel = channels.filter(channel => channel.type === 0)[0];
+
+  if (!defaultTextChannel) {
+    throw new Error(`There are no text channels in guild ${guildDiscordId}`);
+  }
+
+  /**
+   * By using unique: false we tell discord to reuse a previous
+   * similar invite if it already exists instead of creating a new one
+   */
+  const invite = await discordAPIClient.createChannelInvite(
+    defaultTextChannel.id,
+    {
+      max_age: 0,
+      max_uses: 0,
+      unique: false,
+      temporary: false,
+    }
+  );
+
+  if (!invite) {
+    throw new Error(`Couldn't create invite for guild ${guildDiscordId}`);
+  }
+
+  const { code } = invite;
+  const inviteDocument = {
+    code,
+    guildDiscordId,
+  };
+
+  return await WrappedInvite.findOneAndUpdate(inviteDocument, inviteDocument, {
+    upsert: true,
+    new: true,
+  });
+};
+
 const asyncCatcher = createAsyncCatcher(error => {
-  console.error(error);
+  logger.error(error.message, error);
 });
+
 const app = express();
 
 app.use(cors());
 app.use(({}, {}, next) => {
-  console.debug('>> Receiving request');
+  logger.debug('>> Receiving request');
   next();
 });
 app.use(passport.initialize());
@@ -70,7 +128,7 @@ app.get(
   '/oauth/:guildDiscordId/:inviterDiscordId',
   asyncCatcher(async (req: Request, res: Response) => {
     if (!isOauthRequest(req)) {
-      res.sendStatus(404);
+      res.sendStatus(500);
       return;
     }
 
@@ -88,6 +146,7 @@ app.get(
     res.redirect(url);
   })
 );
+
 /**
  * Where the user is redirected after a successful Authentication
  */
@@ -98,34 +157,50 @@ app.get(
     failureRedirect: OAUTH_AUTHORIZATION_URL,
     session: false,
   }),
-  asyncCatcher(async (req: Request, res: Response, next: NextFunction) => {
+  asyncCatcher(async (req: Request, res: Response) => {
     const stateStr = Buffer.from(req.query.state, 'base64').toString();
     const state = JSON.parse(stateStr);
+    const user = req.user;
 
-    if (!isInviteParams(state)) {
-      res.sendStatus(404);
+    if (!isInviteParams(state) || !isUserData(user)) {
+      res.sendStatus(500);
       return;
     }
 
     const { guildDiscordId, inviterDiscordId } = state;
+    const { id: inviteeDiscordId } = user;
+    let invite = await WrappedInvite.findOne({ guildDiscordId });
 
-    const channels = await discordAPIClient.getGuildChannels(guildDiscordId);
+    /**
+     * If the invite is not in our database, we create it
+     */
+    if (!invite) {
+      try {
+        logger.info(`[${guildDiscordId}] Invite missing, creating...`);
+        invite = await createGuildInvite(guildDiscordId);
+      } catch (err) {
+        logger.error(err.message, err);
+      }
+    }
 
-    if (!channels) {
-      res.sendStatus(404);
+    if (!invite) {
+      res.sendStatus(500);
       return;
     }
 
-    const defaultTextChannel = channels.filter(
-      channel => channel.type === 0
-    )[0];
+    logger.info(
+      `[${guildDiscordId}] New referral: ${inviterDiscordId} invited \
+${inviteeDiscordId}`
+    );
+    Referral.create({
+      guildDiscordId,
+      inviterDiscordId,
+      inviteeDiscordId,
+      timestamp: Date.now(),
+      fulfilled: false,
+    });
 
-    // const { id, username, discriminator } = req.user;
-    // - Create/Get invite link for redirect
-    // - ...Do stuff
-    // - Redirect to invite link
-    // res.redirect('<invite link here>'); // Redirect to inviteUrl
-    next();
+    res.redirect(`${DISCORD_INVITE_PREFIX}/${invite.code}`); // Redirect to inviteUrl
   })
 );
 
