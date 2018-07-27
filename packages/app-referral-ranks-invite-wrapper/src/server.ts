@@ -8,9 +8,9 @@ import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import formatNumber from 'format-number';
+import { isNumber } from 'lodash';
 import passport from 'passport';
 import logger from 'winston';
-import { isNumber } from 'lodash';
 import {
   API_URL,
   BOT_TOKEN,
@@ -132,17 +132,17 @@ app.get(
     const { icon, name, id } = guild;
     const dbGuild = await Guild.findOne({ discordId: id });
     if (dbGuild) {
-      memberCount = formatNumber()(dbGuild.memberCount);
+      memberCount = dbGuild.memberCount;
       if (dbGuild.onlineCount) {
-        onlineCount = formatNumber()(dbGuild.onlineCount);
+        onlineCount = dbGuild.onlineCount;
       }
     }
 
     // TODO: Check what the caching time is
     if (isNumber(memberCount)) {
-      membersText = `🔵️ ${memberCount} members`;
+      membersText = `▪️ ${formatNumber()(memberCount)} members`;
       if (isNumber(onlineCount)) {
-        membersText += `\n⚪️ ${onlineCount} online`;
+        membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
       }
     }
 
@@ -151,14 +151,13 @@ app.get(
     const oembedResponse = {
       version: '1.0',
       type: 'link',
-      membersText,
-      thumbnail_width: 400,
+      thumbnail_width: 100,
       thumbnail_height: 100,
       author_name: name,
-      provider_name: 'Powered by referralranks.com',
-      author_url: `${req.baseUrl}/${req.path}`,
-      thumbnail_url: 'http://placehold.it/400x100.png',
-      title: 'Join server',
+      provider_name: 'YOU HAVE BEEN INVITED TO JOIN THIS DISCORD SERVER',
+      author_url: `${globalUrl}${req.path}`,
+      thumbnail_url: iconUrl,
+      title: 'Join Server',
     };
     const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
       'base64'
@@ -166,6 +165,7 @@ app.get(
 
     const htmlResponse = inviteViewTemplate({
       iconUrl,
+      membersText,
       guildName: name,
       linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
       oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
