@@ -29,7 +29,7 @@ schema.index({ code: 1 }, { unique: true });
 /**
  * Represents a wrapped invite link for a guild
  */
-export const Invite = mongoose.model<WrappedInviteDocument, WrappedInviteModel>(
-  'Bot-ReferralRanks-WrappedInvite',
-  schema
-);
+export const WrappedInvite = mongoose.model<
+  WrappedInviteDocument,
+  WrappedInviteModel
+>('Bot-ReferralRanks-WrappedInvite', schema);
