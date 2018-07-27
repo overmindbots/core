@@ -11,7 +11,7 @@ export interface DiscordAPIGuildChannelsResponse
       type: number;
     }> {}
 
-export interface DiscordAPICreateChannelResponse {
+export interface DiscordAPICreateChannelInviteResponse {
   code: string;
   guild: {
     id: string;
@@ -115,10 +115,9 @@ export class DiscordAPI {
     let result;
 
     try {
-      result = await this.makePostRequest<DiscordAPICreateChannelResponse>(
-        `channels/${channelId}/invites`,
-        options
-      );
+      result = await this.makePostRequest<
+        DiscordAPICreateChannelInviteResponse
+      >(`channels/${channelId}/invites`, options);
     } catch (err) {
       return null;
     }
