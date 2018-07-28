@@ -1,6 +1,6 @@
 import { isUserData } from '@overmindbots/shared-models';
 import {
-  Referral,
+  CertainReferral,
   WrappedInvite,
 } from '@overmindbots/shared-models/referralRanks';
 import {
@@ -192,7 +192,7 @@ app.get(
       `[${guildDiscordId}] New referral: ${inviterDiscordId} invited \
 ${inviteeDiscordId}`
     );
-    Referral.create({
+    CertainReferral.create({
       guildDiscordId,
       inviterDiscordId,
       inviteeDiscordId,
