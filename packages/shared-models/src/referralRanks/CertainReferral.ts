@@ -1,13 +1,14 @@
 import mongoose from 'mongoose';
 
-export interface ReferralDocument extends mongoose.Document {
+export interface CertainReferralDocument extends mongoose.Document {
   guildDiscordId: string;
   inviterDiscordId: string | null;
   inviteeDiscordId: string;
   timestamp: number;
-  certainty: number;
+  fulfilled: boolean;
 }
-export interface ReferralModel extends mongoose.Model<ReferralDocument> {}
+export interface CertainReferralModel
+  extends mongoose.Model<CertainReferralDocument> {}
 
 const schema = new mongoose.Schema({
   guildDiscordId: {
@@ -25,9 +26,9 @@ const schema = new mongoose.Schema({
     required: true,
     type: Number,
   },
-  certainty: {
+  fulfilled: {
     required: true,
-    type: Number,
+    type: Boolean,
   },
 });
 
@@ -35,9 +36,10 @@ schema.index({ guildDiscordId: 1 });
 schema.index({ guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 });
 
 /**
- * Represents a possible use of an invite by a new guild member
+ * Represents a certain use of an invite by a new guild member
+ * for use with invites 3.0
  */
-export const Referral = mongoose.model<ReferralDocument, ReferralModel>(
-  'Bot-ReferralRanks-Referral',
-  schema
-);
+export const CertainReferral = mongoose.model<
+  CertainReferralDocument,
+  CertainReferralModel
+>('Bot-ReferralRanks-CertainReferral', schema);
