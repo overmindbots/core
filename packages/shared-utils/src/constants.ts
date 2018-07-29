@@ -19,10 +19,10 @@ export enum OAUTH_PROVIDERS {
   DISCORD = 'DISCORD',
 }
 
-export const API_VERSION = 6;
+export const API_VERSION = 7;
 export const DISCORD_API_BASE_URL = `https://discordapp.com/api/v${API_VERSION}`;
 export const DISCORD_OAUTH_BASE_URL = `${DISCORD_API_BASE_URL}/oauth2`;
 export const PREFIX_PATTERN = /^([^\s@#"'*a-z0-9*`]){1}$/;
-
+export const DISCORD_CDN_URL = 'https://cdn.discordapp.com';
 export const DISCORD_BASE_ADD_BOT_URL =
   'https://discordapp.com/oauth2/authorize';

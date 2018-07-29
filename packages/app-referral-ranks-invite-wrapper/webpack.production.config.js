@@ -1,5 +1,14 @@
-const getBaseConfig = require('../../webpack.production.config');
+const getBaseConfig = require('../../webpack.config');
+
+const baseConfig = getBaseConfig(__dirname);
 
 module.exports = {
-  ...getBaseConfig(__dirname),
+  ...baseConfig,
+  module: {
+    ...baseConfig.module,
+    rules: [
+      ...baseConfig.module.rules,
+      { test: /\.handlebars$/, loader: 'handlebars-loader' },
+    ],
+  },
 };

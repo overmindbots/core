@@ -1,15 +1,19 @@
 import { isUserData } from '@overmindbots/shared-models';
+import { Guild } from '@overmindbots/shared-models';
 import {
   CertainReferral,
   WrappedInvite,
 } from '@overmindbots/shared-models/referralRanks';
 import {
+  buildGuildIconUrl,
   DiscordAPI,
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
+import formatNumber from 'format-number';
+import { isNumber } from 'lodash';
 import passport from 'passport';
 import logger from 'winston';
 import {
@@ -22,34 +26,32 @@ import {
   PORT,
 } from '~/constants';
 
+import inviteViewTemplate from './htmlTemplates/invite.html.handlebars';
+import { getGlobalUrl } from './utils/getGlobalUrl';
+
 interface InviteParams {
   guildDiscordId: string;
   inviterDiscordId: string;
 }
-
 interface OauthRequest extends Request {
   params: InviteParams;
 }
-
 interface InviteRequest extends Request {
   params: InviteParams;
 }
 
 function isOauthRequest(request: Request): request is OauthRequest {
   const { guildDiscordId, inviterDiscordId } = request.params;
-
   return !!inviterDiscordId && !!guildDiscordId;
 }
 
 function isInviteRequest(request: Request): request is InviteRequest {
   const { inviterDiscordId, guildDiscordId } = request.params;
-
   return !!inviterDiscordId && !!guildDiscordId;
 }
 
 function isInviteParams(params: any): params is InviteParams {
   const { inviterDiscordId, guildDiscordId } = params;
-
   return !!inviterDiscordId && !!guildDiscordId;
 }
 
@@ -122,38 +124,11 @@ app.use(({}, {}, next) => {
 app.use(passport.initialize());
 
 /**
- * Initial route that redirects to oauth dialog
- */
-app.get(
-  '/oauth/:guildDiscordId/:inviterDiscordId',
-  asyncCatcher(async (req: Request, res: Response) => {
-    if (!isOauthRequest(req)) {
-      res.sendStatus(500);
-      return;
-    }
-
-    const stateStr = JSON.stringify(req.params);
-    const encodedState = Buffer.from(stateStr).toString('base64');
-
-    const url =
-      `${OAUTH_AUTHORIZATION_URL}?` +
-      `client_id=${DISCORD_CLIENT_ID}` +
-      `&redirect_uri=${encodeURIComponent(OAUTH_CALLBACK_URL)}` +
-      '&response_type=code' +
-      '&scope=identify' +
-      `&state=${encodedState}`;
-
-    res.redirect(url);
-  })
-);
-
-/**
  * Where the user is redirected after a successful Authentication
  */
 app.get(
   '/oauth/callback',
   passport.authenticate('oauth2', {
-    // NOTE: Maybe we want to redirect somewhere else to get data of people who rejected
     failureRedirect: OAUTH_AUTHORIZATION_URL,
     session: false,
   }),
@@ -205,41 +180,110 @@ ${inviteeDiscordId}`
 );
 
 /**
- * Route: /invite
  * validates that the guild exists and returns an html document with:
  * - OG Tags to display
- * - A js snippet to redirect to the invite link
+ * - A JS snippet to redirect to the invite link
+ * - Oembed url (which cointains the oembed response encoded in base64)
  */
 app.get(
   '/invite/:guildDiscordId/:inviterDiscordId',
-  asyncCatcher(async (req, res) => {
+  asyncCatcher(async (req: Request, res: Response) => {
     if (!isInviteRequest(req)) {
       res.sendStatus(404);
       return;
     }
-
     const { guildDiscordId, inviterDiscordId } = req.params;
 
-    console.log('guildDiscordId', guildDiscordId);
-    const guild = await discordAPIClient.getGuild(guildDiscordId);
+    const state = {
+      guildDiscordId,
+      inviterDiscordId,
+    };
 
-    console.log('guild', guild);
+    const stateStr = JSON.stringify(state);
+    const encodedState = Buffer.from(stateStr).toString('base64');
+    const redirectUrl =
+      `${OAUTH_AUTHORIZATION_URL}?` +
+      `client_id=${DISCORD_CLIENT_ID}` +
+      `&redirect_uri=${encodeURIComponent(OAUTH_CALLBACK_URL)}` +
+      '&response_type=code' +
+      '&scope=identify' +
+      `&state=${encodedState}`;
+
+    console.log('redirectUrl', redirectUrl);
+
+    const guild = await discordAPIClient.getGuild(guildDiscordId);
 
     if (!guild) {
       res.sendStatus(404);
       return;
     }
 
-    const { icon, name } = guild;
+    let memberCount;
+    let onlineCount;
+    let membersText = '';
+    const { icon, name, id } = guild;
+    const dbGuild = await Guild.findOne({ discordId: id });
+    if (dbGuild) {
+      memberCount = dbGuild.memberCount;
+      if (dbGuild.onlineCount) {
+        onlineCount = dbGuild.onlineCount;
+      }
+    }
 
-    console.log('guild', guild);
-    res.sendStatus(200);
+    // TODO: Check what the caching time is
+    if (isNumber(memberCount)) {
+      membersText = `▪️ ${formatNumber()(memberCount)} members`;
+      if (isNumber(onlineCount)) {
+        membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
+      }
+    }
 
-    /**
-     * 1. Get Icon URL
-     * 2. Make template file
-     * 3. Build template and send
-     */
+    const iconUrl = buildGuildIconUrl(id, icon);
+    const globalUrl = await getGlobalUrl();
+    const oembedResponse = {
+      version: '1.0',
+      type: 'link',
+      inviteDescription: '', // TODO: Allow customization of this
+      thumbnail_width: 100,
+      thumbnail_height: 100,
+      author_name: name,
+      provider_name: 'YOU HAVE BEEN INVITED TO JOIN THIS DISCORD SERVER',
+      author_url: `${globalUrl}${req.path}`,
+      thumbnail_url: iconUrl,
+      title: 'Join Server',
+    };
+    console.log(oembedResponse);
+    const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
+      'base64'
+    );
+
+    const htmlResponse = inviteViewTemplate({
+      redirectUrl,
+      iconUrl,
+      membersText,
+      guildName: name,
+      linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
+      oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
+    });
+
+    res.send(htmlResponse);
+    return;
+  })
+);
+/**
+ * Returns a json object with oembed content
+ */
+app.get(
+  '/oembed/invite/:encodedResponse.json',
+  asyncCatcher(async (req: Request, res: Response) => {
+    const oembedResponse = Buffer.from(
+      req.params.encodedResponse,
+      'base64'
+    ).toString();
+    const jsonResponse = JSON.parse(oembedResponse);
+    logger.info('==> Responding to oEmbed request with:');
+    logger.info(jsonResponse);
+    res.json(jsonResponse);
   })
 );
 
