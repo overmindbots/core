@@ -8,9 +8,9 @@ import { flow, map, orderBy, reduce, take } from 'lodash/fp';
 
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
 import {
-  InviteConvertion,
-  InviteConvertionScore,
-} from '@overmindbots/shared-models/referralRanks/InviteConvertion';
+  CertainReferral,
+  CertainReferralScore,
+} from '@overmindbots/shared-models/referralRanks/CertainReferral';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
@@ -25,7 +25,7 @@ const DEFAULT_LEADERBOARD_SIZE = 50;
 const mapAndSortUserInvites = (
   invites: InvitesPerUser,
   limit: number
-): InviteConvertionScore[] =>
+): CertainReferralScore[] =>
   flow([
     map(
       (
@@ -51,11 +51,11 @@ export class LeaderboardCommand extends Command {
     return false;
   };
 
-  public buildMessage = (scores: InviteConvertionScore[]): string => {
+  public buildMessage = (scores: CertainReferralScore[]): string => {
     let count = 0;
     return flow([
       map(
-        ({ username, score }: InviteConvertionScore) =>
+        ({ username, score }: CertainReferralScore) =>
           `${++count} 🔸 **${username}** *${score} invites*`
       ),
       reduce((prev, next) => `${prev}${next}\n`, ''),
@@ -87,7 +87,7 @@ export class LeaderboardCommand extends Command {
   }
 
   private async getLeaderboardScores(guildDiscordId: string, limit: number) {
-    return await InviteConvertion.getTopScores(guildDiscordId, limit);
+    return await CertainReferral.getTopScores(guildDiscordId, limit);
   }
 
   private async getLegacyLeaderboardInvites(guild: Guild, limit: number) {
@@ -99,7 +99,7 @@ export class LeaderboardCommand extends Command {
     return mapAndSortUserInvites(userInvitesMaps, limit);
   }
 
-  private async sendResults(scores: InviteConvertionScore[]) {
+  private async sendResults(scores: CertainReferralScore[]) {
     const { channel } = this.message;
     const message = this.buildMessage(scores);
     const richEmbed = new RichEmbed();

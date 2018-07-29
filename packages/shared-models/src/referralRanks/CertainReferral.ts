@@ -8,7 +8,17 @@ export interface CertainReferralDocument extends mongoose.Document {
   fulfilled: boolean;
 }
 export interface CertainReferralModel
-  extends mongoose.Model<CertainReferralDocument> {}
+  extends mongoose.Model<CertainReferralDocument> {
+  getTopScores(
+    guildDiscordId: string,
+    limit?: number
+  ): Promise<CertainReferralScore[]>;
+}
+export interface CertainReferralScore {
+  inviterDiscordId: string;
+  score: number;
+  username: string;
+}
 
 const schema = new mongoose.Schema({
   guildDiscordId: {
@@ -33,7 +43,17 @@ const schema = new mongoose.Schema({
 });
 
 schema.index({ guildDiscordId: 1 });
-schema.index({ guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 });
+schema.index(
+  { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
+  { unique: true }
+);
+schema.statics.getTopScores = async function(
+  guildDiscordId: string,
+  limit: number
+) {
+  // TODO: Implement this method, this is just a placeholder
+  return [].slice(0, limit + guildDiscordId.length) as CertainReferralScore[];
+};
 
 /**
  * Represents a certain use of an invite by a new guild member
