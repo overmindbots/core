@@ -71,12 +71,6 @@ export class LeaderboardCommand extends Command {
       return;
     }
 
-    // TODO: Verify this is avoided in future requests and cached to memory,
-    // otherwise we need to keep track of this to avoid unnecessary fetches
-    if (guild.memberCount < DISCORD_BIG_GUILD_MEMBER_SIZE) {
-      await guild.fetchMembers();
-    }
-
     const isUsingNextVersion = botInstance.config.isNextVersion;
     const leaderboardSize =
       botInstance.config.leaderboardSize ||
