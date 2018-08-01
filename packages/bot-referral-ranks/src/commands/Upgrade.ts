@@ -4,7 +4,6 @@ import {
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
 import Discord from 'discord.js';
-import logger from 'winston';
 import { BOT_TYPE } from '~/constants';
 
 const replyConfig = {
