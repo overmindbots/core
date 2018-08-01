@@ -173,6 +173,7 @@ ${inviteeDiscordId}`
       inviteeDiscordId,
       timestamp: Date.now(),
       fulfilled: false,
+      active: false,
     });
 
     res.redirect(`${DISCORD_INVITE_PREFIX}/${invite.code}`); // Redirect to inviteUrl
