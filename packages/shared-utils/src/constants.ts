@@ -5,7 +5,7 @@ export interface ReferralRanksBotConfig {
   prefix: string;
   leaderboardSize?: number;
   isNextVersion?: boolean;
-  countScoresSince: string;
+  countScoresSince: Date;
 }
 
 export const POD_STATUS_SERVER_PORT =
@@ -20,6 +20,8 @@ export const BOTS = {
 export enum OAUTH_PROVIDERS {
   DISCORD = 'DISCORD',
 }
+
+export const REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE = 50;
 
 export const API_VERSION = 7;
 export const DISCORD_API_BASE_URL = `https://discordapp.com/api/v${API_VERSION}`;

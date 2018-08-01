@@ -11,6 +11,7 @@ import {
   CertainReferral,
   CertainReferralScore,
 } from '@overmindbots/shared-models/referralRanks/CertainReferral';
+import { REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE } from '@overmindbots/shared-utils/constants';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
@@ -19,8 +20,6 @@ import {
   InvitesPerUser,
   InvitesPerUserItem,
 } from './utils';
-
-const DEFAULT_LEADERBOARD_SIZE = 50;
 
 const mapAndSortUserInvites = (
   invites: InvitesPerUser,
@@ -71,7 +70,8 @@ export class LeaderboardCommand extends Command {
 
     const isUsingNextVersion = botInstance.config.isNextVersion;
     const leaderboardSize =
-      botInstance.config.leaderboardSize || DEFAULT_LEADERBOARD_SIZE;
+      botInstance.config.leaderboardSize ||
+      REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE;
 
     let scores;
     if (isUsingNextVersion) {
