@@ -1,5 +1,6 @@
 import {
   BOT_TYPES,
+  DISCORD_BIG_GUILD_MEMBER_SIZE,
   REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE,
 } from '@overmindbots/shared-utils/constants';
 import Discord from 'discord.js';
@@ -25,6 +26,7 @@ export interface CertainReferralModel
 export interface CertainReferralScore {
   inviterDiscordId: string;
   score: number;
+  username: string;
 }
 const schema = new mongoose.Schema({
   guildDiscordId: {
@@ -85,10 +87,25 @@ schema.statics.getTopScores = async function(
     { $limit: limit },
   ])) as Array<{ _id: string; score: number }>;
 
-  return map(scores, ({ score, _id }) => ({
-    inviterDiscordId: _id,
-    score,
-  }));
+  if (scores.length <= 0) {
+    return scores;
+  }
+
+  // TODO: Make sure future requests are  automatically avoided and member cache
+  // is updated, otherwise, prevent unnecessary fetches
+  if (guild.memberCount >= DISCORD_BIG_GUILD_MEMBER_SIZE) {
+    await guild.fetchMembers();
+  }
+
+  return map(scores, ({ score, _id }) => {
+    const member = guild.members.get(_id);
+    const username = (member && member.displayName) || 'Delete User';
+    return {
+      inviterDiscordId: _id,
+      username,
+      score,
+    };
+  });
 };
 
 /**

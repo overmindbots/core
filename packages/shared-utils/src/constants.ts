@@ -23,6 +23,13 @@ export enum OAUTH_PROVIDERS {
 
 export const REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE = 50;
 
+/**
+ * Number after which Discord considers a guild "big"
+ * this means that by default we don't have a full in-memory list of members
+ * and need to fetch them if we require it
+ */
+export const DISCORD_BIG_GUILD_MEMBER_SIZE = 250;
+
 export const API_VERSION = 7;
 export const DISCORD_API_BASE_URL = `https://discordapp.com/api/v${API_VERSION}`;
 export const DISCORD_OAUTH_BASE_URL = `${DISCORD_API_BASE_URL}/oauth2`;

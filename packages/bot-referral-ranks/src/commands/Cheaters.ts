@@ -4,6 +4,7 @@ import {
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
 import { InviteUse } from '@overmindbots/shared-models/referralRanks';
+import { DISCORD_BIG_GUILD_MEMBER_SIZE } from '@overmindbots/shared-utils/src/constants';
 import { each, map } from 'lodash';
 import { compact, flow, map as mapFp, reduce } from 'lodash/fp';
 import logger from 'winston';
@@ -31,10 +32,6 @@ export class CheatersCommand extends Command {
   ) => {
     const { guild } = this.message;
 
-    if (guild.memberCount > 250) {
-      await guild.fetchMembers();
-    }
-
     return flow([
       mapFp(({ inviterDiscordId, uses }) => {
         const member = guild.members.find('id', inviterDiscordId);
@@ -61,6 +58,7 @@ export class CheatersCommand extends Command {
     const {
       channel,
       guild: { id: guildDiscordId },
+      guild,
     } = this.message;
 
     const inviteUses = await InviteUse.find({

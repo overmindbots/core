@@ -3,7 +3,7 @@ import {
   Command,
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
-import { Guild, Message, RichEmbed } from 'discord.js';
+import Discord from 'discord.js';
 import { flow, map, orderBy, reduce, take } from 'lodash/fp';
 
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
@@ -11,7 +11,10 @@ import {
   CertainReferral,
   CertainReferralScore,
 } from '@overmindbots/shared-models/referralRanks/CertainReferral';
-import { REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE } from '@overmindbots/shared-utils/constants';
+import {
+  DISCORD_BIG_GUILD_MEMBER_SIZE,
+  REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE,
+} from '@overmindbots/shared-utils/constants';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
@@ -68,6 +71,12 @@ export class LeaderboardCommand extends Command {
       return;
     }
 
+    // TODO: Verify this is avoided in future requests and cached to memory,
+    // otherwise we need to keep track of this to avoid unnecessary fetches
+    if (guild.memberCount < DISCORD_BIG_GUILD_MEMBER_SIZE) {
+      await guild.fetchMembers();
+    }
+
     const isUsingNextVersion = botInstance.config.isNextVersion;
     const leaderboardSize =
       botInstance.config.leaderboardSize ||
@@ -75,10 +84,7 @@ export class LeaderboardCommand extends Command {
 
     let scores;
     if (isUsingNextVersion) {
-      scores = await this.getLeaderboardScores(
-        botInstance.guildDiscordId,
-        leaderboardSize
-      );
+      scores = await this.getLeaderboardScores(guild, leaderboardSize);
     } else {
       scores = await this.getLegacyLeaderboardInvites(guild, leaderboardSize);
     }
@@ -86,11 +92,14 @@ export class LeaderboardCommand extends Command {
     this.sendResults(scores);
   }
 
-  private async getLeaderboardScores(guildDiscordId: string, limit: number) {
-    return await CertainReferral.getTopScores(guildDiscordId, limit);
+  private async getLeaderboardScores(guild: Discord.Guild, limit: number) {
+    return await CertainReferral.getTopScores(guild, limit);
   }
 
-  private async getLegacyLeaderboardInvites(guild: Guild, limit: number) {
+  private async getLegacyLeaderboardInvites(
+    guild: Discord.Guild,
+    limit: number
+  ) {
     const invites = await guild.fetchInvites();
     const userInvitesMaps = buildInvitesPerUser(invites);
 
@@ -102,11 +111,11 @@ export class LeaderboardCommand extends Command {
   private async sendResults(scores: CertainReferralScore[]) {
     const { channel } = this.message;
     const message = this.buildMessage(scores);
-    const richEmbed = new RichEmbed();
+    const richEmbed = new Discord.RichEmbed();
     const embed = richEmbed.setColor('#D4AF37').setDescription(message);
     const result = (await channel.send('Top users', {
       embed,
-    })) as Message;
+    })) as Discord.Message;
 
     if (result && !result.embeds.length) {
       await channel.send(message);
