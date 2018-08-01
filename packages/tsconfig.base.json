@@ -4,7 +4,9 @@
     "module": "esnext",
     "moduleResolution": "node",
     "target": "es2018",
-    "lib": ["es2015"],
+    "lib": [
+      "es2015"
+    ],
     "sourceMap": true,
     "allowJs": true,
     "alwaysStrict": true,
@@ -22,6 +24,7 @@
     "noUnusedParameters": true
   },
   "exclude": [
-    "**/node_modules/*"
+    "**/node_modules/*",
+    "**/node_modules/**/*"
   ]
 }
