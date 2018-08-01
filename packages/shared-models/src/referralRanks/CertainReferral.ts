@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Discord from 'discord.js';
 
 export interface CertainReferralDocument extends mongoose.Document {
   guildDiscordId: string;
@@ -47,12 +48,15 @@ schema.index(
   { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
   { unique: true }
 );
+/**
+ * Gets a list of the members of a guild with higher scores in descending order
+ * since the last invites reset date
+ */
 schema.statics.getTopScores = async function(
-  guildDiscordId: string,
+  guild: Discord.Guild,
   limit: number
 ) {
-  // TODO: Implement this method, this is just a placeholder
-  return [].slice(0, limit + guildDiscordId.length) as CertainReferralScore[];
+  // TODO: Implement
 };
 
 /**
