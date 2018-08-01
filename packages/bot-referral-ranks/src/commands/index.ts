@@ -11,3 +11,4 @@ export { SetRankCommand } from './SetRank';
 export { SupportCommand } from './Support';
 export { SetPrefixCommand } from './SetPrefix';
 export { VersionCommand } from './Version';
+export { UpgradeCommand } from './Upgrade';
