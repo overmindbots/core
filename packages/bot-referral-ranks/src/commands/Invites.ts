@@ -4,10 +4,15 @@ import {
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
+import {
+  CertainReferral,
+  Rank,
+} from '@overmindbots/shared-models/referralRanks';
 import { getUserInviteLinkUrl } from '@overmindbots/shared-utils/botReferralRanks';
-import { Rank } from '@overmindbots/shared-models/referralRanks';
+import Discord from 'discord.js';
 import { reduce as reduceNormal } from 'lodash';
 import { add, flow, map as mapFp, reduce } from 'lodash/fp';
+import moment from 'moment';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import { buildInvitesPerUser, updateUsersRanks } from './utils';
@@ -19,6 +24,22 @@ export class InvitesCommand extends Command {
       return true;
     }
     return false;
+  };
+  /**
+   * Returns data of the closest role where the invites required
+   * are bigger than the number provided
+   */
+  private getNextRoleInfo = async (invitesCount: number) => {
+    const { guild } = this.message;
+    const rank = await Rank.getNextRank(invitesCount, guild);
+
+    if (!rank) {
+      return null;
+    }
+    const invitesForNextRole = rank.invitesRequired - invitesCount;
+    const nextRole = guild.roles.find('id', rank.roleDiscordId);
+    const nextRoleName = (nextRole && nextRole.name) || 'DeletedRole';
+    return { invitesForNextRole, nextRoleName };
   };
   private runLegacyCommand = async () => {
     const { guild, author, channel } = this.message;
@@ -54,15 +75,12 @@ export class InvitesCommand extends Command {
       reduce(add, 0),
     ])(userInvites);
 
-    const rank = await Rank.getNextRank(invitesCount, guild);
+    const nextRoleData = await this.getNextRoleInfo(invitesCount);
 
-    if (rank) {
-      const invitesForNextRank = rank.invitesRequired - invitesCount;
-      const nextRole = guild.roles.find('id', rank.roleDiscordId);
-      const nextRoleName = (nextRole && nextRole.name) || 'DeletedRole';
+    if (nextRoleData) {
       nextRankMessage =
-        `\nYou need ${invitesForNextRank} invites to become` +
-        ` **${nextRoleName}**`;
+        `\nYou need ${nextRoleData.invitesForNextRole} invites to become` +
+        ` **${nextRoleData.nextRoleName}**`;
     }
     if (expireableLinksCount) {
       expireableInvitesWarningMessage =
@@ -88,12 +106,38 @@ export class InvitesCommand extends Command {
       await this.runLegacyCommand();
       return;
     }
+    const getScoreSince = botInstance.config.countScoresSince || new Date(0);
+    const sinceTimestamp = getScoreSince.getTime();
+    const score = await CertainReferral.find({
+      inviterDiscordId: author.id,
+      guildDiscordId: guild.id,
+      timestamp: { $gte: getScoreSince.getTime() },
+      fulfilled: true,
+    }).count();
 
     // - get fulfilled invites for current user
     // - get next rank to get / invites left
     // - provide invite link
+    let sinceText = '';
+    let invitesRequiredText = '';
+    const nextRoleInfo = await this.getNextRoleInfo(score);
+    if (nextRoleInfo) {
+      invitesRequiredText = `\n- You need \`${
+        nextRoleInfo.invitesForNextRole
+      }\` invites to become **${nextRoleInfo.nextRoleName}**`;
+    }
+    if (sinceTimestamp !== 0) {
+      const days = moment.duration(sinceTimestamp - Date.now()).asDays();
+      sinceText = ` in the last ${days} days`;
+    }
     await channel.send(
-      `Your invite link is \`${getUserInviteLinkUrl(guild.id, author.id)}\``
+      `**${author.username}**\n` +
+        `- You have invited \`${score} members\`${sinceText}\n` +
+        `- Your invite link is \`${getUserInviteLinkUrl(
+          guild.id,
+          author.id
+        )}\`` +
+        `${invitesRequiredText}`
     );
   }
 }
