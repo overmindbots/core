@@ -5,6 +5,7 @@ export interface ReferralRanksBotConfig {
   prefix: string;
   leaderboardSize?: number;
   isNextVersion?: boolean;
+  countScoresSince: string;
 }
 
 export const POD_STATUS_SERVER_PORT =
