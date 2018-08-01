@@ -3,10 +3,12 @@ import {
   Command,
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
+import { BotInstance } from '@overmindbots/shared-models';
+import { getUserInviteLinkUrl } from '@overmindbots/shared-utils/botReferralRanks';
 import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { reduce as reduceNormal } from 'lodash';
 import { add, flow, map as mapFp, reduce } from 'lodash/fp';
-import { DISCORD_ERROR_CODES } from '~/constants';
+import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import { buildInvitesPerUser, updateUsersRanks } from './utils';
 
@@ -18,9 +20,10 @@ export class InvitesCommand extends Command {
     }
     return false;
   };
-  public async run() {
+  private runLegacyCommand = async () => {
     const { guild, author, channel } = this.message;
     let nextRankMessage = '';
+
     let expireableInvitesWarningMessage = '';
     const invites = await guild.fetchInvites();
     const userInvites = invites.findAll('inviter', author);
@@ -76,5 +79,21 @@ export class InvitesCommand extends Command {
 
     const usersInvites = buildInvitesPerUser(invites);
     await updateUsersRanks(usersInvites, guild);
+  };
+  public async run() {
+    const { guild, channel, author } = this.message;
+    const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+    const isUsingNextVersion = botInstance.config.isNextVersion;
+    if (!isUsingNextVersion) {
+      await this.runLegacyCommand();
+      return;
+    }
+
+    // - get fulfilled invites for current user
+    // - get next rank to get / invites left
+    // - provide invite link
+    await channel.send(
+      `Your invite link is \`${getUserInviteLinkUrl(guild.id, author.id)}\``
+    );
   }
 }

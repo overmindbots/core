@@ -19,6 +19,9 @@ if (!process.env.BOT_TOKEN) {
 if (!process.env.MONGODB_URI) {
   throw new Error('MONGODB_URI missing');
 }
+if (!process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_URL) {
+  throw new Error('APP_REFERRAL_RANKS_INVITE_WRAPPER_URL is missing');
+}
 
 // NOTE: For development we generate a podId with a timestamp to avoid
 // colissions, improve this, we want to be able to restart pods in dev and

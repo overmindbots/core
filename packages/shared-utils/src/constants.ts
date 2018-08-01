@@ -11,8 +11,8 @@ export interface ReferralRanksBotConfig {
 export const POD_STATUS_SERVER_PORT =
   process.env.POD_STATUS_SERVER_PORT || 7000;
 
-export const APP_REFERRAL_RANKS_INVITE_WRAPPER_URL =
-  process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_URL;
+export const APP_REFERRAL_RANKS_INVITE_WRAPPER_URL = process.env
+  .APP_REFERRAL_RANKS_INVITE_WRAPPER_URL as string;
 
 // TODO: Change this to an array of permissions and generate programatically
 export const BOTS = {
