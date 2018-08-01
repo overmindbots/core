@@ -47,6 +47,7 @@ export class UpgradeCommand extends Command {
       );
       reply = collected.first();
     } catch (collected) {
+      await channel.send('Downgrade aborted');
       return;
     }
 
