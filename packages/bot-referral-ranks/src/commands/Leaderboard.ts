@@ -4,17 +4,14 @@ import {
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
 import Discord from 'discord.js';
-import { flow, map, orderBy, reduce, take, filter } from 'lodash/fp';
+import { filter, flow, map, orderBy, reduce, take } from 'lodash/fp';
 
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
 import {
   CertainReferral,
   CertainReferralScore,
 } from '@overmindbots/shared-models/referralRanks/CertainReferral';
-import {
-  DISCORD_BIG_GUILD_MEMBER_SIZE,
-  REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE,
-} from '@overmindbots/shared-utils/constants';
+import { REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE } from '@overmindbots/shared-utils/constants';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
