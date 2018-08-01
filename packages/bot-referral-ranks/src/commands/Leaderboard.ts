@@ -4,7 +4,7 @@ import {
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
 import Discord from 'discord.js';
-import { flow, map, orderBy, reduce, take } from 'lodash/fp';
+import { flow, map, orderBy, reduce, take, filter } from 'lodash/fp';
 
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
 import {
@@ -29,6 +29,7 @@ const mapAndSortUserInvites = (
   limit: number
 ): CertainReferralScore[] =>
   flow([
+    filter(({ member: { bot } }: InvitesPerUserItem) => !bot),
     map(
       (
         { invitesUses, member: { username } }: InvitesPerUserItem,
@@ -83,7 +84,7 @@ export class LeaderboardCommand extends Command {
       scores = await this.getLegacyLeaderboardInvites(guild, leaderboardSize);
     }
 
-    this.sendResults(scores);
+    this.sendMessageWithResults(scores);
   }
 
   private async getLeaderboardScores(guild: Discord.Guild, limit: number) {
@@ -102,8 +103,12 @@ export class LeaderboardCommand extends Command {
     return mapAndSortUserInvites(userInvitesMaps, limit);
   }
 
-  private async sendResults(scores: CertainReferralScore[]) {
+  private async sendMessageWithResults(scores: CertainReferralScore[]) {
     const { channel } = this.message;
+    if (scores.length <= 0) {
+      channel.send('There are no scores yet');
+      return;
+    }
     const message = this.buildMessage(scores);
     const richEmbed = new Discord.RichEmbed();
     const embed = richEmbed.setColor('#D4AF37').setDescription(message);
