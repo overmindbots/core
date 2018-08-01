@@ -10,6 +10,10 @@ export interface ReferralRanksBotConfig {
 
 export const POD_STATUS_SERVER_PORT =
   process.env.POD_STATUS_SERVER_PORT || 7000;
+
+export const APP_REFERRAL_RANKS_INVITE_WRAPPER_URL =
+  process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_URL;
+
 // TODO: Change this to an array of permissions and generate programatically
 export const BOTS = {
   [BOT_TYPES.REFERRAL_RANKS]: {
@@ -22,6 +26,7 @@ export enum OAUTH_PROVIDERS {
 }
 
 export const REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE = 50;
+export const REFERRAL_RANKS_INVITE_BASE_URL = '${}';
 
 /**
  * Number after which Discord considers a guild "big"
