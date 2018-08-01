@@ -1,13 +1,11 @@
 import {
   Command,
-  CommandArgs,
-  CommandRuntimeError,
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
+import { BotInstance } from '@overmindbots/shared-models';
 import Discord from 'discord.js';
 import logger from 'winston';
 import { BOT_TYPE } from '~/constants';
-import { BotInstance } from '../../node_modules/@overmindbots/shared-models/src';
 
 const replyConfig = {
   maxMatches: 1,
@@ -29,26 +27,14 @@ export class UpgradeCommand extends Command {
       return;
     }
 
-    try {
-      const collected = await channel.awaitMessages(
-        ({ author: replyAuthor }: Discord.Message) =>
-          replyAuthor.id === authorId,
-        replyConfig
-      );
-      reply = collected.first();
-    } catch (err) {
-      logger.error(err.message, err);
-      return;
-    }
-
-    await reply.channel.send(
-      'This command will upgrade Referral Ranks to the new invites system.' +
+    await channel.send(
+      'This command will upgrade Referral Ranks to the new invites system.\n' +
         '**You will be able to import the current invites**\n\n' +
         'Some of the features that will be enabled:\n' +
         '- **Customizable invite links**\n' +
         '- **Impossible-to-cheat system** (!cheaters command will' +
         ' be removed in future versions)\n' +
-        '- Ability to **Reset invites**\n' +
+        '- Ability to **reset invites**\n' +
         '- Know who invited who\n' +
         '\nFor a complete list of changes and more info visit ' +
         'https://www.referralranks.com/next\n\n' +
@@ -61,8 +47,7 @@ export class UpgradeCommand extends Command {
         replyConfig
       );
       reply = collected.first();
-    } catch (err) {
-      logger.error(err.message, err);
+    } catch (collected) {
       return;
     }
 
@@ -96,9 +81,9 @@ export class UpgradeCommand extends Command {
     await channel.send(
       'Congratulations! You have migrated the server to the new invites ' +
         'system.\n\n' +
-        '**IMPORTANT:** The new system uses our custom invite links, which' +
+        '**IMPORTANT:** The new system uses our custom invite links, which ' +
         'is what allows us to flawlessly track who invited who and completely' +
-        'prevent cheaters. For this reason users **must share their own ' +
+        'prevent cheaters.\nFor this reason users **must share their own ' +
         'invite link** which is obtainable through the `!invite` command' +
         '\n\n' +
         'Keep in mind:\n' +
