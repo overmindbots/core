@@ -47,6 +47,7 @@ schema.index(
   { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
   { unique: true }
 );
+schema.index({ timestamp: 1 });
 schema.statics.getTopScores = async function(
   guildDiscordId: string,
   limit: number
