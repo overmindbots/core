@@ -3,13 +3,15 @@ import '~/startup';
 
 import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import P from 'bluebird';
 import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
 import logger from 'winston';
 
+import mongoose from 'mongoose';
 import {
   BOT_TOKEN,
-  GUILD_CHECK_INTERVAL,
+  CHUNK_SIZE,
   MONGODB_URI,
   SHARD_ID,
   TOTAL_SHARDS,
@@ -23,10 +25,10 @@ logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
 
 /**
  * TODO:
- * - Answer questions in issue #133
- * - Implement event handlers
+ * - Test
+ * - Add role handling to both startup and guildMemberAdd
  * - Improve comments
- * - Add logging
+ * - Improve logging
  * - Run utility to catch dangling promises
  */
 
@@ -82,42 +84,130 @@ const discordErrorHandler = async (error: DiscordAPIError) => {
   logger.error(error.message, error);
 };
 
+interface AggregatedReferral {
+  _id: string;
+  referralId: mongoose.Types.ObjectId;
+}
+
 /**
  * Update referrals based on current guild members
  */
-const checkGuildMembers = (guild: Discord.Guild) => {
+const checkGuildMembers = async (guild: Discord.Guild) => {
   const memberIds = guild.members.map(member => member.id);
+  const guildId = guild.id;
 
-  memberIds.forEach(async memberId => {
-    const referral = await CertainReferral.findOne(
-      { guildDiscordId: guild.id, inviteeId: memberId },
-      { sort: { timestamp: 1 } }
+  /**
+   * Group referrals by guild/invitee pair and
+   * get only the oldest one for each group
+   */
+  const firstReferrals = (await CertainReferral.aggregate([
+    {
+      $match: {
+        guildDiscordId: guildId,
+        inviteeDiscordId: { $in: memberIds },
+      },
+    },
+    { $sort: { createdAt: 1 } },
+    { $group: { _id: '$inviteeDiscordId', referralId: { $first: '$_id' } } },
+  ])) as AggregatedReferral[];
+
+  const referralIdsToMarkAsFulfilled = firstReferrals.map(
+    referral => referral.referralId
+  );
+
+  /**
+   * - Mark referrals for new members as fulfilled
+   * - Mark referrals for removed members as inactive
+   */
+  try {
+    logger.info(`[${guildId}] Updating fulfillment and inactivity`);
+    await P.all([
+      CertainReferral.updateMany(
+        { _id: { $in: referralIdsToMarkAsFulfilled } },
+        { fulfilled: true, active: true }
+      ),
+      CertainReferral.updateMany(
+        { inviteeId: { $nin: memberIds } },
+        { active: false }
+      ),
+    ]);
+  } catch (err) {
+    logger.error(err.message, err);
+  }
+};
+
+/**
+ * Check members and update fulfilled or inactive referrals for each guild
+ */
+const readyHandler = async () => {
+  logger.info('Client ready.');
+  const guilds = client.guilds;
+
+  // Check members in chunks of <CHUNK_SIZE> guilds at a time
+  const chunkedGuilds = _.chunk(guilds.array(), CHUNK_SIZE);
+
+  await P.each(chunkedGuilds, async (guildsChunk, chunkIndex) => {
+    const baseIndex = chunkIndex * CHUNK_SIZE + 1;
+    logger.info(
+      `Reading guilds ${baseIndex} through ${baseIndex + CHUNK_SIZE - 1}`
     );
 
-    if (!referral || referral.fulfilled) {
-      return;
-    }
+    await P.map(guildsChunk, async (guild, index) => {
+      logger.info(
+        `[${guild.id}] Reading ${baseIndex + index}: "${guild.name}" \
+(${guild.memberCount} members)`
+      );
 
-    referral.update({ fulfilled: true });
+      await checkGuildMembers(guild);
+    });
   });
 };
 
 /**
- * Start interval for each guild
+ * Check members for late guilds
  */
-const readyHandler = async () => {
-  const guilds = client.guilds;
+const guildCreateHandler = async (guild: Discord.Guild) => {
+  logger.info(
+    `[${guild.id}] Received "${guild.name}" (${guild.memberCount} members)`
+  );
 
-  guilds.forEach(guild => {
-    client.setInterval(checkGuildMembers, GUILD_CHECK_INTERVAL, guild);
-  });
+  await checkGuildMembers(guild);
 };
 
-const guildCreateHandler = async () => {};
+/**
+ * Fulfill the member's oldest referral if it hasn't been fulfilled already
+ */
+const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
+  const {
+    guild: { id: guildDiscordId },
+    id: inviteeDiscordId,
+  } = guildMember;
+  logger.info(`[${guildDiscordId}] New member, fulfilling referral`);
+  await CertainReferral.findOneAndUpdate(
+    {
+      guildDiscordId,
+      inviteeDiscordId,
+    },
+    { fulfilled: true, active: true },
+    { sort: { createdAt: 1 } }
+  );
+};
 
-const guildMemberAddHandler = async () => {};
-
-const guildMemberRemoveHandler = async () => {};
+/**
+ * Set the member's oldest referral as inactive if it exists
+ */
+const guildMemberRemoveHandler = async (guildMember: Discord.GuildMember) => {
+  const {
+    guild: { id: guildDiscordId },
+    id: inviteeDiscordId,
+  } = guildMember;
+  logger.info(`[${guildDiscordId}] Member left, marking referral as inactive`);
+  await CertainReferral.findOneAndUpdate(
+    { guildDiscordId, inviteeDiscordId },
+    { active: false },
+    { sort: { createdAt: 1 } }
+  );
+};
 
 client.on('ready', eventAsyncCatcher('ready')(readyHandler));
 client.on('guildCreate', eventAsyncCatcher('guildCreate')(guildCreateHandler));
