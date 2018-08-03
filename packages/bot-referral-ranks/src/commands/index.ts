@@ -13,3 +13,4 @@ export { SetPrefixCommand } from '~/commands/SetPrefix';
 export { VersionCommand } from '~/commands/Version';
 export { UpgradeCommand } from '~/commands/Upgrade';
 export { DowngradeCommand } from '~/commands/Downgrade';
+export { LinkCommand } from '~/commands/Link';
