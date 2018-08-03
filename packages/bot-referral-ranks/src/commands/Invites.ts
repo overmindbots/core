@@ -127,8 +127,10 @@ export class InvitesCommand extends Command {
       }\` invites to become **${nextRoleInfo.nextRoleName}**`;
     }
     if (sinceTimestamp !== 0) {
-      const days = moment.duration(sinceTimestamp - Date.now()).asDays();
-      sinceText = ` in the last ${days} days`;
+      const days = Math.floor(
+        moment.duration(Date.now() - sinceTimestamp).asDays()
+      );
+      sinceText = ` in the last \`${days} days\``;
     }
     await channel.send(
       `**${author.username}**\n` +

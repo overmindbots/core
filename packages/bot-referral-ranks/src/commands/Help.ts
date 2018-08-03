@@ -41,7 +41,8 @@ export class HelpCommand extends Command {
       'it unobtainable through invites.*' +
       `\n**${this.prefix}set-prefix <prefix>**\n *Sets the bot's prefix*` +
       `\n**${this.prefix}set-leaderboard-size <size>**\n *Sets how many` +
-      ` users are shown through the ${this.prefix}top command*`;
+      ` users are shown through the ${this.prefix}top command*` +
+      `\n💨**${this.prefix}reset-leaderboard**\n *Sets all scores to zero*`;
     const OthersField =
       `\n**${
         this.prefix
