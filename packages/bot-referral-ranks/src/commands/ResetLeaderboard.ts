@@ -46,10 +46,7 @@ export class ResetLeaderboardCommand extends Command {
     let reply;
     try {
       const collected = await channel.awaitMessages(
-        ({ author: replyAuthor }) => {
-          console.log(replyAuthor.id, authorId);
-          return replyAuthor.id === authorId;
-        },
+        ({ author: replyAuthor }) => replyAuthor.id === authorId,
         replyConfig
       );
       reply = collected.first();
@@ -57,8 +54,6 @@ export class ResetLeaderboardCommand extends Command {
       await channel.send('Reset aborted');
       return;
     }
-
-    console.log('reply.content', reply.content);
 
     if (reply.content !== 'yes') {
       await channel.send('Reset canceled');
