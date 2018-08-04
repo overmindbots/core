@@ -110,7 +110,7 @@ export class InvitesCommand extends Command {
     const score = await CertainReferral.find({
       inviterDiscordId: author.id,
       guildDiscordId: guild.id,
-      timestamp: { $gte: getScoreSince.getTime() },
+      createdAt: { $gte: getScoreSince },
       fulfilled: true,
     }).count();
 

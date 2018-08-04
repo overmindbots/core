@@ -74,7 +74,7 @@ schema.statics.getTopScores = async function(
     {
       $match: {
         guildDiscordId: guild.id,
-        timestamp: { $gte: getScoresSince.getTime() },
+        createdAt: { $gte: getScoresSince },
         fulfilled: true,
       },
     },
