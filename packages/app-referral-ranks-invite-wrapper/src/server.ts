@@ -17,7 +17,7 @@ import { isNumber } from 'lodash';
 import passport from 'passport';
 import logger from 'winston';
 import {
-  APP_URL,
+  API_URL,
   BOT_TOKEN,
   DISCORD_CLIENT_ID,
   DISCORD_INVITE_PREFIX,
@@ -291,7 +291,7 @@ const server = app.listen(PORT, () => {
   logger.info(`
     == Started server ==
     PORT: ${PORT}
-    APP_URL: ${APP_URL}
+    API_URL: ${API_URL}
     DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
   `);
 });
