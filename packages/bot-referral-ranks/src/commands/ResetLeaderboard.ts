@@ -3,14 +3,9 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
-import Discord from 'discord.js';
+import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
+import Discord, { TextChannel } from 'discord.js';
 import { BOT_TYPE } from '~/constants';
-
-const replyConfig = {
-  maxMatches: 1,
-  time: 10000,
-  errors: ['time'],
-};
 
 export class ResetLeaderboardCommand extends Command {
   public static keywords = [
@@ -28,12 +23,14 @@ export class ResetLeaderboardCommand extends Command {
     guild,
     channel,
     author: { id: authorId },
+    author,
   }: Discord.Message) {
     let botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance.config.isNextVersion) {
       await channel.send(
         'To be able to reset invites this server has to be using the new ' +
-          'invites system\nUse the `!upgrade` command to use the new system!'
+          'invites system\n' +
+          'Use the `!upgrade` command to use the new system!'
       );
       return;
     }
@@ -43,24 +40,11 @@ export class ResetLeaderboardCommand extends Command {
         'start from zero**. Reply `yes` to confirm'
     );
 
-    let reply;
-    try {
-      const collected = await channel.awaitMessages(
-        ({ author: replyAuthor }) => replyAuthor.id === authorId,
-        replyConfig
-      );
-      reply = collected.first();
-    } catch (collected) {
-      await channel.send('Reset aborted');
+    const confirmed = await awaitConfirmation(channel, author);
+    if (!confirmed) {
       return;
     }
 
-    if (reply.content !== 'yes') {
-      await channel.send('Reset canceled');
-      return;
-    }
-
-    botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     // Get botInstance again to avoid invalid state
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance) {
