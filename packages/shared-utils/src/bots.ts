@@ -13,6 +13,12 @@ export function isDiscordTextChannel(
   return channel.type === 'text';
 }
 
+export function isDiscordDMChannel(
+  channel: Discord.Channel
+): channel is Discord.DMChannel {
+  return channel.type === 'dm';
+}
+
 const confirmationReplies = ['yes', 'confirm', 'ok', 'y', 'alright', 'agree'];
 
 /**
@@ -22,14 +28,14 @@ const confirmationReplies = ['yes', 'confirm', 'ok', 'y', 'alright', 'agree'];
  * @param options.cancelMessage Message to send when the author cancels
  */
 export const awaitConfirmation = async (
-  channel: Discord.Channel,
-  author: Discord.User,
+  message: Discord.Message,
   options: {
     timeoutMessage?: string;
     cancelMessage?: string;
   } = {}
 ) => {
-  if (!isDiscordTextChannel(channel)) {
+  const { channel, author } = message;
+  if (!isDiscordTextChannel(channel) && !isDiscordDMChannel(channel)) {
     return false;
   }
   const {

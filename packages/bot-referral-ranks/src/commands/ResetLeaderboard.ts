@@ -19,7 +19,7 @@ export class ResetLeaderboardCommand extends Command {
     'reset-invites',
   ];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
-  public async run({ guild, channel, author }: Discord.Message) {
+  public async run({ guild, channel }: Discord.Message) {
     let botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance.config.isNextVersion) {
       await channel.send(
@@ -35,7 +35,7 @@ export class ResetLeaderboardCommand extends Command {
         'start from zero**. Reply `yes` to confirm'
     );
 
-    const confirmed = await awaitConfirmation(channel, author);
+    const confirmed = await awaitConfirmation(this.message);
     if (!confirmed) {
       return;
     }

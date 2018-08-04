@@ -10,7 +10,7 @@ import { BOT_TYPE } from '~/constants';
 export class DowngradeCommand extends Command {
   public static keywords = ['downgrade', 'rollback'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
-  public async run({ channel, author, guild }: Discord.Message) {
+  public async run({ channel, guild }: Discord.Message) {
     let botInstance;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     const isUsingNextVersion = botInstance.config.isNextVersion;
@@ -34,7 +34,7 @@ export class DowngradeCommand extends Command {
         'To confirm reply `yes`, to abort reply with anything else'
     );
 
-    const confirmed = await awaitConfirmation(channel, author);
+    const confirmed = await awaitConfirmation(this.message);
 
     if (!confirmed) {
       return;

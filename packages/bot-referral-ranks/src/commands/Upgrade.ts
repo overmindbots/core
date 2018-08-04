@@ -11,7 +11,7 @@ import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 export class UpgradeCommand extends Command {
   public static keywords = ['upgrade', 'update'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
-  public async run({ channel, author, guild }: Discord.Message) {
+  public async run({ channel, guild }: Discord.Message) {
     let botInstance;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     const isUsingNextVersion = botInstance.config.isNextVersion;
@@ -34,7 +34,7 @@ export class UpgradeCommand extends Command {
         'To confirm the migration reply `yes`.'
     );
 
-    const confirmed = await awaitConfirmation(channel, author, {
+    const confirmed = await awaitConfirmation(this.message, {
       cancelMessage: `Upgrade canceled. Whenever you are ready just say \`${
         this.prefix
       }${this.keyword}\``,
