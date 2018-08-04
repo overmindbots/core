@@ -44,7 +44,7 @@ export class UpgradeCommand extends Command {
     }
 
     /*
-     * We get the botInstance again in case this process we reached an invalid
+     * We get the botInstance again in case we reached an invalid
      * state where we migrated while waiting for a reply
      */
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
