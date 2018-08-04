@@ -62,7 +62,6 @@ export class CheatersCommand extends Command {
     const {
       channel,
       guild: { id: guildDiscordId },
-      guild,
     } = this.message;
 
     const inviteUses = await InviteUse.find({

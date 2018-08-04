@@ -3,22 +3,15 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
+import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 import Discord from 'discord.js';
 import { BOT_TYPE } from '~/constants';
-
-const replyConfig = {
-  maxMatches: 1,
-  time: 10000,
-  errors: ['time'],
-};
 
 export class DowngradeCommand extends Command {
   public static keywords = ['downgrade', 'rollback'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
   public async run({ channel, author, guild }: Discord.Message) {
-    let reply;
     let botInstance;
-    const { id: authorId } = author;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     const isUsingNextVersion = botInstance.config.isNextVersion;
 
@@ -41,22 +34,11 @@ export class DowngradeCommand extends Command {
         'To confirm reply `yes`, to abort reply with anything else'
     );
 
-    try {
-      const collected = await channel.awaitMessages(
-        ({ author: replyAuthor }) => replyAuthor.id === authorId,
-        replyConfig
-      );
-      reply = collected.first();
-    } catch (collected) {
-      await channel.send('Downgrade aborted');
+    const confirmed = await awaitConfirmation(channel, author);
+
+    if (!confirmed) {
       return;
     }
-
-    if (reply.content !== 'yes') {
-      await channel.send('Downgrade canceled');
-      return;
-    }
-
     // Get botInstance again to avoid invalid state
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance) {

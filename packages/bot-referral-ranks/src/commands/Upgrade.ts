@@ -6,19 +6,13 @@ import { BotInstance } from '@overmindbots/shared-models';
 import Discord from 'discord.js';
 import { BOT_TYPE } from '~/constants';
 
-const replyConfig = {
-  maxMatches: 1,
-  time: 10000,
-  errors: ['time'],
-};
+import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 
 export class UpgradeCommand extends Command {
   public static keywords = ['upgrade', 'update'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
   public async run({ channel, author, guild }: Discord.Message) {
-    let reply;
     let botInstance;
-    const { id: authorId } = author;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     const isUsingNextVersion = botInstance.config.isNextVersion;
     if (isUsingNextVersion) {
@@ -40,23 +34,12 @@ export class UpgradeCommand extends Command {
         'To confirm the migration reply `yes`.'
     );
 
-    try {
-      const collected = await channel.awaitMessages(
-        ({ author: replyAuthor }) => replyAuthor.id === authorId,
-        replyConfig
-      );
-      reply = collected.first();
-    } catch (collected) {
-      await channel.send('Downgrade aborted');
-      return;
-    }
-
-    if (reply.content !== 'yes') {
-      await channel.send(
-        `Upgrade canceled. Whenever you are ready just say \`${this.prefix}${
-          this.keyword
-        }\``
-      );
+    const confirmed = await awaitConfirmation(channel, author, {
+      cancelMessage: `Upgrade canceled. Whenever you are ready just say \`${
+        this.prefix
+      }${this.keyword}\``,
+    });
+    if (!confirmed) {
       return;
     }
 

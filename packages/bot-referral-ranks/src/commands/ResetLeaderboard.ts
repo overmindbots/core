@@ -4,7 +4,7 @@ import {
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
 import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
-import Discord, { TextChannel } from 'discord.js';
+import Discord from 'discord.js';
 import { BOT_TYPE } from '~/constants';
 
 export class ResetLeaderboardCommand extends Command {
