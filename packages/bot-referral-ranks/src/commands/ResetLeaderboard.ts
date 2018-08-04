@@ -19,12 +19,7 @@ export class ResetLeaderboardCommand extends Command {
     'reset-invites',
   ];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
-  public async run({
-    guild,
-    channel,
-    author: { id: authorId },
-    author,
-  }: Discord.Message) {
+  public async run({ guild, channel, author }: Discord.Message) {
     let botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance.config.isNextVersion) {
       await channel.send(

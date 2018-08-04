@@ -9,7 +9,6 @@ import {
   Rank,
 } from '@overmindbots/shared-models/referralRanks';
 import { getUserInviteLinkUrl } from '@overmindbots/shared-utils/botReferralRanks';
-import Discord from 'discord.js';
 import { reduce as reduceNormal } from 'lodash';
 import { add, flow, map as mapFp, reduce } from 'lodash/fp';
 import moment from 'moment';
