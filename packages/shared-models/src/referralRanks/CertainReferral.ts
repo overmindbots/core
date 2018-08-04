@@ -84,6 +84,7 @@ schema.statics.getTopScores = async function(
         score: { $sum: 1 },
       },
     },
+    { $sort: { score: -1 } },
     { $limit: limit },
   ])) as Array<{ _id: string; score: number }>;
 
