@@ -12,6 +12,7 @@ import { getUserInviteLinkUrl } from '@overmindbots/shared-utils/botReferralRank
 import { reduce as reduceNormal } from 'lodash';
 import { add, flow, map as mapFp, reduce } from 'lodash/fp';
 import moment from 'moment';
+import pluralize from 'pluralize';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import { buildInvitesPerUser, updateUsersRanks } from './utils';
@@ -78,14 +79,19 @@ export class InvitesCommand extends Command {
 
     if (nextRoleData) {
       nextRankMessage =
-        `\nYou need ${nextRoleData.invitesForNextRole} invites to become` +
-        ` **${nextRoleData.nextRoleName}**`;
+        `\nYou need ${nextRoleData.invitesForNextRole} more ${pluralize(
+          'invite',
+          nextRoleData.invitesForNextRole
+        )} to become` + ` **${nextRoleData.nextRoleName}**`;
     }
     if (expireableLinksCount) {
       expireableInvitesWarningMessage =
         '\n**Warning:** You have invite links ' +
         'that are expireable, this means that ' +
-        `${expireableInivites} invites will be deleted` +
+        `${expireableInivites} ${pluralize(
+          'invite',
+          expireableInivites
+        )} will be deleted` +
         ' by Discord ';
     }
 
@@ -114,16 +120,15 @@ export class InvitesCommand extends Command {
       fulfilled: true,
     }).count();
 
-    // - get fulfilled invites for current user
-    // - get next rank to get / invites left
-    // - provide invite link
     let sinceText = '';
     let invitesRequiredText = '';
     const nextRoleInfo = await this.getNextRoleInfo(score);
     if (nextRoleInfo) {
       invitesRequiredText = `\n- You need \`${
         nextRoleInfo.invitesForNextRole
-      }\` invites to become **${nextRoleInfo.nextRoleName}**`;
+      }\` ${pluralize('invite', nextRoleInfo.invitesForNextRole)} to become **${
+        nextRoleInfo.nextRoleName
+      }**`;
     }
     if (sinceTimestamp !== 0) {
       const days = Math.floor(
@@ -133,7 +138,10 @@ export class InvitesCommand extends Command {
     }
     await channel.send(
       `**${author.username}**\n` +
-        `- You have invited \`${score} members\`${sinceText}\n` +
+        `- You have invited \`${score} ${pluralize(
+          'member',
+          score
+        )}\`${sinceText}\n` +
         `- Your invite link is \`${getUserInviteLinkUrl(
           guild.id,
           author.id
