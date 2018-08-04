@@ -25,17 +25,18 @@ export const awaitConfirmation = async (
   channel: Discord.Channel,
   author: Discord.User,
   options: {
-    timeoutMessage: string;
-    cancelMessage: string;
-  } = {
-    timeoutMessage: `${author}, You took too long to reply. Please try again`,
-    cancelMessage: 'Command aborted',
-  }
+    timeoutMessage?: string;
+    cancelMessage?: string;
+  } = {}
 ) => {
   if (!isDiscordTextChannel(channel)) {
     return false;
   }
-  const { timeoutMessage, cancelMessage } = options;
+  const {
+    timeoutMessage = `${author}, You took too long to reply. Please try again`,
+    cancelMessage = 'Command aborted',
+  } = options;
+
   let reply;
   try {
     const collected = await channel.awaitMessages(
