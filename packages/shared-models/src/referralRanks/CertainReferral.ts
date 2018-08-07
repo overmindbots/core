@@ -28,33 +28,39 @@ export interface CertainReferralScore {
   score: number;
   username: string;
 }
-const schema = new mongoose.Schema({
-  guildDiscordId: {
-    required: true,
-    type: String,
+
+const schema = new mongoose.Schema(
+  {
+    guildDiscordId: {
+      required: true,
+      type: String,
+    },
+    inviterDiscordId: {
+      type: String,
+    },
+    inviteeDiscordId: {
+      required: true,
+      type: String,
+    },
+    active: {
+      required: true,
+      type: Boolean,
+    },
+    fulfilled: {
+      required: true,
+      type: Boolean,
+    },
   },
-  inviterDiscordId: {
-    type: String,
-  },
-  inviteeDiscordId: {
-    required: true,
-    type: String,
-  },
-  timestamp: {
-    required: true,
-    type: Number,
-  },
-  fulfilled: {
-    required: true,
-    type: Boolean,
-  },
-});
+  { timestamps: true }
+);
 
 schema.index({ guildDiscordId: 1 });
 schema.index(
   { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
   { unique: true }
 );
+schema.index({ createdAt: 1 });
+
 /**
  * Gets a list of the members of a guild with higher scores in descending order
  * since the last invites reset date
