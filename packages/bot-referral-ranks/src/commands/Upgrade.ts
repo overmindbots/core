@@ -3,6 +3,7 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
+import { CertainReferral } from '@overmindbots/shared-models/referralRanks/CertainReferral';
 import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 import Discord from 'discord.js';
 import { map } from 'lodash';
@@ -64,6 +65,7 @@ export class UpgradeCommand extends Command {
     // TODO: Migrate invites
     // - [X] Modify models to store fake invites
     // - [ ] Fetch invites, transform and store in database
+    // - [ ] Modify score calculations to consider `count` field
     // - [ ] Delete fake invites on downgrade
 
     /*
@@ -78,9 +80,23 @@ export class UpgradeCommand extends Command {
     const invites = await guild.fetchInvites();
     const invitesPerUser = buildInvitesPerUser(invites);
 
-    const inviteDocuments = map(invitesPerUser, (userInvites, userId) => ({
-      inviterId: null,
+    // Build raw documents for bulk insertion (save middleware doesn't run on bulk inserts)
+    const inviteDocuments = map(invitesPerUser, ({ invitesUses }, userId) => ({
+      guildDiscordId: guild.id,
+      inviterDiscordId: userId,
+      count: invitesUses,
+      artificial: true,
+      active: true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }));
+
+    // Delete existing artificial referral records if there are any and bulk insert
+    await CertainReferral.deleteMany({
+      guildDiscordId: guild.id,
+      artificial: true,
+    });
+    await CertainReferral.insertMany(inviteDocuments);
 
     await BotInstance.updateOne(
       { guildDiscordId: guild.id, botType: BOT_TYPE },
