@@ -91,7 +91,7 @@ interface AggregatedReferral {
  * Update referrals based on current guild members
  */
 const checkGuildMembers = async (guild: Discord.Guild) => {
-  const memberIds = guild.members.map(member => member.id);
+  const memberIds = guild.members.map(({ id }) => id);
   const guildId = guild.id;
 
   /**
@@ -110,7 +110,7 @@ const checkGuildMembers = async (guild: Discord.Guild) => {
   ])) as AggregatedReferral[];
 
   const referralIdsToMarkAsFulfilled = firstReferrals.map(
-    referral => referral.referralId
+    ({ referralId }) => referralId
   );
 
   /**
