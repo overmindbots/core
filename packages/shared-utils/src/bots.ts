@@ -24,14 +24,15 @@ const confirmationReplies = ['yes', 'confirm', 'ok', 'y', 'alright', 'agree'];
 /**
  * Utility for awaiting confirmation inside a command
  * @param options.timeoutMessage Message to send when author didn't reply
- * in too long
- * @param options.cancelMessage Message to send when the author cancels
+ * in too long. Pass null to skip this message
+ * @param options.cancelMessage Message to send when the author cancels.
+ * Pass null to skip this message
  */
 export const awaitConfirmation = async (
   message: Discord.Message,
   options: {
-    timeoutMessage?: string;
-    cancelMessage?: string;
+    timeoutMessage?: string | null;
+    cancelMessage?: string | null;
   } = {}
 ) => {
   const { channel, author } = message;
@@ -51,12 +52,16 @@ export const awaitConfirmation = async (
     );
     reply = collected.first().content.toLowerCase();
   } catch (err) {
-    await channel.send(timeoutMessage);
+    if (timeoutMessage) {
+      await channel.send(timeoutMessage);
+    }
   }
 
   const confirmed = includes(confirmationReplies, reply);
   if (!confirmed) {
-    await channel.send(cancelMessage);
+    if (cancelMessage) {
+      await channel.send(cancelMessage);
+    }
   }
 
   return confirmed;
