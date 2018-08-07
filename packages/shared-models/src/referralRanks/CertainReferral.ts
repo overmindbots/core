@@ -15,6 +15,8 @@ export interface CertainReferralDocument extends mongoose.Document {
   inviteeDiscordId: string;
   imported: boolean;
   fulfilled: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }
 export interface CertainReferralModel
   extends mongoose.Model<CertainReferralDocument> {
