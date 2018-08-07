@@ -171,7 +171,6 @@ ${inviteeDiscordId}`
       guildDiscordId,
       inviterDiscordId,
       inviteeDiscordId,
-      timestamp: Date.now(),
       fulfilled: false,
       active: false,
     });
