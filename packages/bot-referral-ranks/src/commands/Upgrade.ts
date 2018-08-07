@@ -31,17 +31,40 @@ export class UpgradeCommand extends Command {
         '- Know who invited who\n' +
         '\nFor a complete list of changes and more info visit ' +
         'https://www.referralranks.com/next\n\n' +
-        'To confirm the migration reply `yes`.'
+        'First of all, would you like to import the current invite counts?'
     );
 
-    const confirmed = await awaitConfirmation(this.message, {
-      cancelMessage: `Upgrade canceled. Whenever you are ready just say \`${
+    const importInvites = await awaitConfirmation(this.message, {
+      cancelMessage: null,
+    });
+
+    if (importInvites) {
+      await channel.send(
+        'Okay, I will import the current invite counts when we upgrade.\n\n'
+      );
+    } else {
+      await channel.send(
+        'Roger that, the leaderboard will start from zero once we upgrade.\n\n'
+      );
+    }
+
+    await channel.send("Everything's set, **are you ready to upgrade?**\n\n");
+
+    const confirmedMigration = await awaitConfirmation(this.message, {
+      cancelMessage: `Upgrade aborted. when you are ready just say \`${
         this.prefix
       }${this.keyword}\``,
     });
-    if (!confirmed) {
+
+    if (!confirmedMigration) {
       return;
     }
+
+    // TODO: Migrate invites
+    // - Modify models to store fake invites
+    // - Fetch invites, transform and store in database
+    // - Delete fake invites on downgrade
+    // - Add rate limit of some sort? (Maybe not required since abuse would simply lead to guild not counting cheaters)
 
     /*
      * We get the botInstance again in case we reached an invalid
