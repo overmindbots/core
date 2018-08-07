@@ -13,7 +13,7 @@ export interface CertainReferralDocument extends mongoose.Document {
   guildDiscordId: string;
   inviterDiscordId: string | null;
   inviteeDiscordId: string;
-  timestamp: number;
+  imported: boolean;
   fulfilled: boolean;
 }
 export interface CertainReferralModel
@@ -49,6 +49,10 @@ const schema = new mongoose.Schema(
     fulfilled: {
       required: true,
       type: Boolean,
+    },
+    imported: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
