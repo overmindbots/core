@@ -113,12 +113,8 @@ export class InvitesCommand extends Command {
     }
     const getScoreSince = botInstance.config.countScoresSince || new Date(0);
     const sinceTimestamp = getScoreSince.getTime();
-    const score = await CertainReferral.find({
-      inviterDiscordId: author.id,
-      guildDiscordId: guild.id,
-      createdAt: { $gte: getScoreSince },
-      fulfilled: true,
-    }).count();
+    const member = guild.member(author);
+    const score = await CertainReferral.getMemberScore(member, getScoreSince);
 
     let sinceText = '';
     let invitesRequiredText = '';

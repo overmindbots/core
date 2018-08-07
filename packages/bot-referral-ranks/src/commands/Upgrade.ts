@@ -3,14 +3,50 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
+import { CertainReferral } from '@overmindbots/shared-models/referralRanks/CertainReferral';
+import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 import Discord from 'discord.js';
+import { compact, map } from 'lodash';
+import { buildInvitesPerUser } from '~/commands/utils';
 import { BOT_TYPE } from '~/constants';
 
-import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
-
 export class UpgradeCommand extends Command {
+  /**
+   * Fetches the Guild's invites and creates CertainReferrals marked as
+   * `artificial` which represent members' scores before upgrading the server
+   */
+  private importInvites = async () => {
+    const { guild } = this.message;
+    const invites = await guild.fetchInvites();
+    const invitesPerUser = buildInvitesPerUser(invites);
+
+    // Build raw documents for bulk insertion (save middleware doesn't run on bulk inserts)
+    let inviteDocuments = map(
+      invitesPerUser,
+      ({ invitesUses, member }, userId) => {
+        if (member && member.bot) {
+          return null;
+        }
+
+        return {
+          guildDiscordId: guild.id,
+          inviterDiscordId: userId,
+          count: invitesUses,
+          artificial: true,
+          active: true,
+          fulfilled: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+      }
+    );
+    inviteDocuments = compact(inviteDocuments);
+    await CertainReferral.insertMany(inviteDocuments);
+  };
+
   public static keywords = ['upgrade', 'update'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
+
   public async run({ channel, guild }: Discord.Message) {
     let botInstance;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
@@ -31,15 +67,32 @@ export class UpgradeCommand extends Command {
         '- Know who invited who\n' +
         '\nFor a complete list of changes and more info visit ' +
         'https://www.referralranks.com/next\n\n' +
-        'To confirm the migration reply `yes`.'
+        'First of all, would you like to import the current invite counts?'
     );
 
-    const confirmed = await awaitConfirmation(this.message, {
-      cancelMessage: `Upgrade canceled. Whenever you are ready just say \`${
-        this.prefix
-      }${this.keyword}\``,
+    const importInvites = await awaitConfirmation(this.message, {
+      cancelMessage: null,
     });
-    if (!confirmed) {
+
+    if (importInvites) {
+      await channel.send(
+        'Okay, I will import the current invite counts when we upgrade.\n\n'
+      );
+    } else {
+      await channel.send(
+        'Roger that, the leaderboard will start from zero once we upgrade.\n\n'
+      );
+    }
+
+    await channel.send("Everything's set, **are you ready to upgrade?**\n\n");
+
+    const confirmedMigration = await awaitConfirmation(this.message, {
+      cancelMessage:
+        'Upgrade aborted. when you are ready to upgrade just ' +
+        `say \`${this.prefix}${this.keyword}\``,
+    });
+
+    if (!confirmedMigration) {
       return;
     }
 
@@ -50,6 +103,10 @@ export class UpgradeCommand extends Command {
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (!botInstance) {
       return;
+    }
+
+    if (importInvites) {
+      await this.importInvites();
     }
 
     await BotInstance.updateOne(
