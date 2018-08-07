@@ -2,7 +2,10 @@
 import '~/startup';
 
 import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
-import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import {
+  createAsyncCatcher,
+  omitEvents,
+} from '@overmindbots/shared-utils/utils';
 import P from 'bluebird';
 import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
@@ -24,14 +27,19 @@ logger.info(`=> SHARD_ID: ${SHARD_ID}`);
 logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
 
 const client = new Discord.Client({
-  disabledEvents: [
-    'TYPING_START',
-    'MESSAGE_UPDATE',
-    'MESSAGE_REACTION_ADD',
-    'MESSAGE_REACTION_REMOVE',
-    'VOICE_SERVER_UPDATE',
-    'VOICE_STATE_UPDATE',
-  ],
+  disabledEvents: omitEvents([
+    'READY',
+    'RESUMED',
+    'GUILD_SYNC',
+    'GUILD_CREATE',
+    'GUILD_DELETE',
+    'GUILD_UPDATE',
+    'GUILD_MEMBER_ADD',
+    'GUILD_MEMBER_REMOVE',
+    'CHANNEL_CREATE',
+    'CHANNEL_DELETE',
+    'CHANNEL_UPDATE',
+  ]),
   fetchAllMembers: true,
   messageCacheMaxSize: 1,
   shardCount: TOTAL_SHARDS,
