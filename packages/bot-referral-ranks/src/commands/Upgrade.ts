@@ -6,13 +6,47 @@ import { BotInstance } from '@overmindbots/shared-models';
 import { CertainReferral } from '@overmindbots/shared-models/referralRanks/CertainReferral';
 import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 import Discord from 'discord.js';
-import { map } from 'lodash';
+import { compact, map } from 'lodash';
 import { buildInvitesPerUser } from '~/commands/utils';
 import { BOT_TYPE } from '~/constants';
 
 export class UpgradeCommand extends Command {
+  /**
+   * Fetches the Guild's invites and creates CertainReferrals marked as
+   * `artificial` which represent members' scores before upgrading the server
+   */
+  private importInvites = async () => {
+    const { guild } = this.message;
+    const invites = await guild.fetchInvites();
+    const invitesPerUser = buildInvitesPerUser(invites);
+
+    // Build raw documents for bulk insertion (save middleware doesn't run on bulk inserts)
+    let inviteDocuments = map(
+      invitesPerUser,
+      ({ invitesUses, member }, userId) => {
+        if (member && member.bot) {
+          return null;
+        }
+
+        return {
+          guildDiscordId: guild.id,
+          inviterDiscordId: userId,
+          count: invitesUses,
+          artificial: true,
+          active: true,
+          fulfilled: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        };
+      }
+    );
+    inviteDocuments = compact(inviteDocuments);
+    await CertainReferral.insertMany(inviteDocuments);
+  };
+
   public static keywords = ['upgrade', 'update'];
   public static permissionsRequired = [DiscordPermissions.ADMINISTRATOR];
+
   public async run({ channel, guild }: Discord.Message) {
     let botInstance;
     botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
@@ -64,9 +98,9 @@ export class UpgradeCommand extends Command {
 
     // TODO: Migrate invites
     // - [X] Modify models to store fake invites
-    // - [ ] Fetch invites, transform and store in database
+    // - [X] Fetch invites, transform and store in database
     // - [ ] Modify score calculations to consider `count` field
-    // - [ ] Delete fake invites on downgrade
+    // - [X] Delete fake invites
 
     /*
      * We get the botInstance again in case we reached an invalid
@@ -77,26 +111,9 @@ export class UpgradeCommand extends Command {
       return;
     }
 
-    const invites = await guild.fetchInvites();
-    const invitesPerUser = buildInvitesPerUser(invites);
-
-    // Build raw documents for bulk insertion (save middleware doesn't run on bulk inserts)
-    const inviteDocuments = map(invitesPerUser, ({ invitesUses }, userId) => ({
-      guildDiscordId: guild.id,
-      inviterDiscordId: userId,
-      count: invitesUses,
-      artificial: true,
-      active: true,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }));
-
-    // Delete existing artificial referral records if there are any and bulk insert
-    await CertainReferral.deleteMany({
-      guildDiscordId: guild.id,
-      artificial: true,
-    });
-    await CertainReferral.insertMany(inviteDocuments);
+    if (importInvites) {
+      await this.importInvites();
+    }
 
     await BotInstance.updateOne(
       { guildDiscordId: guild.id, botType: BOT_TYPE },

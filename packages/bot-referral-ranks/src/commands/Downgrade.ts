@@ -3,6 +3,7 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
+import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
 import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
 import Discord from 'discord.js';
 import { BOT_TYPE } from '~/constants';
@@ -44,6 +45,12 @@ export class DowngradeCommand extends Command {
     if (!botInstance) {
       return;
     }
+
+    // Delete existing artificial referral records if there are any and bulk insert
+    await CertainReferral.deleteMany({
+      guildDiscordId: guild.id,
+      artificial: true,
+    });
 
     await BotInstance.updateOne(
       { guildDiscordId: guild.id, botType: BOT_TYPE },
