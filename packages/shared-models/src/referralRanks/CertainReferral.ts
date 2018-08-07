@@ -4,7 +4,7 @@ import {
   REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE,
 } from '@overmindbots/shared-utils/constants';
 import Discord from 'discord.js';
-import { map } from 'lodash';
+import { map, reduce } from 'lodash';
 import mongoose from 'mongoose';
 
 import { BotInstance } from '../BotInstance';
@@ -25,6 +25,7 @@ export interface CertainReferralModel
     guild: Discord.Guild,
     limit?: number
   ): Promise<CertainReferralScore[]>;
+  getMemberScore(member: Discord.GuildMember, since: Date): Promise<number>;
 }
 export interface CertainReferralScore {
   inviterDiscordId: string;
@@ -123,6 +124,31 @@ schema.statics.getTopScores = async function(
       score,
     };
   });
+};
+
+/**
+ * Calculates a GuildMember's score
+ */
+schema.statics.getMemberScore = async function(
+  { guild, id }: Discord.GuildMember,
+  since?: Date
+) {
+  let getScoreSince = since;
+  if (!getScoreSince) {
+    const botInstance = await BotInstance.findOrCreate(
+      guild,
+      BOT_TYPES.REFERRAL_RANKS
+    );
+    getScoreSince = botInstance.config.countScoresSince || new Date(0);
+  }
+
+  const certainReferrals = await CertainReferral.find({
+    inviterDiscordId: id,
+    guildDiscordId: guild.id,
+    fulfilled: true,
+    createdAt: { $gte: getScoreSince },
+  });
+  return reduce(certainReferrals, (total, { count }) => total + count, 0);
 };
 
 /**
