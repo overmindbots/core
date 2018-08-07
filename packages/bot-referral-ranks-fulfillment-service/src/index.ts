@@ -23,16 +23,6 @@ logger.info(`=> BOT_TOKEN: ${BOT_TOKEN}`);
 logger.info(`=> SHARD_ID: ${SHARD_ID}`);
 logger.info(`=> TOTAL_SHARDS: ${TOTAL_SHARDS}`);
 
-/**
- * TODO:
- * - Test
- * - Add role handling to both startup and guildMemberAdd
- * - Improve comments
- * - Improve logging
- * - Run utility to catch dangling promises
- */
-
-// NOTE: For now use 1 shard for development
 const client = new Discord.Client({
   disabledEvents: [
     'TYPING_START',
