@@ -11,9 +11,8 @@ import { BotInstance } from '../BotInstance';
 
 export interface CertainReferralDocument extends mongoose.Document {
   guildDiscordId: string;
-  inviterDiscordId: string | null;
-  inviteeDiscordId: string;
-  imported: boolean;
+  inviterDiscordId?: string;
+  inviteeDiscordId?: string;
   fulfilled: boolean;
   createdAt: Date;
   updatedAt: Date;
@@ -41,7 +40,6 @@ const schema = new mongoose.Schema(
       type: String,
     },
     inviteeDiscordId: {
-      required: true,
       type: String,
     },
     active: {
@@ -51,10 +49,6 @@ const schema = new mongoose.Schema(
     fulfilled: {
       required: true,
       type: Boolean,
-    },
-    imported: {
-      type: Boolean,
-      default: false,
     },
   },
   { timestamps: true }
