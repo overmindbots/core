@@ -3,10 +3,11 @@ import {
   DiscordPermissions,
 } from '@overmindbots/discord.js-command-manager';
 import { BotInstance } from '@overmindbots/shared-models';
-import Discord from 'discord.js';
-import { BOT_TYPE } from '~/constants';
-
 import { awaitConfirmation } from '@overmindbots/shared-utils/bots';
+import Discord from 'discord.js';
+import { map } from 'lodash';
+import { buildInvitesPerUser } from '~/commands/utils';
+import { BOT_TYPE } from '~/constants';
 
 export class UpgradeCommand extends Command {
   public static keywords = ['upgrade', 'update'];
@@ -51,9 +52,9 @@ export class UpgradeCommand extends Command {
     await channel.send("Everything's set, **are you ready to upgrade?**\n\n");
 
     const confirmedMigration = await awaitConfirmation(this.message, {
-      cancelMessage: `Upgrade aborted. when you are ready just say \`${
-        this.prefix
-      }${this.keyword}\``,
+      cancelMessage:
+        'Upgrade aborted. when you are ready to upgrade just ' +
+        `say \`${this.prefix}${this.keyword}\``,
     });
 
     if (!confirmedMigration) {
@@ -61,10 +62,9 @@ export class UpgradeCommand extends Command {
     }
 
     // TODO: Migrate invites
-    // - Modify models to store fake invites
-    // - Fetch invites, transform and store in database
-    // - Delete fake invites on downgrade
-    // - Add rate limit of some sort? (Maybe not required since abuse would simply lead to guild not counting cheaters)
+    // - [X] Modify models to store fake invites
+    // - [ ] Fetch invites, transform and store in database
+    // - [ ] Delete fake invites on downgrade
 
     /*
      * We get the botInstance again in case we reached an invalid
@@ -74,6 +74,13 @@ export class UpgradeCommand extends Command {
     if (!botInstance) {
       return;
     }
+
+    const invites = await guild.fetchInvites();
+    const invitesPerUser = buildInvitesPerUser(invites);
+
+    const inviteDocuments = map(invitesPerUser, (userInvites, userId) => ({
+      inviterId: null,
+    }));
 
     await BotInstance.updateOne(
       { guildDiscordId: guild.id, botType: BOT_TYPE },

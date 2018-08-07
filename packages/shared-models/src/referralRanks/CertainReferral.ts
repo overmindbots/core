@@ -16,6 +16,8 @@ export interface CertainReferralDocument extends mongoose.Document {
   fulfilled: boolean;
   createdAt: Date;
   updatedAt: Date;
+  artificial?: boolean;
+  count: number;
 }
 export interface CertainReferralModel
   extends mongoose.Model<CertainReferralDocument> {
@@ -50,11 +52,21 @@ const schema = new mongoose.Schema(
       required: true,
       type: Boolean,
     },
+    artificial: {
+      type: Boolean,
+    },
+    // Useful for artificial invites to avoid creating multiple records
+    count: {
+      required: true,
+      type: Number,
+      default: 1,
+    },
   },
   { timestamps: true }
 );
 
 schema.index({ guildDiscordId: 1 });
+schema.index({ artificial: 1 });
 schema.index(
   { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
   { unique: true }
@@ -87,7 +99,7 @@ schema.statics.getTopScores = async function(
     {
       $group: {
         _id: '$inviterDiscordId',
-        score: { $sum: 1 },
+        score: { $sum: '$count' },
       },
     },
     { $sort: { score: -1 } },
@@ -98,8 +110,6 @@ schema.statics.getTopScores = async function(
     return scores;
   }
 
-  // TODO: Make sure future requests are  automatically avoided and member cache
-  // is updated, otherwise, prevent unnecessary fetches
   if (guild.memberCount >= DISCORD_BIG_GUILD_MEMBER_SIZE) {
     await guild.fetchMembers();
   }
