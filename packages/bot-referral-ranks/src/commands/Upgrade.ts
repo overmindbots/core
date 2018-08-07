@@ -96,12 +96,6 @@ export class UpgradeCommand extends Command {
       return;
     }
 
-    // TODO: Migrate invites
-    // - [X] Modify models to store fake invites
-    // - [X] Fetch invites, transform and store in database
-    // - [ ] Modify score calculations to consider `count` field
-    // - [X] Delete fake invites
-
     /*
      * We get the botInstance again in case we reached an invalid
      * state where we migrated while waiting for a reply
