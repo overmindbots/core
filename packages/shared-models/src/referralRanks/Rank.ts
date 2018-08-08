@@ -8,7 +8,7 @@ export interface RankDocument extends mongoose.Document {
 }
 export interface RankModel extends mongoose.Model<RankDocument> {
   getNextRank(invites: number, guild: Guild): RankDocument;
-  getRankForInvites(invites: number, guild: Guild): RankDocument;
+  getRankForInvites(invites: number, guildId: string): RankDocument;
 }
 
 const schema = new mongoose.Schema({
@@ -28,10 +28,10 @@ const schema = new mongoose.Schema({
 
 schema.statics.getRankForInvites = async function(
   invites: number,
-  guild: Guild
+  guildId: string
 ) {
   const result = await this.find({
-    guildDiscordId: guild.id,
+    guildDiscordId: guildId,
     invitesRequired: {
       $lte: invites,
     },
