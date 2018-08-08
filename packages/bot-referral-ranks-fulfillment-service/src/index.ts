@@ -1,4 +1,5 @@
 // tslint:disable-next-line ordered-imports
+import { BotInstance } from '@overmindbots/shared-models';
 import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
 import {
   createAsyncCatcher,
@@ -19,7 +20,6 @@ import {
 } from '~/constants';
 import '~/startup';
 
-import { BotInstance } from '../node_modules/@overmindbots/shared-models/src/BotInstance';
 import { DISCORD_BIG_GUILD_MEMBER_SIZE } from '../node_modules/@overmindbots/shared-utils/src/constants';
 
 logger.info('=== Booting Service: Referral Ranks Fulfillment ===');
@@ -140,7 +140,7 @@ const checkGuildMembers = async (guild: Discord.Guild) => {
 
 const isUsingNextVersion = async (guild: Discord.Guild) => {
   const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
-  return botInstance.config.isNextVersion || false;
+  return !!botInstance.config.isNextVersion;
 };
 
 /**
