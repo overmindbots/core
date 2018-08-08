@@ -44,6 +44,7 @@ const schema = new mongoose.Schema({
     required: true,
     default: {
       prefix: '!',
+      isNextVersion: true,
     },
   },
   maxRoleDiscordId: {

@@ -1,3 +1,5 @@
+import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
+
 // Move this logic to shared utility
 if (!process.env.BOT_TOKEN) {
   throw new Error('Missing env variable BOT_TOKEN');
@@ -20,3 +22,4 @@ export const SHARD_ID = parseInt(process.env.SHARD_ID, 10);
 export const TOTAL_SHARDS = parseInt(process.env.TOTAL_SHARDS, 10);
 export const CHUNK_SIZE = parseInt(process.env.CHUNK_SIZE, 10);
 export const MONGODB_URI = process.env.MONGODB_URI;
+export const BOT_TYPE = BOT_TYPES.REFERRAL_RANKS;

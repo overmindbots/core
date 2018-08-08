@@ -1,6 +1,5 @@
 // tslint:disable-next-line ordered-imports
-import '~/startup';
-
+import { BotInstance } from '@overmindbots/shared-models';
 import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
 import {
   createAsyncCatcher,
@@ -9,16 +8,19 @@ import {
 import P from 'bluebird';
 import Discord, { DiscordAPIError } from 'discord.js';
 import _ from 'lodash';
-import logger from 'winston';
-
 import mongoose from 'mongoose';
+import logger from 'winston';
 import {
   BOT_TOKEN,
+  BOT_TYPE,
   CHUNK_SIZE,
   MONGODB_URI,
   SHARD_ID,
   TOTAL_SHARDS,
 } from '~/constants';
+import '~/startup';
+
+import { DISCORD_BIG_GUILD_MEMBER_SIZE } from '../node_modules/@overmindbots/shared-utils/src/constants';
 
 logger.info('=== Booting Service: Referral Ranks Fulfillment ===');
 logger.info(`=> MONGODB_URI: ${MONGODB_URI}`);
@@ -40,7 +42,6 @@ const client = new Discord.Client({
     'CHANNEL_DELETE',
     'CHANNEL_UPDATE',
   ]),
-  fetchAllMembers: true,
   messageCacheMaxSize: 1,
   shardCount: TOTAL_SHARDS,
   shardId: SHARD_ID,
@@ -88,9 +89,12 @@ interface AggregatedReferral {
 }
 
 /**
- * Update referrals based on current guild members
+ * Fetch current guild members and update referrals based on them
  */
 const checkGuildMembers = async (guild: Discord.Guild) => {
+  if (guild.memberCount >= DISCORD_BIG_GUILD_MEMBER_SIZE) {
+    await guild.fetchMembers();
+  }
   const memberIds = guild.members.map(({ id }) => id);
   const guildId = guild.id;
 
@@ -134,8 +138,14 @@ const checkGuildMembers = async (guild: Discord.Guild) => {
   }
 };
 
+const isUsingNextVersion = async (guild: Discord.Guild) => {
+  const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+  return !!botInstance.config.isNextVersion;
+};
+
 /**
  * Check members and update fulfilled or inactive referrals for each guild
+ * Ignore guilds using the older version
  */
 const readyHandler = async () => {
   logger.info('Client ready.');
@@ -156,6 +166,11 @@ const readyHandler = async () => {
 (${guild.memberCount} members)`
       );
 
+      if (!(await isUsingNextVersion(guild))) {
+        logger.info(`[${guild.id}] Using legacy version, skipping...`);
+        return;
+      }
+
       await checkGuildMembers(guild);
     });
   });
@@ -169,6 +184,11 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
     `[${guild.id}] Received "${guild.name}" (${guild.memberCount} members)`
   );
 
+  if (!(await isUsingNextVersion(guild))) {
+    logger.info(`[${guild.id}] Using legacy version, skipping...`);
+    return;
+  }
+
   await checkGuildMembers(guild);
 };
 
@@ -178,8 +198,14 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
 const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
   const {
     guild: { id: guildDiscordId },
+    guild,
     id: inviteeDiscordId,
   } = guildMember;
+
+  if (!(await isUsingNextVersion(guild))) {
+    return;
+  }
+
   logger.info(`[${guildDiscordId}] New member, fulfilling referral`);
   await CertainReferral.findOneAndUpdate(
     {
@@ -197,8 +223,14 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
 const guildMemberRemoveHandler = async (guildMember: Discord.GuildMember) => {
   const {
     guild: { id: guildDiscordId },
+    guild,
     id: inviteeDiscordId,
   } = guildMember;
+
+  if (!(await isUsingNextVersion(guild))) {
+    return;
+  }
+
   logger.info(`[${guildDiscordId}] Member left, marking referral as inactive`);
   await CertainReferral.findOneAndUpdate(
     { guildDiscordId, inviteeDiscordId },
