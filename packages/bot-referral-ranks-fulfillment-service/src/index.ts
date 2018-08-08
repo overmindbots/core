@@ -1,6 +1,11 @@
 // tslint:disable-next-line ordered-imports
+import '~/startup';
+
 import { BotInstance } from '@overmindbots/shared-models';
-import { CertainReferral } from '@overmindbots/shared-models/referralRanks';
+import {
+  CertainReferral,
+  Rank,
+} from '@overmindbots/shared-models/referralRanks';
 import {
   createAsyncCatcher,
   omitEvents,
@@ -18,7 +23,6 @@ import {
   SHARD_ID,
   TOTAL_SHARDS,
 } from '~/constants';
-import '~/startup';
 
 import { DISCORD_BIG_GUILD_MEMBER_SIZE } from '../node_modules/@overmindbots/shared-utils/src/constants';
 
@@ -48,7 +52,7 @@ const client = new Discord.Client({
 });
 
 client.login(BOT_TOKEN).catch(err => {
-  logger.error(err);
+  logger.error(err.message, err);
 });
 
 const genericAsyncCatcher = createAsyncCatcher(async error => {
@@ -83,9 +87,63 @@ const discordErrorHandler = async (error: DiscordAPIError) => {
   logger.error(error.message, error);
 };
 
+const hasRanks = async (guildId: string) => {
+  return (await Rank.count({ guildDiscordId: guildId })) > 0;
+};
+
+/**
+ * Updates the member's role according to his score
+ * @param inviterId
+ * @param guild
+ */
+const updateRole = async (inviterId: string, guild: Discord.Guild) => {
+  const { id: guildId } = guild;
+  const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+  const member = guild.member(inviterId);
+
+  if (!member) {
+    logger.error(`[${guildId}] No member found with id ${inviterId}`);
+    return;
+  }
+
+  const getScoreSince = botInstance.config.countScoresSince || new Date(0);
+  const score = await CertainReferral.getMemberScore(member, getScoreSince);
+
+  const rank = await Rank.getRankForInvites(score, guildId);
+
+  // Member hasn't earned a role
+  if (!rank) {
+    return;
+  }
+
+  const { roleDiscordId: roleId } = rank;
+
+  const hasRole = member.roles.has(roleId);
+  if (!hasRole) {
+    const role = guild.roles.find('id', roleId);
+    if (!role) {
+      logger.error(`[${guildId}] No role found with id ${roleId}`);
+      return;
+    }
+
+    logger.info(
+      `[${guildId}] Adding role ${role.name} for member ${inviterId}`
+    );
+
+    await member.addRole(role);
+    await member.send(
+      `You have now reached the rank of \`${role.name}\` in **${
+        guild.name
+      }**, congratulations!`
+    );
+  }
+};
+
 interface AggregatedReferral {
   _id: string;
   referralId: mongoose.Types.ObjectId;
+  inviterId: string;
+  fulfilled: boolean;
 }
 
 /**
@@ -110,7 +168,15 @@ const checkGuildMembers = async (guild: Discord.Guild) => {
       },
     },
     { $sort: { createdAt: 1 } },
-    { $group: { _id: '$inviteeDiscordId', referralId: { $first: '$_id' } } },
+    {
+      $group: {
+        _id: '$inviteeDiscordId',
+        referralId: { $first: '$_id' },
+        inviterId: { $first: '$inviterDiscordId' },
+        fulfilled: { $first: '$fulfilled' },
+      },
+    },
+    { $match: { fulfilled: false } },
   ])) as AggregatedReferral[];
 
   const referralIdsToMarkAsFulfilled = firstReferrals.map(
@@ -134,7 +200,27 @@ const checkGuildMembers = async (guild: Discord.Guild) => {
       ),
     ]);
   } catch (err) {
-    logger.error(err.message, err);
+    logger.error(`[${guildId}] Error: ${err.message}`, err);
+  }
+
+  const inviterIds = firstReferrals.map(({ inviterId }) => inviterId);
+
+  /**
+   * Assign earned roles based on recently fulfilled invites
+   */
+  try {
+    if (!(await hasRanks(guildId))) {
+      logger.info(`[${guildId}] Guild has no ranks`);
+      return;
+    }
+
+    logger.info(`[${guildId}] Updating roles`);
+    await P.map(
+      inviterIds,
+      async inviterId => await updateRole(inviterId, guild)
+    );
+  } catch (err) {
+    logger.error(`[${guildId}] Error: ${err.message}`, err);
   }
 };
 
@@ -165,6 +251,11 @@ const readyHandler = async () => {
         `[${guild.id}] Reading ${baseIndex + index}: "${guild.name}" \
 (${guild.memberCount} members)`
       );
+
+      if (!guild.available) {
+        logger.info(`[${guild.id}] Guild unavailable, skipping...`);
+        return;
+      }
 
       if (!(await isUsingNextVersion(guild))) {
         logger.info(`[${guild.id}] Using legacy version, skipping...`);
@@ -197,7 +288,7 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
  */
 const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
   const {
-    guild: { id: guildDiscordId },
+    guild: { id: guildId },
     guild,
     id: inviteeDiscordId,
   } = guildMember;
@@ -206,15 +297,61 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
     return;
   }
 
-  logger.info(`[${guildDiscordId}] New member, fulfilling referral`);
-  await CertainReferral.findOneAndUpdate(
+  logger.info(`[${guildId}] New member ${inviteeDiscordId}`);
+  const referral = await CertainReferral.findOne(
     {
-      guildDiscordId,
+      guildDiscordId: guildId,
       inviteeDiscordId,
     },
-    { fulfilled: true, active: true },
+    {},
     { sort: { createdAt: 1 } }
   );
+
+  if (!referral) {
+    return;
+  }
+
+  const { inviterDiscordId: inviterId, fulfilled, _id: referralId } = referral;
+
+  if (fulfilled) {
+    logger.info(
+      `[${guildId}] Referral already fulfilled for member \
+${inviteeDiscordId}`
+    );
+    return;
+  }
+
+  try {
+    await CertainReferral.findByIdAndUpdate(referralId, {
+      fulfilled: true,
+      active: true,
+    });
+  } catch (err) {
+    logger.error(`[${guildId}] Error: ${err.message}`, err);
+  }
+
+  logger.info(
+    `[${guildId}] Referral fulfilled for ${inviteeDiscordId}, \
+referrer is ${inviterId}`
+  );
+
+  if (!inviterId) {
+    return;
+  }
+
+  /**
+   * Assign earned roles based on recently fulfilled invites
+   */
+  try {
+    if (!(await hasRanks(guildId))) {
+      logger.info(`[${guildId}] Guild has no ranks`);
+      return;
+    }
+
+    await updateRole(inviterId, guild);
+  } catch (err) {
+    logger.error(`[${guildId}] Error: ${err.message}`, err);
+  }
 };
 
 /**
