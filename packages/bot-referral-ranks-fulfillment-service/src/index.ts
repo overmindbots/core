@@ -311,7 +311,9 @@ const guildMemberAddHandler = async (guildMember: Discord.GuildMember) => {
     return;
   }
 
-  if (referral.fulfilled) {
+  const { inviterDiscordId: inviterId, fulfilled, _id: referralId } = referral;
+
+  if (fulfilled) {
     logger.info(
       `[${guildId}] Referral already fulfilled for member \
 ${inviteeDiscordId}`
@@ -319,16 +321,11 @@ ${inviteeDiscordId}`
     return;
   }
 
-  const { inviterDiscordId: inviterId } = referral;
-
   try {
-    await CertainReferral.updateOne(
-      {
-        guildDiscordId: guildId,
-        inviteeDiscordId,
-      },
-      { fulfilled: true, active: true }
-    );
+    await CertainReferral.findByIdAndUpdate(referralId, {
+      fulfilled: true,
+      active: true,
+    });
   } catch (err) {
     logger.error(`[${guildId}] Error: ${err.message}`, err);
   }
