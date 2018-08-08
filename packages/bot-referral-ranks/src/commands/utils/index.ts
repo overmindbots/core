@@ -56,7 +56,7 @@ export async function updateUsersRanks(
       if (isGuildUnavailable(guild)) {
         return;
       }
-      const rank = await Rank.getRankForInvites(invitesUses, guild);
+      const rank = await Rank.getRankForInvites(invitesUses, guild.id);
       const member = guild.members.find('id', inviterId);
       if (!rank || !member) {
         logger.debug(`Either no rank or no member found for "${guild.name}".`);
