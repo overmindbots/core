@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "clean:build": "rm -rf ./build",
+    "build:production": "echo \"-> Done\"",
     "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'"
   },
   "repository": {

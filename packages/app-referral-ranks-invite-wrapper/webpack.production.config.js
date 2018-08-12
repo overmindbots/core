@@ -1,4 +1,4 @@
-const getBaseConfig = require('../../webpack.config');
+const getBaseConfig = require('../../webpack.production.config');
 
 const baseConfig = getBaseConfig(__dirname);
 

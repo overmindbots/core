@@ -6,6 +6,8 @@ metadata:
   namespace: overmindbots
 spec:
   replicas: {{totalShards}}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: bot-referral-ranks
@@ -33,7 +35,7 @@ spec:
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
-          - containerPort: 7000
+        - containerPort: 7000
         readinessProbe:
           httpGet:
             path: /readiness

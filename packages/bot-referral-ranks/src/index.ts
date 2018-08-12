@@ -133,6 +133,7 @@ logger.info(`
   * POD_ID: ${POD_ID}
   * BOT_MANAGER_URL: ${BOT_MANAGER_URL}
   * MONGODB_URI: ${MONGODB_URI}
+  * Environment: ${process.env.NODE_ENV}
   ====================================
 `);
 

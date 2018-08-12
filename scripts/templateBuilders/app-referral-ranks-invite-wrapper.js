@@ -19,6 +19,7 @@ const templateValues = utils.getBaseTemplateData();
 _.range(0, totalShards).forEach(shardId => {
   const extendedTemplateValues = Object.assign({}, templateValues, {
     shardId,
+    totalShards,
   });
 
   utils.buildTemplate(

@@ -37,6 +37,8 @@ docker build --no-cache -t $monorepoImageUrl -f Dockerfile .
 node ./scripts/buildTemplates.js service-referral-ranks-invites
 node ./scripts/buildTemplates.js service-bot-manager
 node ./scripts/buildTemplates.js bot-referral-ranks
+node ./scripts/buildTemplates.js app-referral-ranks-invite-wrapper
+node ./scripts/buildTemplates.js bot-referral-ranks-fulfillment-service
 
 {
   kubectl apply -f ./k8s-generated

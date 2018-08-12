@@ -6,14 +6,16 @@ metadata:
   namespace: overmindbots
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app-referral-ranks-invite-wrapper
+      app: app-referral-ranks-invite-wrapper
       shardId: "{{shardId}}"
   template:
     metadata:
       labels:
-        app-referral-ranks-invite-wrapper
+        app: app-referral-ranks-invite-wrapper
         shardId: "{{shardId}}"
     spec:
       affinity:
@@ -26,7 +28,7 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  app-referral-ranks-invite-wrapper
+                  - app-referral-ranks-invite-wrapper
               topologyKey: kubernetes.io/hostname
       containers:
       - name: overmindbots-core
@@ -57,3 +59,5 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
+        - name: APP_REFERRAL_RANKS_INVITE_WRAPPER_TOTAL_SHARDS
+          value: "{{totalShards}}"

@@ -8,6 +8,8 @@ metadata:
     app: service-bot-manager
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: service-bot-manager
