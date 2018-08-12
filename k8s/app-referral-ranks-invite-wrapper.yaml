@@ -2,7 +2,7 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: app-referral-ranks-invite-wrapper-{{shardId}}
+  name: app-referral-ranks-invite-wrapper
   namespace: overmindbots
 spec:
   replicas: 1
@@ -17,6 +17,7 @@ spec:
       labels:
         app: app-referral-ranks-invite-wrapper
         shardId: "{{shardId}}"
+        type: app
     spec:
       affinity:
         podAntiAffinity:
@@ -38,6 +39,7 @@ spec:
         imagePullPolicy: {{imagePullPolicy}}
         ports:
           - containerPort: 7000
+          - containerPort: 3005
         env:
         - name: NODE_ENV
           value: production
@@ -47,17 +49,32 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        - name: SHARD_ID
-          value: "{{shardId}}"
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
               name: overmindbots-secrets
               key: MONGODB_URI
+        - name: API_URL
+          value: "{{url}}"
+        - name: POD_STATUS_SERVER_PORT
+          value: "7000"
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
-        - name: APP_REFERRAL_RANKS_INVITE_WRAPPER_TOTAL_SHARDS
-          value: "{{totalShards}}"
+---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: app-referral-ranks-invite-wrapper-service
+  namespace: overmindbots
+  labels:
+    app: app-referral-ranks-invite-wrapper
+spec:  
+  selector:
+    app: app-referral-ranks-invite-wrapper
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3005
