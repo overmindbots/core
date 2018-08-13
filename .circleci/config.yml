@@ -47,7 +47,7 @@ jobs:
           command: gcloud auth configure-docker
       - run:
           name: install lerna
-          command: yarn global add lerna
+          command: yarn global add lerna@^2.11.0
       - run:
           # move this to a safe place
           name: Install node deps
