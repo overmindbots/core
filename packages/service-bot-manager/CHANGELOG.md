@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.7"></a>
+## [0.0.2-beta.7](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.6...@overmindbots/service-bot-manager@0.0.2-beta.7) (2018-08-13)
+
+
+### Bug Fixes
+
+* fix conflicts ([1b9f226](https://github.com/overmindbots/service-bot-manager/commit/1b9f226))
+* inconsistent local mongodb uri ([f9c16ef](https://github.com/overmindbots/service-bot-manager/commit/f9c16ef))
+
+
+### Features
+
+* implement deployments for new services ([4660c48](https://github.com/overmindbots/service-bot-manager/commit/4660c48)), closes [#138](https://github.com/overmindbots/service-bot-manager/issues/138)
+
+
+
+
+
 <a name="0.0.2-beta.6"></a>
 ## [0.0.2-beta.6](https://github.com/overmindbots/service-bot-manager/compare/@overmindbots/service-bot-manager@0.0.2-beta.5...@overmindbots/service-bot-manager@0.0.2-beta.6) (2018-07-26)
 

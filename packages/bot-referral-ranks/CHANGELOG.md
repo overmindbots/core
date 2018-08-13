@@ -3,6 +3,43 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.5"></a>
+## [0.0.2-beta.5](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.4...@overmindbots/bot-referral-ranks@0.0.2-beta.5) (2018-08-13)
+
+
+### Bug Fixes
+
+* adapt queries for new CertainReferral timestamps ([99a5657](https://github.com/overmindbots/bot-referral-ranks/commit/99a5657))
+* correct bad comment ([1e7bfbb](https://github.com/overmindbots/bot-referral-ranks/commit/1e7bfbb))
+* ensure invite service url is provided through env where needed ([b98dcc7](https://github.com/overmindbots/bot-referral-ranks/commit/b98dcc7))
+* fix conflicts ([1b9f226](https://github.com/overmindbots/bot-referral-ranks/commit/1b9f226))
+* fix empty leaderboards after filtering ([b0d1de2](https://github.com/overmindbots/bot-referral-ranks/commit/b0d1de2)), closes [#131](https://github.com/overmindbots/bot-referral-ranks/issues/131)
+* inconsistent local mongodb uri ([f9c16ef](https://github.com/overmindbots/bot-referral-ranks/commit/f9c16ef))
+* pluralize messages in commands ([fed089e](https://github.com/overmindbots/bot-referral-ranks/commit/fed089e))
+
+
+### Features
+
+* abort cheaters command in new version ([a6d566e](https://github.com/overmindbots/bot-referral-ranks/commit/a6d566e))
+* adapt CertainReferral to support imported scores ([18434e8](https://github.com/overmindbots/bot-referral-ranks/commit/18434e8))
+* add awaitConfirmation utility ([9318b31](https://github.com/overmindbots/bot-referral-ranks/commit/9318b31))
+* add reset-leaderboard command ([c1fac25](https://github.com/overmindbots/bot-referral-ranks/commit/c1fac25)), closes [#135](https://github.com/overmindbots/bot-referral-ranks/issues/135)
+* add support to leaderboard cmd for next invites version ([85f4101](https://github.com/overmindbots/bot-referral-ranks/commit/85f4101))
+* add username to topScores in CertainReferral model ([5946ee3](https://github.com/overmindbots/bot-referral-ranks/commit/5946ee3))
+* delete artificial invites on downgrades ([aa26f1c](https://github.com/overmindbots/bot-referral-ranks/commit/aa26f1c))
+* finish implementation of upgrade command ([f3d3b7e](https://github.com/overmindbots/bot-referral-ranks/commit/f3d3b7e)), closes [#130](https://github.com/overmindbots/bot-referral-ranks/issues/130)
+* implement deployments for new services ([4660c48](https://github.com/overmindbots/bot-referral-ranks/commit/4660c48)), closes [#138](https://github.com/overmindbots/bot-referral-ranks/issues/138)
+* implement downgrade command ([42f1426](https://github.com/overmindbots/bot-referral-ranks/commit/42f1426)), closes [#132](https://github.com/overmindbots/bot-referral-ranks/issues/132)
+* implement link command ([2d32289](https://github.com/overmindbots/bot-referral-ranks/commit/2d32289)), closes [#136](https://github.com/overmindbots/bot-referral-ranks/issues/136)
+* implement new invites command ([63e3283](https://github.com/overmindbots/bot-referral-ranks/commit/63e3283))
+* implement upgrade command ([31806c1](https://github.com/overmindbots/bot-referral-ranks/commit/31806c1))
+* import invites on upgrade ([357b270](https://github.com/overmindbots/bot-referral-ranks/commit/357b270))
+* update score calculation for aritificial CertainReferrals ([854e7a6](https://github.com/overmindbots/bot-referral-ranks/commit/854e7a6))
+
+
+
+
+
 <a name="0.0.2-beta.4"></a>
 ## [0.0.2-beta.4](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.3...@overmindbots/bot-referral-ranks@0.0.2-beta.4) (2018-07-26)
 

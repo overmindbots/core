@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.4"></a>
+## [0.0.2-beta.4](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.3...@overmindbots/shared-utils@0.0.2-beta.4) (2018-08-13)
+
+
+### Bug Fixes
+
+* correct bad environment variables definitions and usage ([e034bc9](https://github.com/overmindbots/shared-utils/commit/e034bc9))
+* ensure invite service url is provided through env where needed ([b98dcc7](https://github.com/overmindbots/shared-utils/commit/b98dcc7))
+* fix conflicts ([1b9f226](https://github.com/overmindbots/shared-utils/commit/1b9f226))
+
+
+### Features
+
+* add awaitConfirmation utility ([9318b31](https://github.com/overmindbots/shared-utils/commit/9318b31))
+* add countScoresSince config value to BotInstance ([ee8a8f4](https://github.com/overmindbots/shared-utils/commit/ee8a8f4))
+* add support to leaderboard cmd for next invites version ([85f4101](https://github.com/overmindbots/shared-utils/commit/85f4101))
+* add username to topScores in CertainReferral model ([5946ee3](https://github.com/overmindbots/shared-utils/commit/5946ee3))
+* add utility to omit events from the disabled list ([819d0a3](https://github.com/overmindbots/shared-utils/commit/819d0a3))
+* allow awaitConfirmation to skip messages ([e3eabf4](https://github.com/overmindbots/shared-utils/commit/e3eabf4))
+* create basic metatags for embedding ([60ad637](https://github.com/overmindbots/shared-utils/commit/60ad637))
+* create discord API utility for http requests ([ef5b4eb](https://github.com/overmindbots/shared-utils/commit/ef5b4eb))
+* implement create invite request ([01a197c](https://github.com/overmindbots/shared-utils/commit/01a197c))
+* implement deployments for new services ([4660c48](https://github.com/overmindbots/shared-utils/commit/4660c48)), closes [#138](https://github.com/overmindbots/shared-utils/issues/138)
+* implement guild channel request ([57d869e](https://github.com/overmindbots/shared-utils/commit/57d869e))
+* use discord api v7 ([184fa39](https://github.com/overmindbots/shared-utils/commit/184fa39))
+
+
+
+
+
 <a name="0.0.2-beta.3"></a>
 ## [0.0.2-beta.3](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.2...@overmindbots/shared-utils@0.0.2-beta.3) (2018-07-26)
 
