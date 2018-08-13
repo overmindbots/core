@@ -10,5 +10,8 @@
       "@overmindbots/discord.js-command-manager/*": ["./node_modules/@overmindbots/discord.js-command-manager/src/*"],
       "@overmindbots/discord.js-command-manager": ["./node_modules/@overmindbots/discord.js-command-manager/src/index"]
     }
-  }
+  },
+  "exclude": [
+    "**/node_modules/**/*"
+  ]
 }

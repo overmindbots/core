@@ -8,7 +8,7 @@ export { Session } from './Session';
 export { SessionDocument, SessionModel } from './Session';
 
 export { User } from './User';
-export { UserDocument, UserModel } from './User';
+export { UserDocument, UserModel, UserData, isUserData } from './User';
 
 export { Member } from './Member';
 export { MemberDocument, MemberModel } from './Member';

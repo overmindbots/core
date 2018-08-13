@@ -1,5 +1,5 @@
+import axios from 'axios';
 import mongoose from 'mongoose';
-import fetch from 'node-fetch';
 
 import { DISCORD_API_BASE_URL } from '@overmindbots/shared-utils/constants';
 import { GraphQLUnauthenticatedError } from '@overmindbots/shared-utils/graphqlErrors';
@@ -11,6 +11,21 @@ export interface CreateOrUpdateFromOauthArgs {
   refreshToken: string;
   expiresIn: number;
 }
+
+export interface UserData {
+  id: string;
+  username: string;
+  email?: string | undefined;
+  avatar: string | null;
+  discriminator: string;
+}
+
+export function isUserData(user: any): user is UserData {
+  const { id, username, discriminator } = user;
+
+  return !!id && !!username && !!discriminator;
+}
+
 export interface UserDocument extends mongoose.Document {
   discordId: string;
   displayName: string;
@@ -31,6 +46,7 @@ export interface UserModel extends mongoose.Model<UserDocument> {
   createOrUpdateFromOauth(
     args: CreateOrUpdateFromOauthArgs
   ): Promise<typeof User>;
+  getUserData(accessToken: string): Promise<UserData>;
 }
 
 const schema = new mongoose.Schema(
@@ -66,19 +82,6 @@ const schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-async function getUserData(accessToken: string) {
-  const requestUrl = `${DISCORD_API_BASE_URL}/users/@me`;
-
-  const result = await fetch(requestUrl, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const resultBody = await result.json();
-
-  return resultBody;
-}
-
 schema.statics.createOrUpdateFromOauth = async ({
   accessToken,
   refreshToken,
@@ -90,7 +93,7 @@ schema.statics.createOrUpdateFromOauth = async ({
     username: displayName,
     avatar,
     error,
-  } = await getUserData(accessToken);
+  } = await schema.statics.getUserData(accessToken);
 
   if (error) {
     throw new Error(`Discord OAuth2: ${error}`);
@@ -118,6 +121,19 @@ schema.statics.createOrUpdateFromOauth = async ({
   await user.save();
 
   return user;
+};
+
+schema.statics.getUserData = async function getUserData(accessToken: string) {
+  const requestUrl = `${DISCORD_API_BASE_URL}/users/@me`;
+
+  const result = await axios.get<UserData>(requestUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const resultBody = await result.data;
+
+  return resultBody;
 };
 
 schema.methods.isOauthTokenExpired = function isOauthTokenExpired() {

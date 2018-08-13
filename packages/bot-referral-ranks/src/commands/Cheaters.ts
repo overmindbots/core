@@ -3,11 +3,12 @@ import {
   Command,
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
+import { BotInstance } from '@overmindbots/shared-models';
 import { InviteUse } from '@overmindbots/shared-models/referralRanks';
 import { each, map } from 'lodash';
 import { compact, flow, map as mapFp, reduce } from 'lodash/fp';
 import logger from 'winston';
-import { DISCORD_ERROR_CODES } from '~/constants';
+import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 /**
  * Returns a ranking of users with the most invalid invites detected
@@ -30,9 +31,9 @@ export class CheatersCommand extends Command {
     }>
   ) => {
     const { guild } = this.message;
-
-    if (guild.memberCount > 250) {
-      await guild.fetchMembers();
+    const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+    if (botInstance.config.isNextVersion) {
+      return;
     }
 
     return flow([

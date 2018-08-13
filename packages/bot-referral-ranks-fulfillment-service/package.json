@@ -10,7 +10,7 @@
     "start:dev": "node ./build/index.js",
     "start:production": "node ./production-build/index.js",
     "build": "webpack --config webpack.config.js",
-    "build:production": "webpack --config webpack.production.config.js",
+    "build:production": "webpack --config webpack.production.config.js --env.NODE_ENV=production",
     "production:start": "npm run build:production && npm run start:production"
   },
   "dependencies": {
@@ -20,9 +20,9 @@
     "bluebird": "^3.5.1",
     "discord.js": "^11.3.2",
     "dotenv": "^6.0.0",
-    "express": "^4.16.3",
     "lodash": "^4.17.10",
     "mongoose": "^5.2.1",
+    "uuid": "^3.3.2",
     "winston": "^2.4.0"
   },
   "devDependencies": {
@@ -39,6 +39,8 @@
     "@types/jest": "^23.3.0",
     "@types/lodash": "^4.14.110",
     "@types/mongoose": "^5.0.18",
+    "@types/node-fetch": "^2.1.1",
+    "@types/uuid": "^3.4.3",
     "@types/winston": "^2.3.9",
     "babel-plugin-module-resolver": "^3.1.1",
     "jest": "^23.4.1",

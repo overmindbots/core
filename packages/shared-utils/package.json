@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "clean:build": "rm -rf ./build",
+    "build:production": "echo \"-> Done\"",
     "build": "npm run clean:build && babel src --out-dir build --extensions '.ts'"
   },
   "repository": {
@@ -14,7 +15,8 @@
     "node": ">=9.11.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.53"
+    "@babel/runtime": "^7.0.0-beta.53",
+    "discord.js": "^11.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.53",

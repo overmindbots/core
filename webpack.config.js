@@ -19,7 +19,7 @@ const getBaseConfig = dirname => ({
       whitelist: /^@overmindbots\/.*/,
     }),
   ],
-  mode: 'none',
+  mode: process.env.NODE_ENV || 'development',
   plugins: [
     new webpack.BannerPlugin({
       banner: 'require("source-map-support").install();',

@@ -8,6 +8,8 @@ metadata:
     app: service-bot-manager
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: service-bot-manager
@@ -15,6 +17,7 @@ spec:
     metadata:
       labels:
         app: service-bot-manager
+        type: app
     spec:
       containers:
       - name: overmindbots-core
@@ -38,6 +41,8 @@ spec:
           initialDelaySeconds: 5
           periodSeconds: 3
         env:
+          - name: POD_STATUS_SERVER_PORT
+            value: "7000"
           - name: NODE_ENV
             value: production
           - name: DEPLOYMENT_STAGE
