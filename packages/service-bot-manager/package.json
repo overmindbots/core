@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/service-bot-manager",
-  "version": "0.0.2-beta.7",
+  "version": "0.0.2-beta.8",
   "private": true,
   "engines": {
     "node": ">=9.11.2"
@@ -19,8 +19,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.2-beta.4",
-    "@overmindbots/shared-utils": "^0.0.2-beta.4",
+    "@overmindbots/shared-models": "^0.0.2-beta.5",
+    "@overmindbots/shared-utils": "^0.0.2-beta.5",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "kubernetes-client": "^5.3.1",
