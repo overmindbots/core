@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: app-referral-ranks-invite-wrapper
+  namespace: overmindbots
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: app-referral-ranks-invite-wrapper
+      shardId: "{{shardId}}"
+  template:
+    metadata:
+      labels:
+        app: app-referral-ranks-invite-wrapper
+        shardId: "{{shardId}}"
+        type: app
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - app-referral-ranks-invite-wrapper
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: overmindbots-core
+        command: ["/bin/sh","-c"]
+        args: ["cd packages/app-referral-ranks-invite-wrapper; npm run start:production"]
+        image: {{{imageUrl}}}
+        imagePullPolicy: {{imagePullPolicy}}
+        ports:
+          - containerPort: 7000
+          - containerPort: 3005
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DEPLOYMENT_STAGE
+          value: {{deploymentStage}}
+        - name: POD_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MONGODB_URI
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: MONGODB_URI
+        - name: API_URL
+          value: "{{url}}"
+        - name: POD_STATUS_SERVER_PORT
+          value: "7000"
+        - name: BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: BOT_TOKEN
+---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: app-referral-ranks-invite-wrapper-service
+  namespace: overmindbots
+  labels:
+    app: app-referral-ranks-invite-wrapper
+spec:  
+  selector:
+    app: app-referral-ranks-invite-wrapper
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3005

@@ -3,10 +3,15 @@ import {
   Command,
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
-import { Message, RichEmbed } from 'discord.js';
-import { flow, map, orderBy, reduce, take } from 'lodash/fp';
+import Discord from 'discord.js';
+import { filter, flow, map, orderBy, reduce, take } from 'lodash/fp';
 
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
+import {
+  CertainReferral,
+  CertainReferralScore,
+} from '@overmindbots/shared-models/referralRanks/CertainReferral';
+import { REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE } from '@overmindbots/shared-utils/constants';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
@@ -16,30 +21,23 @@ import {
   InvitesPerUserItem,
 } from './utils';
 
-interface PrintableUserInvites {
-  invitesUses: number;
-  userId: string;
-  username: string;
-}
-
-const DEFAULT_LEADERBOARD_SIZE = 50;
-
 const mapAndSortUserInvites = (
   invites: InvitesPerUser,
   limit: number
-): Array<PrintableUserInvites> =>
+): CertainReferralScore[] =>
   flow([
+    filter(({ member: { bot } }: InvitesPerUserItem) => !bot),
     map(
       (
         { invitesUses, member: { username } }: InvitesPerUserItem,
         userId: string
       ) => ({
-        invitesUses,
-        userId,
+        score: invitesUses,
+        inviterDiscordId: userId,
         username,
       })
     ),
-    orderBy(({ invitesUses }) => invitesUses, ['desc']),
+    orderBy(({ score }) => score, ['desc']),
     take(limit),
   ])(invites);
 
@@ -53,40 +51,70 @@ export class LeaderboardCommand extends Command {
     return false;
   };
 
-  public buildMessage = (userInvites: Array<PrintableUserInvites>): string => {
+  public buildMessage = (scores: CertainReferralScore[]): string => {
     let count = 0;
     return flow([
       map(
-        ({ username, invitesUses }) =>
-          `${++count} 🔸 **${username}** *${invitesUses} invites*`
+        ({ username, score }: CertainReferralScore) =>
+          `${++count} 🔸 **${username}** *${score} invites*`
       ),
       reduce((prev, next) => `${prev}${next}\n`, ''),
-    ])(userInvites);
+    ])(scores);
   };
 
   public async run() {
-    const { guild, channel } = this.message;
-    const invites = await guild.fetchInvites();
-    const userInvitesMaps = buildInvitesPerUser(invites);
+    const { guild } = this.message;
     const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
     if (botInstance == null) {
       return;
     }
-    const userInvites = mapAndSortUserInvites(
-      userInvitesMaps,
-      botInstance.config.leaderboardSize || DEFAULT_LEADERBOARD_SIZE
-    );
-    const message = this.buildMessage(userInvites);
-    const richEmbed = new RichEmbed();
+
+    const isUsingNextVersion = botInstance.config.isNextVersion;
+    const leaderboardSize =
+      botInstance.config.leaderboardSize ||
+      REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE;
+
+    let scores;
+    if (isUsingNextVersion) {
+      scores = await this.getLeaderboardScores(guild, leaderboardSize);
+    } else {
+      scores = await this.getLegacyLeaderboardInvites(guild, leaderboardSize);
+    }
+
+    this.sendMessageWithResults(scores);
+  }
+
+  private async getLeaderboardScores(guild: Discord.Guild, limit: number) {
+    return await CertainReferral.getTopScores(guild, limit);
+  }
+
+  private async getLegacyLeaderboardInvites(
+    guild: Discord.Guild,
+    limit: number
+  ) {
+    const invites = await guild.fetchInvites();
+    const userInvitesMaps = buildInvitesPerUser(invites);
+
+    updateUsersRanks(userInvitesMaps, guild);
+
+    return mapAndSortUserInvites(userInvitesMaps, limit);
+  }
+
+  private async sendMessageWithResults(scores: CertainReferralScore[]) {
+    const { channel } = this.message;
+    if (scores.length <= 0) {
+      channel.send('There are no scores yet');
+      return;
+    }
+    const message = this.buildMessage(scores);
+    const richEmbed = new Discord.RichEmbed();
     const embed = richEmbed.setColor('#D4AF37').setDescription(message);
     const result = (await channel.send('Top users', {
       embed,
-    })) as Message;
+    })) as Discord.Message;
 
     if (result && !result.embeds.length) {
       await channel.send(message);
     }
-
-    await updateUsersRanks(userInvitesMaps, guild);
   }
 }

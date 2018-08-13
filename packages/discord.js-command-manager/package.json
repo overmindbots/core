@@ -7,6 +7,9 @@
   "engines": {
     "node": ">=9.11.2"
   },
+  "scripts": {
+    "build:production": "echo \"-> Done\""
+  },
   "repository": {
     "type": "git",
     "url": "git@github.com:overmindbots/discord-js-command-manager.git"

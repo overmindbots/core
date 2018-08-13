@@ -47,7 +47,7 @@ export class SetPrefixCommand extends Command {
 
     await channel.send('Prefix updated. New prefix is `' + prefix + '`');
 
-    cache.set(`prefixes.${guildDiscordId}`, prefix);
+    cache.setPrefix(guildDiscordId, prefix);
   }
 
   public validatePrefix = () => {

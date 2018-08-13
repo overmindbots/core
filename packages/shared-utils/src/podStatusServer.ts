@@ -12,6 +12,10 @@ enum READINESS_STATUSES {
   NOT_READY = 500,
 }
 
+if (!process.env.POD_STATUS_SERVER_PORT) {
+  throw new Error('Missing env variable POD_STATUS_SERVER_PORT');
+}
+
 export class PodStatusServer {
   public app: express.Application;
   private livenessStatus: LIVENESS_STATUSES;
