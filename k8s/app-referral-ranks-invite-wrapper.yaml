@@ -2,19 +2,21 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: bot-referral-ranks
+  name: app-referral-ranks-invite-wrapper
   namespace: overmindbots
 spec:
-  replicas: {{totalShards}}
+  replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: bot-referral-ranks
+      app: app-referral-ranks-invite-wrapper
+      shardId: "{{shardId}}"
   template:
     metadata:
       labels:
-        app: bot-referral-ranks
+        app: app-referral-ranks-invite-wrapper
+        shardId: "{{shardId}}"
         type: app
     spec:
       affinity:
@@ -27,31 +29,18 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - bot-referral-ranks
+                  - app-referral-ranks-invite-wrapper
               topologyKey: kubernetes.io/hostname
       containers:
       - name: overmindbots-core
         command: ["/bin/sh","-c"]
-        args: ["cd packages/bot-referral-ranks; npm run start:production"]
+        args: ["cd packages/app-referral-ranks-invite-wrapper; npm run start:production"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
-        - containerPort: 7000
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+          - containerPort: 7000
+          - containerPort: 3005
         env:
-        - name: POD_STATUS_SERVER_PORT
-          value: "7000"
         - name: NODE_ENV
           value: production
         - name: DEPLOYMENT_STAGE
@@ -65,8 +54,27 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: MONGODB_URI
+        - name: API_URL
+          value: "{{url}}"
+        - name: POD_STATUS_SERVER_PORT
+          value: "7000"
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
+---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: app-referral-ranks-invite-wrapper-service
+  namespace: overmindbots
+  labels:
+    app: app-referral-ranks-invite-wrapper
+spec:  
+  selector:
+    app: app-referral-ranks-invite-wrapper
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3005

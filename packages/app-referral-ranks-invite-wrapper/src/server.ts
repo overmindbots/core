@@ -33,16 +33,8 @@ interface InviteParams {
   guildDiscordId: string;
   inviterDiscordId: string;
 }
-interface OauthRequest extends Request {
-  params: InviteParams;
-}
 interface InviteRequest extends Request {
   params: InviteParams;
-}
-
-function isOauthRequest(request: Request): request is OauthRequest {
-  const { guildDiscordId, inviterDiscordId } = request.params;
-  return !!inviterDiscordId && !!guildDiscordId;
 }
 
 function isInviteRequest(request: Request): request is InviteRequest {
@@ -209,8 +201,6 @@ app.get(
       '&scope=identify' +
       `&state=${encodedState}`;
 
-    console.log('redirectUrl', redirectUrl);
-
     const guild = await discordAPIClient.getGuild(guildDiscordId);
 
     if (!guild) {
@@ -252,7 +242,7 @@ app.get(
       thumbnail_url: iconUrl,
       title: 'Join Server',
     };
-    console.log(oembedResponse);
+    logger.debug('oembedResponse', oembedResponse);
     const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
       'base64'
     );

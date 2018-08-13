@@ -2,19 +2,21 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: bot-referral-ranks
+  name: bot-referral-ranks-fulfillment-service-{{shardId}}
   namespace: overmindbots
 spec:
-  replicas: {{totalShards}}
+  replicas: 1
   strategy:
     type: Recreate
   selector:
     matchLabels:
-      app: bot-referral-ranks
+      app: bot-referral-ranks-fulfillment-service
+      shardId: "{{shardId}}"
   template:
     metadata:
       labels:
-        app: bot-referral-ranks
+        app: bot-referral-ranks-fulfillment-service
+        shardId: "{{shardId}}"
         type: app
     spec:
       affinity:
@@ -27,31 +29,17 @@ spec:
                 - key: app
                   operator: In
                   values:
-                  - bot-referral-ranks
+                  - bot-referral-ranks-fulfillment-service
               topologyKey: kubernetes.io/hostname
       containers:
       - name: overmindbots-core
         command: ["/bin/sh","-c"]
-        args: ["cd packages/bot-referral-ranks; npm run start:production"]
+        args: ["cd packages/bot-referral-ranks-fulfillment-service; npm run start:production"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
-        - containerPort: 7000
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+          - containerPort: 7000
         env:
-        - name: POD_STATUS_SERVER_PORT
-          value: "7000"
         - name: NODE_ENV
           value: production
         - name: DEPLOYMENT_STAGE
@@ -60,6 +48,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        - name: SHARD_ID
+          value: "{{shardId}}"
+        - name: POD_STATUS_SERVER_PORT
+          value: "7000"
         - name: MONGODB_URI
           valueFrom:
             secretKeyRef:
@@ -70,3 +62,5 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
+        - name: TOTAL_SHARDS
+          value: "{{totalShards}}"

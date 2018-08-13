@@ -4,11 +4,11 @@ import { BOT_TYPES } from '@overmindbots/shared-utils/constants';
 // TODO: Pass this through an env variable on build time
 const pkginfo = require('../../package.json');
 
-if (!process.env.BOT_MANAGER_SERVICE_HOST) {
-  throw new Error('BOT_MANAGER_SERVICE_HOST missing');
+if (!process.env.SERVICE_BOT_MANAGER_SERVICE_HOST) {
+  throw new Error('SERVICE_BOT_MANAGER_SERVICE_HOST missing');
 }
-if (!process.env.BOT_MANAGER_SERVICE_PORT) {
-  throw new Error('BOT_MANAGER_SERVICE_PORT missing');
+if (!process.env.SERVICE_BOT_MANAGER_SERVICE_PORT) {
+  throw new Error('SERVICE_BOT_MANAGER_SERVICE_PORT missing');
 }
 if (!process.env.POD_ID) {
   throw new Error('POD_ID missing');
@@ -30,11 +30,13 @@ export const POD_ID =
   process.env.NODE_ENV === 'development'
     ? `${process.env.POD_ID}-${Date.now()}`
     : process.env.POD_ID;
-export const BOT_MANAGER_SERVICE_HOST = process.env.BOT_MANAGER_SERVICE_HOST;
-export const BOT_MANAGER_SERVICE_PORT = process.env.BOT_MANAGER_SERVICE_PORT;
+export const BOT_MANAGER_SERVICE_HOST =
+  process.env.SERVICE_BOT_MANAGER_SERVICE_HOST;
+export const SERVICE_BOT_MANAGER_SERVICE_PORT =
+  process.env.SERVICE_BOT_MANAGER_SERVICE_PORT;
 
 export const BOT_TOKEN = process.env.BOT_TOKEN;
-export const BOT_MANAGER_URL = `ws://${BOT_MANAGER_SERVICE_HOST}:${BOT_MANAGER_SERVICE_PORT}`;
+export const BOT_MANAGER_URL = `ws://${BOT_MANAGER_SERVICE_HOST}:${SERVICE_BOT_MANAGER_SERVICE_PORT}`;
 export const MONGODB_URI = process.env.MONGODB_URI;
 export const BOT_TYPE = BOT_TYPES.REFERRAL_RANKS;
 export const DEFAULT_PREFIX = '!';
