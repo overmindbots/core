@@ -26,7 +26,7 @@ const confirmationReplies = ['yes', 'confirm', 'ok', 'y', 'alright', 'agree'];
  * @param options.timeoutMessage Message to send when author didn't reply
  * in too long. Pass null to skip this message
  * @param options.cancelMessage Message to send when the author cancels.
- * Pass null to skip this message
+ * You can pass null to skip this message
  */
 export const awaitConfirmation = async (
   message: Discord.Message,
