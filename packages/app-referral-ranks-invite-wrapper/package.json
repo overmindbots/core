@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/app-referral-ranks-invite-wrapper",
-  "version": "0.0.1-beta.10",
+  "version": "0.0.1-beta.11",
   "private": true,
   "engines": {
     "node": ">=9.0.0"
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.2-beta.7",
-    "@overmindbots/shared-utils": "^0.0.2-beta.7",
+    "@overmindbots/shared-models": "^0.0.2-beta.8",
+    "@overmindbots/shared-utils": "^0.0.2-beta.8",
     "bluebird": "^3.5.1",
     "cors": "^2.8.4",
     "discord.js": "^11.3.2",
