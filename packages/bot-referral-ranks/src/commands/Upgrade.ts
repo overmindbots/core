@@ -61,7 +61,7 @@ export class UpgradeCommand extends Command {
         'system!\n\n' +
         '**New features**:\n\n' +
         '👉 Customizable invite links\n' +
-        '👉 Anti-cheating mechanism (`!cheaters` command will' +
+        '👉 Anti-cheating mechanism (the `!cheaters` command will' +
         ' be removed in future versions)\n' +
         '👉 Ability to reset invites and leaderboards\n' +
         '👉 Know who invited who with **100% certainty**\n' +
@@ -130,12 +130,12 @@ export class UpgradeCommand extends Command {
         'links, which allow us to flawlessly track who invited who and ' +
         'completely prevent cheating.\nFor this reason users **must share ' +
         'their own invite link**. They can obtain their personal link by ' +
-        'using the `!invite` command\n\n' +
+        'using the `!link` command\n\n' +
         '**Keep in mind:**\n\n' +
         '👉 If you want to initialize the scores based on the current ' +
-        'invite links use the `!import-invites` command.\n' +
-        '👉 If you want to revert to the old system use the' +
-        ' `!downgrade` command.\n\n' +
+        'invite links, use the `!import-invites` command.\n' +
+        '👉 If you want to revert to the old system, use the' +
+        ' `!downgrade` command.\n' +
         '👉 Check out the `!help` command, we updated it.'
     );
   }
