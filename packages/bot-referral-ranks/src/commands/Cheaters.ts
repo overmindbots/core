@@ -47,7 +47,7 @@ export class CheatersCommand extends Command {
       }),
       compact,
       reduce(
-        (message, { user, uses }): string =>
+        (message, { user, uses }) =>
           `${message}\n**${user.username}** - ${uses - 1} fake invites\n`,
         ''
       ),
