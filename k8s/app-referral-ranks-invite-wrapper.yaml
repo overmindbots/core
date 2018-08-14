@@ -64,6 +64,11 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: DISCORD_CLIENT_SECRET
+        - name: DISCORD_CLIENT_ID
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: DISCORD_CLIENT_ID
         - name: API_URL
           value: "{{url}}"
         - name: POD_STATUS_SERVER_PORT
