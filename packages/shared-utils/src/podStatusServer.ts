@@ -79,10 +79,12 @@ export class PodStatusServer {
   }
   private async livenessRequest(res: Response) {
     res.writeHead(this.livenessStatus);
+    logger.info('-> Liveness: Responded ${this.livenessStatus}');
     res.send();
   }
   private async readinessRequest(res: Response) {
     res.writeHead(this.readinessStatus);
+    logger.info('-> Liveness: Responded ${this.livenessStatus}');
     res.send();
   }
 }
