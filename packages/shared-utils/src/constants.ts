@@ -14,7 +14,7 @@ export const POD_STATUS_SERVER_PORT =
 export const APP_REFERRAL_RANKS_INVITE_WRAPPER_URL = process.env
   .APP_REFERRAL_RANKS_INVITE_WRAPPER_URL as string;
 
-// TODO: Change to an array of permissions and generate programatically
+// TODO: Change this to an array of permissions and generate programatically
 export const BOTS = {
   [BOT_TYPES.REFERRAL_RANKS]: {
     name: 'Referral Ranks',
