@@ -35,20 +35,20 @@ spec:
         args: ["cd packages/bot-referral-ranks; npm run start:production"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
-        ports:
-        - containerPort: 7000
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+        # ports:
+        # - containerPort: 7000
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
+        # livenessProbe:
+        #   httpGet:
+        #     path: /liveness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
         env:
         - name: POD_STATUS_SERVER_PORT
           value: "7000"

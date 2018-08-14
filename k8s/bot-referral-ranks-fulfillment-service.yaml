@@ -37,8 +37,6 @@ spec:
         args: ["cd packages/bot-referral-ranks-fulfillment-service; npm run start:production"]
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
-        ports:
-          - containerPort: 7000
         env:
         - name: NODE_ENV
           value: production

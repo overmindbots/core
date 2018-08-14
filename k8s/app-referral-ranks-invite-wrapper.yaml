@@ -54,7 +54,6 @@ spec:
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
-          - containerPort: 7000
           - containerPort: 3001
             protocol: TCP
         env:
@@ -88,5 +87,5 @@ spec:
               key: DISCORD_CLIENT_ID
         - name: API_URL
           value: "{{url}}"
-        - name: POD_STATUS_SERVER_PORT
-          value: "7000"
+        # - name: POD_STATUS_SERVER_PORT
+        #   value: "7000"

@@ -27,19 +27,19 @@ spec:
         imagePullPolicy: {{imagePullPolicy}}
         ports:
         - containerPort: 4000
-        - containerPort: 7000
-        livenessProbe:
-          httpGet:
-            path: /liveness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 7000
-          initialDelaySeconds: 5
-          periodSeconds: 3
+        # - containerPort: 7000
+        # livenessProbe:
+        #   httpGet:
+        #     path: /liveness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
+        # readinessProbe:
+        #   httpGet:
+        #     path: /readiness
+        #     port: 7000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 3
         env:
           - name: POD_STATUS_SERVER_PORT
             value: "7000"
