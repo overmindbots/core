@@ -9,6 +9,7 @@ import { Collection, Message, RichEmbed, Role } from 'discord.js';
 import Discord from 'discord.js';
 import { each, filter as normalFilter, includes, reverse } from 'lodash';
 import { compact, flow, map, reduce, sortBy } from 'lodash/fp';
+import pluralize from 'pluralize';
 import { COLOR_CODES, DISCORD_ERROR_CODES } from '~/constants';
 
 // FIXME: Rewrite this mess
@@ -109,11 +110,14 @@ export class ListRanksCommand extends Command {
     each(
       reverse(this.getRanksWithRoles(filteredRanks, roles)),
       ({ role, invitesRequired }) => {
-        embed.addField(role.name, `${invitesRequired} invites`);
+        embed.addField(
+          role.name,
+          `${invitesRequired} ${pluralize('invite', invitesRequired)}`
+        );
       }
     );
 
-    const result = await channel.send('Ranks available', { embed });
+    const result = await channel.send('Available ranks', { embed });
 
     if (result && !(result as Message).embeds.length) {
       await channel.send(this.printRanks(filteredRanks, roles));
