@@ -25,16 +25,12 @@ export class CheatersCommand extends Command {
     return false;
   };
   public buildMessage = async (
-    summedInvitesArray: Array<{
+    summedInvitesArray: {
       inviterDiscordId: string;
       uses: number;
-    }>
+    }[]
   ) => {
     const { guild } = this.message;
-    const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
-    if (botInstance.config.isNextVersion) {
-      return;
-    }
 
     return flow([
       mapFp(({ inviterDiscordId, uses }) => {
@@ -51,18 +47,23 @@ export class CheatersCommand extends Command {
       }),
       compact,
       reduce(
-        (message, { user, uses }) =>
+        (message, { user, uses }): string =>
           `${message}\n**${user.username}** - ${uses - 1} fake invites\n`,
         ''
       ),
-    ])(summedInvitesArray);
+    ])(summedInvitesArray) as string;
   };
 
   public async run() {
     const {
       channel,
       guild: { id: guildDiscordId },
+      guild,
     } = this.message;
+    const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+    if (botInstance.config.isNextVersion) {
+      return;
+    }
 
     const inviteUses = await InviteUse.find({
       guildDiscordId,
