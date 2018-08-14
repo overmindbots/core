@@ -57,17 +57,20 @@ export class UpgradeCommand extends Command {
     }
 
     await channel.send(
-      'This command will upgrade Referral Ranks to the new invites system.\n' +
-        '**You will be able to import the current invites**\n\n' +
-        'Some of the features that will be enabled:\n' +
-        '- **Customizable invite links**\n' +
-        '- **Impossible-to-cheat system** (!cheaters command will' +
+      'This command will upgrade Referral Ranks to the new invites ' +
+        'system!\n\n' +
+        '**New features**:\n\n' +
+        '👉 Customizable invite links\n' +
+        '👉 Anti-cheating mechanism (`!cheaters` command will' +
         ' be removed in future versions)\n' +
-        '- Ability to **reset invites**\n' +
-        '- Know who invited who\n' +
-        '\nFor a complete list of changes and more info visit ' +
-        'https://www.referralranks.com/next\n\n' +
-        'First of all, would you like to import the current invite counts?'
+        '👉 Ability to reset invites and leaderboards\n' +
+        '👉 Know who invited who with **100% certainty**\n' +
+        '\n⭐️ For a complete list of changes and more info visit ' +
+        'https://www.referralranks.com/next ⭐️\n\n' +
+        ':warning:**WARNING:** By default, the new version will begin ' +
+        'counting all invites from scratch (you can always do this ' +
+        'later by using the `!import-invites` command)\n\n' +
+        '**Would you like to import the current invite counts?** (Y/N)'
     );
 
     const importInvites = await awaitConfirmation(this.message, {
@@ -84,7 +87,9 @@ export class UpgradeCommand extends Command {
       );
     }
 
-    await channel.send("Everything's set, **are you ready to upgrade?**\n\n");
+    await channel.send(
+      "Everything's set, **are you ready to upgrade?** (Y/N)\n\n"
+    );
 
     const confirmedMigration = await awaitConfirmation(this.message, {
       cancelMessage:
@@ -119,19 +124,19 @@ export class UpgradeCommand extends Command {
     );
 
     await channel.send(
-      'Congratulations! You have migrated the server to the new invites ' +
-        'system.\n\n' +
-        '**IMPORTANT:** The new system uses our custom invite links, which ' +
-        'is what allows us to flawlessly track who invited who and completely' +
-        'prevent cheaters.\nFor this reason users **must share their own ' +
-        'invite link** which is obtainable through the `!invite` command' +
-        '\n\n' +
-        'Keep in mind:\n' +
-        '- If you want to initialize the scores based on the current \n' +
+      '🎊🎊 Congratulations! You have migrated the server to the new invites ' +
+        'system! 🎊🎊\n\n' +
+        ':warning:**IMPORTANT:** The new system uses our custom invite ' +
+        'links, which allow us to flawlessly track who invited who and ' +
+        'completely prevent cheating.\nFor this reason users **must share ' +
+        'their own invite link**. They can obtain their personal link by ' +
+        'using the `!invite` command\n\n' +
+        '**Keep in mind:**\n\n' +
+        '👉 If you want to initialize the scores based on the current ' +
         'invite links use the `!import-invites` command.\n' +
-        '- If you want to revert to the old system use the' +
-        ' `!downgrade` command.' +
-        '- Check out the `!help` command, we updated it.'
+        '👉 If you want to revert to the old system use the' +
+        ' `!downgrade` command.\n\n' +
+        '👉 Check out the `!help` command, we updated it.'
     );
   }
 }
