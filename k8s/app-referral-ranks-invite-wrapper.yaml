@@ -54,15 +54,20 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: MONGODB_URI
-        - name: API_URL
-          value: "{{url}}"
-        - name: POD_STATUS_SERVER_PORT
-          value: "7000"
         - name: BOT_TOKEN
           valueFrom:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
+        - name: DISCORD_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: DISCORD_CLIENT_SECRET
+        - name: API_URL
+          value: "{{url}}"
+        - name: POD_STATUS_SERVER_PORT
+          value: "7000"
 ---
 apiVersion: v1
 kind: Service  

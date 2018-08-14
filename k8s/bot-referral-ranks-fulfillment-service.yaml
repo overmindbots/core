@@ -62,5 +62,11 @@ spec:
             secretKeyRef:
               name: overmindbots-secrets
               key: BOT_TOKEN
+        - name: DISCORD_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: overmindbots-secrets
+              key: DISCORD_CLIENT_SECRET
         - name: TOTAL_SHARDS
           value: "{{totalShards}}"
+          
