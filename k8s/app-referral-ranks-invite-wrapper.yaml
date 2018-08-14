@@ -39,8 +39,8 @@ spec:
         imagePullPolicy: {{imagePullPolicy}}
         ports:
           - containerPort: 7000
-          - containerPort: 3005
-          - containerPort: 80
+          - containerPort: 3001
+            protocol: TCP
         env:
         - name: NODE_ENV
           value: production
@@ -88,4 +88,4 @@ spec:
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 3005
+    targetPort: 3001
