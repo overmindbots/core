@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.7"></a>
+## [0.0.2-beta.7](https://github.com/overmindbots/discord-js-command-manager/compare/@overmindbots/discord.js-command-manager@0.0.2-beta.6...@overmindbots/discord.js-command-manager@0.0.2-beta.7) (2018-08-14)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/discord.js-command-manager
+
 <a name="0.0.2-beta.6"></a>
 ## [0.0.2-beta.6](https://github.com/overmindbots/discord-js-command-manager/compare/@overmindbots/discord.js-command-manager@0.0.2-beta.5...@overmindbots/discord.js-command-manager@0.0.2-beta.6) (2018-08-13)
 
