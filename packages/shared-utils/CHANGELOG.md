@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.7"></a>
+## [0.0.2-beta.7](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.6...@overmindbots/shared-utils@0.0.2-beta.7) (2018-08-14)
+
+
+### Bug Fixes
+
+* release bump ([e1c1b03](https://github.com/overmindbots/shared-utils/commit/e1c1b03))
+
+
+
+
 <a name="0.0.2-beta.6"></a>
 ## [0.0.2-beta.6](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.5...@overmindbots/shared-utils@0.0.2-beta.6) (2018-08-14)
 
