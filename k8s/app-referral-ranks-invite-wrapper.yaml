@@ -1,4 +1,20 @@
 ---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: app-referral-ranks-invite-wrapper
+  namespace: overmindbots
+  labels:
+    app: app-referral-ranks-invite-wrapper
+spec:  
+  selector:
+    app: app-referral-ranks-invite-wrapper
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3001
+    protocol: TCP
+---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
@@ -74,18 +90,3 @@ spec:
           value: "{{url}}"
         - name: POD_STATUS_SERVER_PORT
           value: "7000"
----
-apiVersion: v1
-kind: Service  
-metadata:  
-  name: app-referral-ranks-invite-wrapper-service
-  namespace: overmindbots
-  labels:
-    app: app-referral-ranks-invite-wrapper
-spec:  
-  selector:
-    app: app-referral-ranks-invite-wrapper
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3001

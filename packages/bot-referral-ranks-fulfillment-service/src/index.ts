@@ -60,7 +60,7 @@ const genericAsyncCatcher = createAsyncCatcher(async error => {
 });
 
 /**
- * Intended for future usage in managing errors that commands did not catch
+ * For future usage => managing errors that commands did not catch
  */
 const manageError = genericAsyncCatcher(async () => {
   return false;
