@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.6"></a>
+## [0.0.1-beta.6](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.5...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.6) (2018-08-14)
+
+
+### Bug Fixes
+
+* correct env variable name ([fdced12](https://github.com/overmindbots/core/commit/fdced12))
+
+
+
+
 <a name="0.0.1-beta.5"></a>
 ## [0.0.1-beta.5](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.4...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.5) (2018-08-14)
 
