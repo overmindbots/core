@@ -22,7 +22,7 @@ export function isDiscordDMChannel(
 const confirmationReplies = ['yes', 'confirm', 'ok', 'y', 'alright', 'agree'];
 
 /**
- * Utility for awaiting confirmation inside a command
+ * Utility for awaiting confirmations inside a command
  * @param options.timeoutMessage Message to send when author didn't reply
  * in too long. Pass null to skip this message
  * @param options.cancelMessage Message to send when the author cancels.
