@@ -2,10 +2,8 @@ const path = require('path');
 const pkgJson = require('../../../package.json');
 const fs = require('fs');
 const handlebars = require('handlebars');
-
-const res = fs.readFileSync('.devDeploy');
-const devDeployTimestamp = res.toString();
-
+let res;
+let devDeployTimestamp;
 const config = pkgJson.config.overmindbots;
 const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
 const projectId = process.env.GOOGLE_PROJECT_ID;
@@ -14,6 +12,11 @@ const deploymentStages = {
   staging: 'staging',
   production: 'production',
 };
+
+if (getDeploymentStage() === 'development') {
+  res = fs.readFileSync('.devDeploy');
+  devDeployTimestamp = res.toString();
+}
 
 /**
  * Gets the project's global config
