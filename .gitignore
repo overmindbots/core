@@ -5,4 +5,4 @@ build
 k8s-generated/*.yaml
 .env
 .devDeploy
-tempk8s.yaml
+tempk8s-*.yaml

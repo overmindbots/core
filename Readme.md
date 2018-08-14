@@ -24,7 +24,8 @@ Create .env in repos
 - install [kubectx](https://github.com/ahmetb/kubectx) to change kubernetes contexts more easily
 - `kubectx` in the Terminal to get a list of contexts
 - `kubectx <contexName>` to switch to that context
-- `kubens overmindbots` to set the namespace (otherwise you wont see running components)
+- `kubens overmindbots` to set the namespace (otherwise you wont see running 
+components)
 
 ## Managing the remote cluster
 - `kubectl get pods` to get the list of running pods
@@ -51,6 +52,10 @@ see how the deployments are doing there
 **First local deploy**
 - Run `yarn deploy:dev` (dont clear the logs)
 - // Pending
+
+**Setting Kubernetes Secrets**
+- You need tom manually set some secrets
+- Note: MONGODB_URI is: `mongodb://dev:dev@overmindbots-mongodb-mongodb.overmindbots.svc.cluster.local:27017/overmindbots`
 
 # Usage
 
