@@ -3,7 +3,7 @@ import { includes } from 'lodash';
 
 const replyConfig = {
   maxMatches: 1,
-  time: 10000,
+  time: 30000,
   errors: ['time'],
 };
 
@@ -40,7 +40,8 @@ export const awaitConfirmation = async (
     return false;
   }
   const {
-    timeoutMessage = `${author}, You took too long to reply. Please try again`,
+    timeoutMessage = `${author}, You took too long to reply. \
+Your answer will be taken as 'NO'`,
     cancelMessage = 'Command aborted',
   } = options;
 
