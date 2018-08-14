@@ -26,13 +26,13 @@ export class DowngradeCommand extends Command {
 
     await channel.send(
       'Are you **really sure** you want to downgrade ' +
-        'to the old invites system?\n' +
-        '- You will no longer be able to access the new features that come ' +
+        'to the old invites system?\n\n' +
+        '👉 You will no longer be able to access the new features that come ' +
         'with this version\n' +
-        '- I will not be counting people who join through custom ' +
+        '👉 I will no longer be counting people who join through custom ' +
         'invite links\n' +
-        '- You can always upgrade again with the `!upgrade` command\n\n' +
-        'To confirm reply `yes`, to abort reply with anything else'
+        '👉 You can always upgrade again with the `!upgrade` command\n\n' +
+        'To downgrade reply `yes`, to abort reply with anything else'
     );
 
     const confirmed = await awaitConfirmation(this.message);
@@ -62,7 +62,7 @@ export class DowngradeCommand extends Command {
     );
 
     await channel.send(
-      'You have downgraded to the legacy invites system. You can always ' +
+      'You have downgraded to the legacy invites system 😢.\n You can always ' +
         'upgrade to the new system and enjoy its awesome new features with' +
         ' the `!upgrade` command.'
     );
