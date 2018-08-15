@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.12"></a>
+## [0.0.2-beta.12](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.2-beta.11...@overmindbots/service-referral-ranks-invites@0.0.2-beta.12) (2018-08-15)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/service-referral-ranks-invites
+
 <a name="0.0.2-beta.11"></a>
 ## [0.0.2-beta.11](https://github.com/overmindbots/core/compare/@overmindbots/service-referral-ranks-invites@0.0.2-beta.10...@overmindbots/service-referral-ranks-invites@0.0.2-beta.11) (2018-08-14)
 
