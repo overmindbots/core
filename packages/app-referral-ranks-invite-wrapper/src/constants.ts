@@ -37,7 +37,6 @@ export const DISCORD_INVITE_PREFIX = 'https://discord.gg';
 export const OAUTH_AUTHORIZATION_URL =
   'https://discordapp.com/api/oauth2/authorize';
 export const OAUTH_TOKEN_URL = 'https://discordapp.com/api/oauth2/token';
-export const PORT = (process.env
-  .APP_REFERRAL_RANKS_INVITE_WRAPPER_SERVICE_PORT ||
+export const PORT = (process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_PORT ||
   process.env.PORT) as string;
 export const BOT_TOKEN = process.env.BOT_TOKEN;
