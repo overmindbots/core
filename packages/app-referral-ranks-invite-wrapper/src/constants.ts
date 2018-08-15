@@ -18,14 +18,8 @@ if (!process.env.BOT_TOKEN) {
   throw new Error('Missing env variable BOT_TOKEN');
 }
 
-if (process.env.NODE_ENV === 'development') {
-  if (!process.env.PORT) {
-    throw new Error('Missing env variable PORT');
-  }
-} else if (!process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_SERVICE_PORT) {
-  throw new Error(
-    'Missing env variable APP_REFERRAL_RANKS_INVITE_WRAPPER_SERVICE_PORT'
-  );
+if (!process.env.PORT) {
+  throw new Error('Missing env variable PORT');
 }
 
 export const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
@@ -37,6 +31,5 @@ export const DISCORD_INVITE_PREFIX = 'https://discord.gg';
 export const OAUTH_AUTHORIZATION_URL =
   'https://discordapp.com/api/oauth2/authorize';
 export const OAUTH_TOKEN_URL = 'https://discordapp.com/api/oauth2/token';
-export const PORT = (process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_PORT ||
-  process.env.PORT) as string;
+export const PORT = process.env.PORT;
 export const BOT_TOKEN = process.env.BOT_TOKEN;
