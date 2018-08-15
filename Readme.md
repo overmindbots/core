@@ -49,13 +49,14 @@ see how the deployments are doing there
 - Install [helm](https://helm.sh/) (only needed for now for local mongodb)
 - Run `helm init --tiller-namespace overmindbots`
 
-**First local deploy**
-- Run `yarn deploy:dev` (dont clear the logs)
-- // Pending
-
 **Setting Kubernetes Secrets**
 - You need tom manually set some secrets
 - Note: MONGODB_URI is: `mongodb://dev:dev@overmindbots-mongodb-mongodb.overmindbots.svc.cluster.local:27017/overmindbots`
+
+**Local deploy**
+- Run `yarn deploy:dev` to build and deploy to local kubernetes
+- Or run `yarn deploy:dev --no-build` to only update the kubernetes config
+- // Pending
 
 # Usage
 
