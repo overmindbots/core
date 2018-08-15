@@ -38,7 +38,7 @@ const getUpdatedPackages = publishOutput => {
   if (!publishOutput) return [];
 
   const packages = publishOutput.split('\n').reduce((arr, line) => {
-    const match = line.match(/-\s@[^\/]+\/([^:]+)/);
+    const match = line.match(/-\s@[^/]+\/([^:]+)/);
     if (match && match[1]) {
       arr.push(match[1]);
     }
