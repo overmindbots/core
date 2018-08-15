@@ -14,6 +14,7 @@ spec:
     port: 80
     targetPort: 3001
     protocol: TCP
+  type: LoadBalancer
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
