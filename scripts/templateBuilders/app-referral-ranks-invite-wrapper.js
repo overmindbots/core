@@ -8,6 +8,7 @@ const templateValues = utils.getBaseTemplateData();
 const stage = utils.getDeploymentStage();
 let url;
 
+// Move these urls to a better place (https://github.com/overmindbots/core/issues/24)
 switch (stage) {
   case 'development': {
     url = 'localhost';
