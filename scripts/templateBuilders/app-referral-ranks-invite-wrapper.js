@@ -15,11 +15,11 @@ switch (stage) {
     break;
   }
   case 'staging': {
-    url = 'https://staging.referralranks.com';
+    url = 'https://staging-invites.referralranks.com';
     break;
   }
   case 'production': {
-    url = 'https://www.referralranks.com';
+    url = 'https://invites.referralranks.com';
     break;
   }
 }
