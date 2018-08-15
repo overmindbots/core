@@ -89,6 +89,6 @@ spec:
         - name: API_URL
           value: "{{url}}"
         - name: PORT
-          value: 4002
+          value: "4002"
         # - name: POD_STATUS_SERVER_PORT
         #   value: "7000"
