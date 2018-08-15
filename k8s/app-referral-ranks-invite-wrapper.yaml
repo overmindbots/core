@@ -12,7 +12,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 3001
+    targetPort: 4002
     protocol: TCP
   type: LoadBalancer
 ---
@@ -55,7 +55,7 @@ spec:
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         ports:
-          - containerPort: 3001
+          - containerPort: 4002
             protocol: TCP
         env:
         - name: NODE_ENV
@@ -88,5 +88,7 @@ spec:
               key: DISCORD_CLIENT_ID
         - name: API_URL
           value: "{{url}}"
+        - name: PORT
+          value: 4002
         # - name: POD_STATUS_SERVER_PORT
         #   value: "7000"
