@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.13"></a>
+## [0.0.1-beta.13](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.12...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.13) (2018-08-15)
+
+
+### Bug Fixes
+
+* set service as LoadBalancer ([ff76382](https://github.com/overmindbots/core/commit/ff76382))
+
+
+
+
 <a name="0.0.1-beta.12"></a>
 ## [0.0.1-beta.12](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.11...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.12) (2018-08-14)
 
