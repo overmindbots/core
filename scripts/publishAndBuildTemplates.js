@@ -55,6 +55,8 @@ if (process.argv.length !== 3) {
 
 // TODO: Add documentation
 async function main() {
+  console.log('== Building k8s templates ==');
+  console.log('CIRCLE_BRANCH: ', process.env.CIRCLE_BRANCH);
   const publishCommand = process.argv[2];
 
   const output = await execute(publishCommand);
