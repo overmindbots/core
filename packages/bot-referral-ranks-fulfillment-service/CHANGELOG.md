@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.9"></a>
+## [0.0.1-beta.9](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.8...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.9) (2018-08-15)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/bot-referral-ranks-fulfillment-service
+
 <a name="0.0.1-beta.8"></a>
 ## [0.0.1-beta.8](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.7...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.8) (2018-08-14)
 
