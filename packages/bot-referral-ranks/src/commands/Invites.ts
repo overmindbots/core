@@ -138,7 +138,10 @@ export class InvitesCommand extends Command {
           'member',
           score
         )}\`${sinceText}\n` +
-        `👉 Your invite link is ${getUserInviteLinkUrl(guild.id, author.id)}` +
+        `👉 Your invite link is \`${getUserInviteLinkUrl(
+          guild.id,
+          author.id
+        )}\`` +
         `${invitesRequiredText}`
     );
   }
