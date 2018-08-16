@@ -17,7 +17,6 @@ if (!process.env.API_URL) {
 if (!process.env.BOT_TOKEN) {
   throw new Error('Missing env variable BOT_TOKEN');
 }
-
 if (!process.env.PORT) {
   throw new Error('Missing env variable PORT');
 }
