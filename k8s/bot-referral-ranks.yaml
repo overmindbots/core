@@ -56,6 +56,8 @@ spec:
           value: production
         - name: DEPLOYMENT_STAGE
           value: {{deploymentStage}}
+        - name: APP_REFERRAL_RANKS_INVITE_WRAPPER_URL
+          value: {{appReferralRanksInviterWrapperUrl}}
         - name: POD_ID
           valueFrom:
             fieldRef:
