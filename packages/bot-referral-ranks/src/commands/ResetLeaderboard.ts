@@ -32,7 +32,7 @@ export class ResetLeaderboardCommand extends Command {
 
     await channel.send(
       'Are you sure you want to reset the leaderboards?\n\n' +
-        ':warning: **WARNING: All invite scores will ' +
+        '⚠️ **WARNING: All invite scores will ' +
         'start from zero.**\n\nReply `yes` to confirm'
     );
 

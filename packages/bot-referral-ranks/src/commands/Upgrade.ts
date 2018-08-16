@@ -67,10 +67,11 @@ export class UpgradeCommand extends Command {
         '👉 Know who invited who with **100% certainty**\n' +
         '\n⭐️ For a complete list of changes and more info visit ' +
         'https://www.referralranks.com/next ⭐️\n\n' +
-        ':warning:**WARNING:** By default, the new version will begin ' +
-        'counting all invites from scratch (you can always do this ' +
-        'later by using the `!import-invites` command)\n\n' +
-        '**Would you like to import the current invite counts?** (Y/N)'
+        '⚠️ **WARNING:** By default, the new version will begin ' +
+        'counting all invites from scratch\n\n' +
+        '**Would you like to import the current invite counts?** ' +
+        'You can always do this later by using the `!import-invites` ' +
+        'command (Y/N)'
     );
 
     const importInvites = await awaitConfirmation(this.message, {
@@ -126,7 +127,7 @@ export class UpgradeCommand extends Command {
     await channel.send(
       '🎊🎊 Congratulations! You have migrated the server to the new invites ' +
         'system! 🎊🎊\n\n' +
-        ':warning:**IMPORTANT:** The new system uses our custom invite ' +
+        '⚠️ **IMPORTANT:** The new system uses our custom invite ' +
         'links, which allow us to flawlessly track who invited who and ' +
         'completely prevent cheating.\nFor this reason users **must share ' +
         'their own invite link**. They can obtain their personal link by ' +
