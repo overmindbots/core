@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/bot-referral-ranks",
-  "version": "0.0.2-beta.12",
+  "version": "0.0.2-beta.13",
   "private": true,
   "engines": {
     "node": ">=9.11.2"
