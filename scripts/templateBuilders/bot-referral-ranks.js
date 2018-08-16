@@ -15,7 +15,7 @@ switch (stage) {
   }
   case 'staging': {
     appReferralRanksInviteWrapperUrl =
-      'https://staging-invites.referralranks.com';
+      'http://staging-invites.referralranks.com';
     break;
   }
   case 'production': {
