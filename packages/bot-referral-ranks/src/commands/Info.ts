@@ -54,7 +54,7 @@ export class InfoCommand extends Command {
       "He must have sneaked in when I wasn't looking 😱";
     const referral = await CertainReferral.findOne({
       inviteeDiscordId: user.id,
-      guildId: guild.id,
+      guildDiscordId: guild.id,
       fulfilled: true,
     });
 
@@ -63,7 +63,7 @@ export class InfoCommand extends Command {
 
       if (inviterId) {
         const inviter = guild.members.find('id', inviterId);
-        invitedText = `👉 Invited by ${inviter.user}`;
+        invitedText = `👉 Invited by ${inviter.displayName}`;
       }
     }
 
