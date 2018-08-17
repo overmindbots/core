@@ -79,7 +79,7 @@ export interface ChildClassArgsSchema {
 const ARGS_REGEX = /"[^"]+"|'[^']+'|`[^`]+`|“[^“]+“|’[^’]+’|\S+/g;
 const ARGS_PATTERN_REGEX = /\{(([a-zA-Z0-9]+):([a-zA-Z0-9]+))+\}/g;
 const ARGS_PATTERN_ITEM_REGEX = /\{([a-zA-Z0-9]+):([a-zA-Z0-9]+)\}/;
-const USER_ARG_REGEX = /^<@(!\d+)>$/;
+const USER_ARG_REGEX = /^<@(!?\d+)>$/;
 const ROLE_MENTION_ARG_REGEX = /^<@&(\d+)>$/;
 const CHANNEL_ARG_REGEX = /^<#(\d+)>$/;
 // tslint:disable-next-line
