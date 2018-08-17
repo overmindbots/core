@@ -126,7 +126,9 @@ app.get(
   }),
   asyncCatcher(async (req: Request, res: Response) => {
     const stateStr = Buffer.from(req.query.state, 'base64').toString();
+    logger.info('Received state string: ', stateStr);
     const state = JSON.parse(stateStr);
+    logger.info('state: ', state);
     const user = req.user;
 
     if (!isInviteParams(state) || !isUserData(user)) {
