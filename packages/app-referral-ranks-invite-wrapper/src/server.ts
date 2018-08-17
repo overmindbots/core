@@ -1,5 +1,5 @@
 import { isUserData } from '@overmindbots/shared-models';
-import { Guild } from '@overmindbots/shared-models';
+// import { Guild } from '@overmindbots/shared-models';
 import {
   CertainReferral,
   WrappedInvite,
@@ -12,8 +12,8 @@ import {
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
-import formatNumber from 'format-number';
-import { isNumber } from 'lodash';
+// import formatNumber from 'format-number';
+// import { isNumber } from 'lodash';
 import passport from 'passport';
 import logger from 'winston';
 import {
@@ -214,13 +214,13 @@ app.get(
     // let onlineCount;
     // let membersText = '';
     const { icon, name, id } = guild;
-    const dbGuild = await Guild.findOne({ discordId: id });
-    if (dbGuild) {
-      memberCount = dbGuild.memberCount;
-      if (dbGuild.onlineCount) {
-        onlineCount = dbGuild.onlineCount;
-      }
-    }
+    // const dbGuild = await Guild.findOne({ discordId: id });
+    // if (dbGuild) {
+    //   memberCount = dbGuild.memberCount;
+    //   if (dbGuild.onlineCount) {
+    //     onlineCount = dbGuild.onlineCount;
+    //   }
+    // }
 
     // TODO: Check what the caching time is to see if this is usable
     // if (isNumber(memberCount)) {
