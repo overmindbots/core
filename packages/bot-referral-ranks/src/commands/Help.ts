@@ -52,7 +52,9 @@ export class HelpCommand extends Command {
       adminCommandsField +=
         `**${prefix}set-leaderboard-size <size>**\n *Sets how many` +
         ` users are shown through the ${prefix}leaderboard command*` +
-        `\n**${prefix}reset-leaderboard**\n *Sets all scores to zero*`;
+        `\n**${prefix}reset-leaderboard**\n *Sets all scores to zero*` +
+        `\n**${prefix}info <@User>**\n *Shows who invited the tagged user ` +
+        'and when, along with his score and rank*';
     }
 
     userCommandsField += '\n\n';
