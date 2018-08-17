@@ -7,12 +7,10 @@ import { Message } from 'discord.js';
 import logger from 'winston';
 import { DISCORD_ERROR_CODES, DISCORD_INVITE_URL } from '~/constants';
 
-const content = `
-You can add \`Referral Ranks\` to your own Discord server by clicking the
-link below:
+const content = `You can add \`Referral Ranks\` to your own Discord \
+server by clicking the link below:
 
-${DISCORD_INVITE_URL}
-`;
+${DISCORD_INVITE_URL}`;
 
 export class GetBotCommand extends Command {
   public static keywords = ['get', 'get-bot', 'getbot'];

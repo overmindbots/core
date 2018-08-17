@@ -11,7 +11,7 @@ export class LinkCommand extends Command {
       return;
     }
     await channel.send(
-      `${author}, This is your personal invite link\n\`${getUserInviteLinkUrl(
+      `${author}\n\nYour personal invite link is \`${getUserInviteLinkUrl(
         author.id,
         guild.id
       )}\``

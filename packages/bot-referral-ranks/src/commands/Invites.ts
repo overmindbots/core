@@ -120,7 +120,7 @@ export class InvitesCommand extends Command {
     let invitesRequiredText = '';
     const nextRoleInfo = await this.getNextRoleInfo(score);
     if (nextRoleInfo) {
-      invitesRequiredText = `\n- You need \`${
+      invitesRequiredText = `\n👉 You need \`${
         nextRoleInfo.invitesForNextRole
       }\` ${pluralize('invite', nextRoleInfo.invitesForNextRole)} to become **${
         nextRoleInfo.nextRoleName
@@ -133,12 +133,12 @@ export class InvitesCommand extends Command {
       sinceText = ` in the last \`${days} days\``;
     }
     await channel.send(
-      `**${author.username}**\n` +
-        `- You have invited \`${score} ${pluralize(
+      `${author}\n\n` +
+        `👉 You have invited \`${score} ${pluralize(
           'member',
           score
         )}\`${sinceText}\n` +
-        `- Your invite link is \`${getUserInviteLinkUrl(
+        `👉 Your invite link is \`${getUserInviteLinkUrl(
           guild.id,
           author.id
         )}\`` +
