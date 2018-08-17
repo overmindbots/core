@@ -8,7 +8,7 @@ import { Message, RichEmbed } from 'discord.js';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 export class HelpCommand extends Command {
-  public static keywords = ['help', 'h', 'info'];
+  public static keywords = ['help', 'h'];
   public onError = async (error: CommandRuntimeError) => {
     if (error.code && error.code === DISCORD_ERROR_CODES.MISSING_PERMISSIONS) {
       return true;
