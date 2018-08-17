@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.13"></a>
+## [0.0.2-beta.13](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.12...@overmindbots/bot-referral-ranks@0.0.2-beta.13) (2018-08-16)
+
+
+### Bug Fixes
+
+* bump version ([d930144](https://github.com/overmindbots/bot-referral-ranks/commit/d930144))
+
+
+
+
+<a name="0.0.2-beta.12"></a>
+## [0.0.2-beta.12](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.11...@overmindbots/bot-referral-ranks@0.0.2-beta.12) (2018-08-16)
+
+
+### Bug Fixes
+
+* force deploy ([d57d9de](https://github.com/overmindbots/bot-referral-ranks/commit/d57d9de))
+
+
+
+
 <a name="0.0.2-beta.11"></a>
 ## [0.0.2-beta.11](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.10...@overmindbots/bot-referral-ranks@0.0.2-beta.11) (2018-08-15)
 

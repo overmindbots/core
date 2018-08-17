@@ -1,4 +1,4 @@
-// Move this logic to share code
+// Move this to shared code
 if (!process.env.DISCORD_CLIENT_SECRET) {
   throw new Error('Missing env variable DISCORD_CLIENT_SECRET');
 }
@@ -17,7 +17,6 @@ if (!process.env.API_URL) {
 if (!process.env.BOT_TOKEN) {
   throw new Error('Missing env variable BOT_TOKEN');
 }
-
 if (!process.env.PORT) {
   throw new Error('Missing env variable PORT');
 }

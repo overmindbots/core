@@ -33,7 +33,7 @@ async function _initializeBot(
 ) {
   logger.info('== Initializing bot on manager connection ==');
   instancedBot.initializeBotClient(shardId, connection, totalShards);
-  /* === Turn Bot ON === */
+
   await instancedBot.start();
 }
 // Make sure any form of initialization happens only once
