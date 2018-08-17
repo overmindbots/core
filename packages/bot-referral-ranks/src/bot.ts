@@ -45,7 +45,7 @@ const manageError = genericAsyncCatcher(async () => {
 });
 
 /**
- * Catches async errors associated to events
+ * Catches async errors that are associated to events
  */
 const eventAsyncCatcher = (eventName: string) =>
   createAsyncCatcher(async error => {
