@@ -1,4 +1,4 @@
-// Move this logic to share code
+// Move this to shared code
 if (!process.env.DISCORD_CLIENT_SECRET) {
   throw new Error('Missing env variable DISCORD_CLIENT_SECRET');
 }
