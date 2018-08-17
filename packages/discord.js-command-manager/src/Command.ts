@@ -79,7 +79,7 @@ export interface ChildClassArgsSchema {
 const ARGS_REGEX = /"[^"]+"|'[^']+'|`[^`]+`|“[^“]+“|’[^’]+’|\S+/g;
 const ARGS_PATTERN_REGEX = /\{(([a-zA-Z0-9]+):([a-zA-Z0-9]+))+\}/g;
 const ARGS_PATTERN_ITEM_REGEX = /\{([a-zA-Z0-9]+):([a-zA-Z0-9]+)\}/;
-const USER_ARG_REGEX = /^<@(\d+)>$/;
+const USER_ARG_REGEX = /^<@(!\d+)>$/;
 const ROLE_MENTION_ARG_REGEX = /^<@&(\d+)>$/;
 const CHANNEL_ARG_REGEX = /^<#(\d+)>$/;
 // tslint:disable-next-line
@@ -172,11 +172,10 @@ export class CommandBase {
       if (!match) {
         return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
       }
-      const id = match[1];
+      const id = match[1].replace('!', '');
       if (!id) {
         return { code: ParseArgsResultCodes.INVALID_COMMAND_FORMAT };
       }
-
       const user = this.message.mentions.users.get(id);
       if (!user) {
         console.warn(
@@ -470,5 +469,3 @@ export default abstract class Command extends CommandBase {
   static permissionsRequired: DiscordPermissions[]; // Improve typing
   abstract run(message: Message, args: CommandArgs): Promise<any>;
 }
-
-// TODO: Remove this line
