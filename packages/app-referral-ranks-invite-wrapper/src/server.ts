@@ -210,9 +210,9 @@ app.get(
       return;
     }
 
-    let memberCount;
-    let onlineCount;
-    let membersText = '';
+    // let memberCount;
+    // let onlineCount;
+    // let membersText = '';
     const { icon, name, id } = guild;
     const dbGuild = await Guild.findOne({ discordId: id });
     if (dbGuild) {
@@ -222,20 +222,20 @@ app.get(
       }
     }
 
-    // TODO: Check what the caching time is
-    if (isNumber(memberCount)) {
-      membersText = `▪️ ${formatNumber()(memberCount)} members`;
-      if (isNumber(onlineCount)) {
-        membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
-      }
-    }
+    // TODO: Check what the caching time is to see if this is usable
+    // if (isNumber(memberCount)) {
+    //   membersText = `▪️ ${formatNumber()(memberCount)} members`;
+    //   if (isNumber(onlineCount)) {
+    //     membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
+    //   }
+    // }
 
     const iconUrl = buildGuildIconUrl(id, icon);
     const globalUrl = await getGlobalUrl();
     const oembedResponse = {
       version: '1.0',
       type: 'link',
-      inviteDescription: '', // TODO: Allow customization of this
+      inviteDescription: '', // NOTE: Placeholder for when we allow customization
       thumbnail_width: 100,
       thumbnail_height: 100,
       author_name: name,
@@ -252,7 +252,8 @@ app.get(
     const htmlResponse = inviteViewTemplate({
       redirectUrl,
       iconUrl,
-      membersText,
+      // NOTE: Disabled until caching is studied
+      // membersText,
       guildName: name,
       linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
       oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
@@ -268,6 +269,8 @@ app.get(
 app.get(
   '/oembed/invite/:encodedResponse.json',
   asyncCatcher(async (req: Request, res: Response) => {
+    logger.info('==> Parsing oEmbed response:');
+    logger.info(req.params.encodedResponse);
     const oembedResponse = Buffer.from(
       req.params.encodedResponse,
       'base64'
