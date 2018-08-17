@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.14"></a>
+## [0.0.2-beta.14](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.13...@overmindbots/bot-referral-ranks@0.0.2-beta.14) (2018-08-17)
+
+
+### Bug Fixes
+
+* add backticks to invite link ([c377280](https://github.com/overmindbots/bot-referral-ranks/commit/c377280))
+* add warning emoji and improve text for !upgrade ([5927f87](https://github.com/overmindbots/bot-referral-ranks/commit/5927f87))
+* fix !cheaters type error in new version ([60f842e](https://github.com/overmindbots/bot-referral-ranks/commit/60f842e))
+
+
+### Features
+
+* discriminate between versions for !help ([4a0641b](https://github.com/overmindbots/bot-referral-ranks/commit/4a0641b)), closes [#141](https://github.com/overmindbots/bot-referral-ranks/issues/141)
+
+
+
+
 <a name="0.0.2-beta.13"></a>
 ## [0.0.2-beta.13](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.12...@overmindbots/bot-referral-ranks@0.0.2-beta.13) (2018-08-16)
 
