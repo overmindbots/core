@@ -235,7 +235,7 @@ app.get(
     const oembedResponse = {
       version: '1.0',
       type: 'link',
-      inviteDescription: '', // NOTE: Placeholder for when we allow customization
+      // inviteDescription: '', // NOTE: Placeholder for when we allow customization
       thumbnail_width: 100,
       thumbnail_height: 100,
       author_name: name,
