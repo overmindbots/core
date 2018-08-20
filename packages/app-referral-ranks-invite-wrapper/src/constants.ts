@@ -20,6 +20,9 @@ if (!process.env.BOT_TOKEN) {
 if (!process.env.PORT) {
   throw new Error('Missing env variable PORT');
 }
+if (!process.env.DEPLOYMENT_STAGE) {
+  throw new Error('Missing env variable DEPLOYMENT_STAGE');
+}
 
 export const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 export const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
@@ -32,3 +35,4 @@ export const OAUTH_AUTHORIZATION_URL =
 export const OAUTH_TOKEN_URL = 'https://discordapp.com/api/oauth2/token';
 export const PORT = process.env.PORT;
 export const BOT_TOKEN = process.env.BOT_TOKEN;
+export const DEPLOYMENT_STAGE = process.env.DEPLOYMENT_STAGE;

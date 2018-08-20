@@ -19,6 +19,7 @@ import logger from 'winston';
 import {
   API_URL,
   BOT_TOKEN,
+  DEPLOYMENT_STAGE,
   DISCORD_CLIENT_ID,
   DISCORD_INVITE_PREFIX,
   OAUTH_AUTHORIZATION_URL,
@@ -229,13 +230,17 @@ app.get(
     //     membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
     //   }
     // }
+    let membersText = '';
+
+    if (DEPLOYMENT_STAGE === 'staging') {
+      membersText = `Debug timestamp: ${Date.now()}`;
+    }
 
     const iconUrl = buildGuildIconUrl(id, icon);
     const globalUrl = await getGlobalUrl();
     const oembedResponse = {
       version: '1.0',
       type: 'link',
-      // inviteDescription: '', // NOTE: Placeholder for when we allow customization
       thumbnail_width: 100,
       thumbnail_height: 100,
       author_name: name,
@@ -253,7 +258,7 @@ app.get(
       redirectUrl,
       iconUrl,
       // NOTE: Disabled until caching is studied
-      // membersText,
+      membersText,
       guildName: name,
       linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
       oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
