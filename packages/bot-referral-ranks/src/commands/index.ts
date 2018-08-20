@@ -14,4 +14,5 @@ export { VersionCommand } from '~/commands/Version';
 export { UpgradeCommand } from '~/commands/Upgrade';
 export { DowngradeCommand } from '~/commands/Downgrade';
 export { LinkCommand } from '~/commands/Link';
+export { InfoCommand } from '~/commands/Info';
 export { ResetLeaderboardCommand } from '~/commands/ResetLeaderboard';
