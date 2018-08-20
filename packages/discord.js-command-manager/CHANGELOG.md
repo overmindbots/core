@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.13"></a>
+## [0.0.2-beta.13](https://github.com/overmindbots/discord-js-command-manager/compare/@overmindbots/discord.js-command-manager@0.0.2-beta.12...@overmindbots/discord.js-command-manager@0.0.2-beta.13) (2018-08-20)
+
+
+### Bug Fixes
+
+* fix parsing of user mentions in commands ([cfc1c66](https://github.com/overmindbots/discord-js-command-manager/commit/cfc1c66))
+* make mention parser more robust ([53b0fe3](https://github.com/overmindbots/discord-js-command-manager/commit/53b0fe3))
+
+
+
+
 <a name="0.0.2-beta.12"></a>
 ## [0.0.2-beta.12](https://github.com/overmindbots/discord-js-command-manager/compare/@overmindbots/discord.js-command-manager@0.0.2-beta.11...@overmindbots/discord.js-command-manager@0.0.2-beta.12) (2018-08-17)
 
