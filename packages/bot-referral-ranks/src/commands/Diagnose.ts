@@ -6,8 +6,14 @@ import {
 import { Rank } from '@overmindbots/shared-models/referralRanks';
 import { PermissionResolvable, Role } from 'discord.js';
 import { each, includes, map } from 'lodash';
-import { BOT_ROLE, REQUIRED_PERMISSIONS } from '~/constants';
+import {
+  BOT_ROLE,
+  BOT_TYPE,
+  REQUIRED_LEGACY_PERMISSIONS,
+  REQUIRED_PERMISSIONS,
+} from '~/constants';
 
+import { BotInstance } from '@overmindbots/shared-models/src';
 import { getBotHighestRolePosition } from '~/utils';
 
 function printMissingPermissionsMsg(
@@ -32,7 +38,11 @@ export class DiagnoseCommand extends Command {
   public getMissingPermissions = async () => {
     const { guild } = this.message;
     const permissionsMissing: Array<{ name: string; reason: string }> = [];
-    each(REQUIRED_PERMISSIONS, (description, permission) => {
+    const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
+    const requiredPermissions = botInstance.config.isNextVersion
+      ? REQUIRED_PERMISSIONS
+      : REQUIRED_LEGACY_PERMISSIONS;
+    each(requiredPermissions, (description, permission) => {
       if (!guild.me.hasPermission(permission as PermissionResolvable)) {
         permissionsMissing.push(description);
       }
