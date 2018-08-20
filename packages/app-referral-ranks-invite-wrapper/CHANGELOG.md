@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.22"></a>
+## [0.0.1-beta.22](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.21...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.22) (2018-08-20)
+
+
+### Bug Fixes
+
+* correct bad env variable in invite wrapper ([06dbc43](https://github.com/overmindbots/core/commit/06dbc43))
+* correct undefined variables being used ([e25f2b6](https://github.com/overmindbots/core/commit/e25f2b6))
+* remove empty property in oembed response ([54dd646](https://github.com/overmindbots/core/commit/54dd646))
+
+
+
+
 <a name="0.0.1-beta.21"></a>
 ## [0.0.1-beta.21](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.20...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.21) (2018-08-17)
 

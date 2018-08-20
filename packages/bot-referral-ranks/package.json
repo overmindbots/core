@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/bot-referral-ranks",
-  "version": "0.0.2-beta.14",
+  "version": "0.0.2-beta.15",
   "private": true,
   "engines": {
     "node": ">=9.11.2"
@@ -20,7 +20,7 @@
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
     "@google-cloud/logging-winston": "^0.9.0",
-    "@overmindbots/discord.js-command-manager": "^0.0.2-beta.12",
+    "@overmindbots/discord.js-command-manager": "^0.0.2-beta.13",
     "@overmindbots/shared-models": "^0.0.2-beta.11",
     "@overmindbots/shared-utils": "^0.0.2-beta.11",
     "bluebird": "^3.5.1",

@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.15"></a>
+## [0.0.2-beta.15](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.14...@overmindbots/bot-referral-ranks@0.0.2-beta.15) (2018-08-20)
+
+
+### Features
+
+* add `!info` command to help ([f74c251](https://github.com/overmindbots/bot-referral-ranks/commit/f74c251))
+* implement `!info` command ([103a0e6](https://github.com/overmindbots/bot-referral-ranks/commit/103a0e6)), closes [#167](https://github.com/overmindbots/bot-referral-ranks/issues/167)
+* remove 'info' alias from help command ([6ad3e15](https://github.com/overmindbots/bot-referral-ranks/commit/6ad3e15))
+
+
+
+
 <a name="0.0.2-beta.14"></a>
 ## [0.0.2-beta.14](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.13...@overmindbots/bot-referral-ranks@0.0.2-beta.14) (2018-08-17)
 
