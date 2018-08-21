@@ -140,7 +140,7 @@ export class Bot {
   /**
    * Reports to the manager when the bot is added to a new guild
    */
-  public reportGuildCreateToManager = async (guild: Discord.Guild) => {
+  public reportGuildCreateToManager = (guild: Discord.Guild) => {
     if (!this.botManagerConnection) {
       return;
     }
@@ -156,7 +156,7 @@ export class Bot {
   /**
    * Reports to the manager when the bot is added to a new guild
    */
-  public reportGuildDeleteToManager = async (guild: Discord.Guild) => {
+  public reportGuildDeleteToManager = (guild: Discord.Guild) => {
     if (!this.botManagerConnection) {
       return;
     }
@@ -489,10 +489,10 @@ export class Bot {
       await this.client.destroy();
       logger.info('=== Closed connection to Discord ===');
     }
-    const closingDb = mongoose.disconnect();
-    closingDb.then(() => {
+    const closingDb = mongoose.disconnect().then(() => {
       logger.info('=> Database connection closed');
     });
+
     const closingBotManagerConnection = this.closeBotManagerConnection();
 
     await P.all([closingDb, closingBotManagerConnection]);
@@ -566,7 +566,7 @@ export class Bot {
 
     podStatusServer.ready();
 
-    this.updatePresenceStatus(`referralranks.com - ${VERSION}`);
+    await this.updatePresenceStatus(`referralranks.com - ${VERSION}`);
   };
   /**
    * When a Discord message arrives to a guild

@@ -3,15 +3,15 @@ import {
   Command,
   CommandRuntimeError,
 } from '@overmindbots/discord.js-command-manager';
-import Discord from 'discord.js';
-import { filter, flow, map, orderBy, reduce, take } from 'lodash/fp';
-
 import { BotInstance } from '@overmindbots/shared-models/BotInstance';
 import {
   CertainReferral,
   CertainReferralScore,
 } from '@overmindbots/shared-models/referralRanks/CertainReferral';
 import { REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE } from '@overmindbots/shared-utils/constants';
+import Discord from 'discord.js';
+import { filter, flow, map, orderBy, reduce, take } from 'lodash/fp';
+import logger from 'winston';
 import { BOT_TYPE, DISCORD_ERROR_CODES } from '~/constants';
 
 import {
@@ -81,7 +81,7 @@ export class LeaderboardCommand extends Command {
       scores = await this.getLegacyLeaderboardInvites(guild, leaderboardSize);
     }
 
-    this.sendMessageWithResults(scores);
+    await this.sendMessageWithResults(scores);
   }
 
   private async getLeaderboardScores(guild: Discord.Guild, limit: number) {
@@ -95,7 +95,9 @@ export class LeaderboardCommand extends Command {
     const invites = await guild.fetchInvites();
     const userInvitesMaps = buildInvitesPerUser(invites);
 
-    updateUsersRanks(userInvitesMaps, guild);
+    updateUsersRanks(userInvitesMaps, guild).catch(error => {
+      logger.error(error.message, error);
+    });
 
     return mapAndSortUserInvites(userInvitesMaps, limit);
   }
@@ -103,7 +105,7 @@ export class LeaderboardCommand extends Command {
   private async sendMessageWithResults(scores: CertainReferralScore[]) {
     const { channel } = this.message;
     if (scores.length <= 0) {
-      channel.send('There are no scores yet');
+      await channel.send('There are no scores yet');
       return;
     }
     const message = this.buildMessage(scores);

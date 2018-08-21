@@ -107,14 +107,14 @@ client.on('connect', async connection => {
 
     if (data.type === ServerMsgTypes.HANDSHAKE) {
       const { shardId, totalShards } = data.payload;
-      initializeBotOnce(bot, { shardId, connection, totalShards });
+      await initializeBotOnce(bot, { shardId, connection, totalShards });
     }
     if (data.type === ServerMsgTypes.TERMINATE) {
       logger.warn('Received terminate signal. Shutting down!');
       process.exit(0);
     }
     if (data.type === ServerMsgTypes.LOG_TO_TEAM) {
-      bot.logToBotAlchemyDiscord(data.payload);
+      await bot.logToBotAlchemyDiscord(data.payload);
     }
   });
 

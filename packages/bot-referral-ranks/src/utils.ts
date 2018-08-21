@@ -93,11 +93,15 @@ export async function enqueueBy(key: string, cb: (...args: any[]) => any) {
       method: cb,
     };
     tasksQueue.push(key);
-    promise.then(() => {
-      tasksQueueData[key].promise.then(() => {
-        delete tasksQueueData[key];
+    promise
+      .then(() => {
+        return tasksQueueData[key].promise.then(() => {
+          delete tasksQueueData[key];
+        });
+      })
+      .catch(error => {
+        logger.error(error.message, error);
       });
-    });
     return tasksQueueData[key].promise;
   }
 
