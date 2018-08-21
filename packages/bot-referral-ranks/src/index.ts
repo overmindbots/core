@@ -7,6 +7,7 @@ import {
   ServiceServerMessage,
   ShardReadyClientMsg,
 } from '@overmindbots/shared-utils/serviceMessageTypes';
+import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import { AssertionError } from 'assert';
 import { once } from 'lodash';
 import {
@@ -18,6 +19,10 @@ import logger from 'winston';
 import { bot, Bot } from '~/bot';
 import { BOT_MANAGER_URL, MONGODB_URI, POD_ID } from '~/constants';
 import { podStatusServer } from '~/podStatusServer';
+
+const genericAsyncCatcher = createAsyncCatcher(async error => {
+  logger.error(error.message, error);
+});
 
 async function _initializeBot(
   instancedBot: Bot,
@@ -74,53 +79,61 @@ const client = new WebSocketClient();
 let reconnectIntervalOn = false;
 let shuttingDown = false;
 
-client.on('connect', async connection => {
-  logger.info('** Connected to Bot Manager **');
-  reconnectIntervalOn = false;
+client.on(
+  'connect',
+  genericAsyncCatcher(async connection => {
+    logger.info('** Connected to Bot Manager **');
+    reconnectIntervalOn = false;
 
-  // Reset listeners
-  connection.removeAllListeners();
+    // Reset listeners
+    connection.removeAllListeners();
 
-  const currentShardId = bot.shardId;
-  const handshakeMessage: HandshakeClientMsg = {
-    payload: { podId: POD_ID, shardId: currentShardId },
-    type: ClientMsgTypes.HANDSHAKE,
-  };
+    const currentShardId = bot.shardId;
+    const handshakeMessage: HandshakeClientMsg = {
+      payload: { podId: POD_ID, shardId: currentShardId },
+      type: ClientMsgTypes.HANDSHAKE,
+    };
 
-  connection.send(JSON.stringify(handshakeMessage));
+    connection.send(JSON.stringify(handshakeMessage));
 
-  connection.on('close', () => {
-    reconnectIntervalOn = true;
-    if (shuttingDown) {
-      logger.info('** Closed Bot Manager websocket successfuly **');
-      return;
-    }
-    logger.info('** Diconnected from Bot Manager, attempting to reconnect **');
-  });
+    connection.on('close', () => {
+      reconnectIntervalOn = true;
+      if (shuttingDown) {
+        logger.info('** Closed Bot Manager websocket successfuly **');
+        return;
+      }
+      logger.info(
+        '** Diconnected from Bot Manager, attempting to reconnect **'
+      );
+    });
 
-  connection.on('message', async message => {
-    if (!isUTF8Message(message)) {
-      return;
-    }
+    connection.on(
+      'message',
+      genericAsyncCatcher(async message => {
+        if (!isUTF8Message(message)) {
+          return;
+        }
 
-    const data = JSON.parse(message.utf8Data) as ServiceServerMessage;
+        const data = JSON.parse(message.utf8Data) as ServiceServerMessage;
 
-    if (data.type === ServerMsgTypes.HANDSHAKE) {
-      const { shardId, totalShards } = data.payload;
-      initializeBotOnce(bot, { shardId, connection, totalShards });
-    }
-    if (data.type === ServerMsgTypes.TERMINATE) {
-      logger.warn('Received terminate signal. Shutting down!');
-      process.exit(0);
-    }
-    if (data.type === ServerMsgTypes.LOG_TO_TEAM) {
-      bot.logToBotAlchemyDiscord(data.payload);
-    }
-  });
+        if (data.type === ServerMsgTypes.HANDSHAKE) {
+          const { shardId, totalShards } = data.payload;
+          await initializeBotOnce(bot, { shardId, connection, totalShards });
+        }
+        if (data.type === ServerMsgTypes.TERMINATE) {
+          logger.warn('Received terminate signal. Shutting down!');
+          process.exit(0);
+        }
+        if (data.type === ServerMsgTypes.LOG_TO_TEAM) {
+          await bot.logToBotAlchemyDiscord(data.payload);
+        }
+      })
+    );
 
-  // Initialize status
-  await sendShardStatus(connection);
-});
+    // Initialize status
+    await sendShardStatus(connection);
+  })
+);
 
 client.on('connectFailed', () => {
   reconnectIntervalOn = true;

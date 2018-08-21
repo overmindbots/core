@@ -111,14 +111,19 @@ export class InvitesCommand extends Command {
       await this.runLegacyCommand();
       return;
     }
-    const getScoreSince = botInstance.config.countScoresSince || new Date(0);
+    const epoch = new Date(0);
+    const getScoreSince = botInstance.config.countScoresSince || epoch;
     const sinceTimestamp = getScoreSince.getTime();
     const member = guild.member(author);
     const score = await CertainReferral.getMemberScore(member, getScoreSince);
+    const allTimeScore =
+      sinceTimestamp === 0
+        ? score
+        : await CertainReferral.getMemberScore(member, epoch);
 
     let sinceText = '';
     let invitesRequiredText = '';
-    const nextRoleInfo = await this.getNextRoleInfo(score);
+    const nextRoleInfo = await this.getNextRoleInfo(allTimeScore);
     if (nextRoleInfo) {
       invitesRequiredText = `\n👉 You need \`${
         nextRoleInfo.invitesForNextRole
@@ -126,18 +131,28 @@ export class InvitesCommand extends Command {
         nextRoleInfo.nextRoleName
       }**`;
     }
+
+    let firstBullet = `👉 You have invited \`${score} ${pluralize(
+      'member',
+      score
+    )}\``;
+    let secondBullet = '';
+
+    const allTimeSuffix = ' since you joined';
     if (sinceTimestamp !== 0) {
       const days = Math.floor(
         moment.duration(Date.now() - sinceTimestamp).asDays()
       );
-      sinceText = ` in the last \`${days} days\``;
+      firstBullet = `${firstBullet} in the last \`${days} days\`\n`;
+      secondBullet = `👉 You have invited \`${allTimeScore} ${pluralize(
+        'member',
+        score
+      )}\`${allTimeSuffix}\n`;
+    } else {
+      firstBullet = `${firstBullet}${allTimeSuffix}\n`;
     }
     await channel.send(
-      `${author}\n\n` +
-        `👉 You have invited \`${score} ${pluralize(
-          'member',
-          score
-        )}\`${sinceText}\n` +
+      `${author}\n\n${firstBullet}${secondBullet}` +
         `👉 Your invite link is \`${getUserInviteLinkUrl(
           guild.id,
           author.id

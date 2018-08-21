@@ -98,7 +98,6 @@ const hasRanks = async (guildId: string) => {
  */
 const updateRole = async (inviterId: string, guild: Discord.Guild) => {
   const { id: guildId } = guild;
-  const botInstance = await BotInstance.findOrCreate(guild, BOT_TYPE);
   const member = guild.member(inviterId);
 
   if (!member) {
@@ -106,8 +105,7 @@ const updateRole = async (inviterId: string, guild: Discord.Guild) => {
     return;
   }
 
-  const getScoreSince = botInstance.config.countScoresSince || new Date(0);
-  const score = await CertainReferral.getMemberScore(member, getScoreSince);
+  const score = await CertainReferral.getMemberScore(member, new Date(0));
 
   const rank = await Rank.getRankForInvites(score, guildId);
 

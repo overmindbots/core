@@ -30,27 +30,27 @@ export class PodStatusServer {
   /**
    * Set the server's liveness status
    */
-  public async setLivenessStatus(statusCode: LIVENESS_STATUSES) {
+  public setLivenessStatus(statusCode: LIVENESS_STATUSES) {
     this.livenessStatus = statusCode;
     logger.info(`==> Pod Liveness status set: ${statusCode}`);
   }
   /**
    * Set the server's readiness status
    */
-  public async setReadinessStatus(statusCode: READINESS_STATUSES) {
+  public setReadinessStatus(statusCode: READINESS_STATUSES) {
     this.readinessStatus = statusCode;
     logger.info(`==> Pod Readiness status set: ${statusCode}`);
   }
   /**
    * Call when the service is ready to work
    */
-  public async ready() {
+  public ready() {
     this.setReadinessStatus(READINESS_STATUSES.READY);
   }
   /**
    * Call if service is unhealthy and requires to be killed
    */
-  public async unhealthy() {
+  public unhealthy() {
     this.setLivenessStatus(LIVENESS_STATUSES.UNHEALTHY);
   }
   /**
@@ -77,12 +77,12 @@ export class PodStatusServer {
       this.httpServer.close(resolve);
     });
   }
-  private async livenessRequest(res: Response) {
+  private livenessRequest(res: Response) {
     res.writeHead(this.livenessStatus);
     logger.info('-> Liveness: Responded ${this.livenessStatus}');
     res.send();
   }
-  private async readinessRequest(res: Response) {
+  private readinessRequest(res: Response) {
     res.writeHead(this.readinessStatus);
     logger.info('-> Liveness: Responded ${this.livenessStatus}');
     res.send();
