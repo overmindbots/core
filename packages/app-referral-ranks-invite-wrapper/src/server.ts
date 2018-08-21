@@ -10,6 +10,7 @@ import {
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import base64 from 'base-64';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import formatNumber from 'format-number';
@@ -248,9 +249,7 @@ app.get(
       title: 'Join Server',
     };
     logger.debug('oembedResponse', oembedResponse);
-    const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
-      'base64'
-    );
+    const oembedEncoded = base64.encode(JSON.stringify(oembedResponse));
 
     const htmlResponse = inviteViewTemplate({
       redirectUrl,
@@ -273,10 +272,7 @@ app.get(
   asyncCatcher(async (req: Request, res: Response) => {
     logger.info('==> Parsing oEmbed response:');
     logger.info(req.params.encodedResponse);
-    const oembedResponse = Buffer.from(
-      req.params.encodedResponse,
-      'base64'
-    ).toString();
+    const oembedResponse = base64.decode(req.params.encodedResponse);
     const jsonResponse = JSON.parse(oembedResponse);
     logger.info('==> Responding to oEmbed request with:');
     logger.info(jsonResponse);
