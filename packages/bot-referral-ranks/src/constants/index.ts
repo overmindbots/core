@@ -41,10 +41,20 @@ export const MONGODB_URI = process.env.MONGODB_URI;
 export const BOT_TYPE = BOT_TYPES.REFERRAL_RANKS;
 export const DEFAULT_PREFIX = '!';
 export const VERSION = `v${pkginfo.version}`;
-export const REQUIRED_PERMISSIONS = {
+export const REQUIRED_LEGACY_PERMISSIONS = {
   [DiscordPermissions.MANAGE_GUILD]: {
     name: 'Manage Server',
     reason: 'To get user invites',
+  },
+  [DiscordPermissions.MANAGE_ROLES]: {
+    name: 'Manage Roles',
+    reason: 'To assign roles to users',
+  },
+};
+export const REQUIRED_PERMISSIONS = {
+  [DiscordPermissions.CREATE_INSTANT_INVITE]: {
+    name: 'Create Instant Invite',
+    reason: 'To create personalized invite links',
   },
   [DiscordPermissions.MANAGE_ROLES]: {
     name: 'Manage Roles',
