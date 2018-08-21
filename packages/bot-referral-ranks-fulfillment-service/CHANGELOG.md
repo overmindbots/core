@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.11"></a>
+## [0.0.1-beta.11](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.10...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.11) (2018-08-21)
+
+
+### Bug Fixes
+
+* ignore resets for role assignment ([5ce172e](https://github.com/overmindbots/core/commit/5ce172e)), closes [#172](https://github.com/overmindbots/core/issues/172)
+
+
+
+
 <a name="0.0.1-beta.10"></a>
 ## [0.0.1-beta.10](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.9...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.10) (2018-08-17)
 
