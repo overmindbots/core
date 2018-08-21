@@ -59,7 +59,7 @@ class Cache {
     });
 
     if (!botInstance) {
-      logger.error(`Bot instance not found for '${guildDiscordId}`);
+      logger.error(`Bot instance not found for '${guildDiscordId}'`);
       return defaultValue;
     }
     if (!botInstance.config) {
