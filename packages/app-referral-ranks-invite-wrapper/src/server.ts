@@ -255,7 +255,6 @@ app.get(
     const htmlResponse = inviteViewTemplate({
       redirectUrl,
       iconUrl,
-      // NOTE: Disabled until caching is studied
       membersText,
       guildName: name,
       linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
