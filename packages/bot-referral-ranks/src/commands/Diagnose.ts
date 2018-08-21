@@ -13,7 +13,7 @@ import {
   REQUIRED_PERMISSIONS,
 } from '~/constants';
 
-import { BotInstance } from '@overmindbots/shared-models/src';
+import { BotInstance } from '@overmindbots/shared-models';
 import { getBotHighestRolePosition } from '~/utils';
 
 function printMissingPermissionsMsg(
