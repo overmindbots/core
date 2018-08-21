@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.25"></a>
+## [0.0.1-beta.25](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.24...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.25) (2018-08-21)
+
+
+### Bug Fixes
+
+* remove stale comment ([c9bfdc5](https://github.com/overmindbots/core/commit/c9bfdc5))
+* use library for base64 encryption ([4dd490b](https://github.com/overmindbots/core/commit/4dd490b))
+
+
+### Features
+
+* enable members count for invites wrapper oembed ([f8835ee](https://github.com/overmindbots/core/commit/f8835ee))
+
+
+
+
 <a name="0.0.1-beta.24"></a>
 ## [0.0.1-beta.24](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.23...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.24) (2018-08-21)
 
