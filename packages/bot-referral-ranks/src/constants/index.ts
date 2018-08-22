@@ -78,16 +78,16 @@ export const BOT_GREETING_MESSAGE = `
 Hey, thanks for adding **Referal Ranks** to your discord!
 
 Before we start, something very important:
-**Make sure your members create NON EXPIRING INVITES** otherwise
-their invite counts WILL DISSAPEAR.
-*We are currently implementing a way to keep track of expiring invites reliably*
+**Make sure your members use their PERSONAL INVITE LINK**, otherwise
+their invites **WON'T** be counted (they can obtain said link via 
+the \`!link\` command).
 
 Please read the setup instructions, common questions and known bugs at:
 https://www.referralranks.com/finished
 
 Don't forget:
 - \`Referral Ranks\` role must be above any roles it wants to give
-- If you remove a Role remove the rank first, we are not doing this
+- If you remove a Role, remove the rank first, we are not doing this
 automatically at the moment
 - Use \`!diagnose\` to detect setup problems
 - You can change the bot's prefix with \`!set-prefix\`
