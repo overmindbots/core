@@ -124,6 +124,8 @@ export class UpgradeCommand extends Command {
       }
     );
 
+    await CertainReferral.createDefaultReferrals(guild);
+
     await channel.send(
       '🎊🎊 Congratulations! You have migrated the server to the new invites ' +
         'system! 🎊🎊\n\n' +
