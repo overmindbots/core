@@ -257,7 +257,11 @@ app.get(
       iconUrl,
       membersText,
       guildName: name,
-      linkUrl: getUserInviteLinkUrl(guildDiscordId, inviterDiscordId),
+      linkUrl: getUserInviteLinkUrl(
+        guildDiscordId,
+        inviterDiscordId,
+        globalUrl
+      ),
       oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
     });
 
