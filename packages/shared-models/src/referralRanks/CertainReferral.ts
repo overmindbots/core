@@ -4,7 +4,7 @@ import {
   REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE,
 } from '@overmindbots/shared-utils/constants';
 import Discord from 'discord.js';
-import { map, reduce } from 'lodash';
+import { compact, difference, map, reduce } from 'lodash';
 import mongoose from 'mongoose';
 
 import { BotInstance } from '../BotInstance';
@@ -79,6 +79,7 @@ schema.index({ createdAt: 1 });
  * since the last invites reset date
  */
 schema.statics.getTopScores = async function(
+  this: CertainReferralModel,
   guild: Discord.Guild,
   limit: number = REFERRAL_RANKS_DEFAULT_LEADERBOARD_SIZE
 ) {
@@ -89,7 +90,7 @@ schema.statics.getTopScores = async function(
   // If countScoresSince is not define, query from the beginning of time
   const getScoresSince = countScoresSince || new Date(0);
 
-  const scores = (await CertainReferral.aggregate([
+  const scores = (await this.aggregate([
     {
       $match: {
         guildDiscordId: guild.id,
@@ -127,9 +128,47 @@ schema.statics.getTopScores = async function(
 };
 
 /**
+ * Populates the database with a fulfilled referral for each guild member
+ */
+schema.statics.createDefaultReferrals = async function(
+  this: CertainReferralModel,
+  guild: Discord.Guild
+) {
+  if (guild.memberCount >= DISCORD_BIG_GUILD_MEMBER_SIZE) {
+    await guild.fetchMembers();
+  }
+
+  const { id: guildDiscordId } = guild;
+
+  const members = guild.members.array();
+  const memberIds = members.map(({ id }) => id);
+  const memberReferrals = await this.find({
+    guildDiscordId,
+    inviteeDiscordId: { $in: memberIds },
+    fulfilled: true,
+  });
+  const referredMemberIds = memberReferrals.map(
+    ({ inviteeDiscordId }) => inviteeDiscordId
+  );
+  const rest = compact(difference(memberIds, referredMemberIds));
+
+  const referralsToInsert = rest.map(inviteeDiscordId => {
+    return {
+      guildDiscordId,
+      inviteeDiscordId,
+      active: true,
+      fulfilled: true,
+    };
+  });
+
+  await CertainReferral.insertMany(referralsToInsert);
+};
+
+/**
  * Calculates a GuildMember's score
  */
 schema.statics.getMemberScore = async function(
+  this: CertainReferralModel,
   { guild, id }: Discord.GuildMember,
   since?: Date
 ) {
@@ -142,7 +181,7 @@ schema.statics.getMemberScore = async function(
     getScoreSince = botInstance.config.countScoresSince || new Date(0);
   }
 
-  const certainReferrals = await CertainReferral.find({
+  const certainReferrals = await this.find({
     inviterDiscordId: id,
     guildDiscordId: guild.id,
     fulfilled: true,
