@@ -1,7 +1,7 @@
 import localtunnel from 'localtunnel';
 import { API_URL, PORT } from '~/constants';
 
-export function getGlobalUrl() {
+export function getGlobalUrl(): Promise<string> {
   return new Promise((resolve, reject) => {
     if (process.env.NODE_ENV === 'development') {
       localtunnel(PORT, (err, tunnel) => {

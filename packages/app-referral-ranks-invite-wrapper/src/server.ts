@@ -4,6 +4,7 @@ import {
   CertainReferral,
   WrappedInvite,
 } from '@overmindbots/shared-models/referralRanks';
+import { getUserInviteLinkUrl } from '@overmindbots/shared-utils/botReferralRanks';
 import {
   buildGuildIconUrl,
   DiscordAPI,
@@ -256,7 +257,11 @@ app.get(
       iconUrl,
       membersText,
       guildName: name,
-      linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
+      linkUrl: getUserInviteLinkUrl(
+        guildDiscordId,
+        inviterDiscordId,
+        globalUrl
+      ),
       oembedUrl: `${globalUrl}/oembed/invite/${oembedEncoded}.json`,
     });
 

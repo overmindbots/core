@@ -266,7 +266,7 @@ const readyHandler = async () => {
 };
 
 /**
- * Check members for late guilds
+ * Check members and create default referrals for new guilds
  */
 const guildCreateHandler = async (guild: Discord.Guild) => {
   logger.info(
@@ -278,6 +278,7 @@ const guildCreateHandler = async (guild: Discord.Guild) => {
     return;
   }
 
+  await CertainReferral.createDefaultReferrals(guild);
   await checkGuildMembers(guild);
 };
 
