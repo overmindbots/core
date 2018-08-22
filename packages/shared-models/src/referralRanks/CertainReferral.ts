@@ -26,6 +26,7 @@ export interface CertainReferralModel
     limit?: number
   ): Promise<CertainReferralScore[]>;
   getMemberScore(member: Discord.GuildMember, since: Date): Promise<number>;
+  createDefaultReferrals(guild: Discord.Guild): void;
 }
 export interface CertainReferralScore {
   inviterDiscordId: string;
@@ -129,6 +130,7 @@ schema.statics.getTopScores = async function(
 
 /**
  * Populates the database with a fulfilled referral for each guild member
+ * that doesn't already have one.
  */
 schema.statics.createDefaultReferrals = async function(
   this: CertainReferralModel,
