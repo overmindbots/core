@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.12"></a>
+## [0.0.1-beta.12](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.11...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.12) (2018-08-22)
+
+
+### Features
+
+* create default referrals when the bot joins a guild ([b233598](https://github.com/overmindbots/core/commit/b233598)), closes [#170](https://github.com/overmindbots/core/issues/170)
+
+
+
+
 <a name="0.0.1-beta.11"></a>
 ## [0.0.1-beta.11](https://github.com/overmindbots/core/compare/@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.10...@overmindbots/bot-referral-ranks-fulfillment-service@0.0.1-beta.11) (2018-08-21)
 

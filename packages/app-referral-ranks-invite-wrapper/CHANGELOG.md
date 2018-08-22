@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.26"></a>
+## [0.0.1-beta.26](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.25...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.26) (2018-08-22)
+
+
+### Bug Fixes
+
+* correct invite wrapper link after utility change ([70712d0](https://github.com/overmindbots/core/commit/70712d0))
+* correct link command after utility change ([1fdfad5](https://github.com/overmindbots/core/commit/1fdfad5))
+
+
+
+
 <a name="0.0.1-beta.25"></a>
 ## [0.0.1-beta.25](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.24...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.25) (2018-08-21)
 

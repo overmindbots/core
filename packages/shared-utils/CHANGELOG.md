@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.13"></a>
+## [0.0.2-beta.13](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.12...@overmindbots/shared-utils@0.0.2-beta.13) (2018-08-22)
+
+
+### Bug Fixes
+
+* correct bad invite link in invites command ([acd41f9](https://github.com/overmindbots/shared-utils/commit/acd41f9))
+* correct invite wrapper link after utility change ([70712d0](https://github.com/overmindbots/shared-utils/commit/70712d0))
+
+
+
+
 <a name="0.0.2-beta.12"></a>
 ## [0.0.2-beta.12](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.11...@overmindbots/shared-utils@0.0.2-beta.12) (2018-08-21)
 

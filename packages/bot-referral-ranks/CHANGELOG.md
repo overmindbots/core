@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.17"></a>
+## [0.0.2-beta.17](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.16...@overmindbots/bot-referral-ranks@0.0.2-beta.17) (2018-08-22)
+
+
+### Bug Fixes
+
+* correct link command after utility change ([1fdfad5](https://github.com/overmindbots/bot-referral-ranks/commit/1fdfad5))
+* modify greeting message for new version ([979a16e](https://github.com/overmindbots/bot-referral-ranks/commit/979a16e)), closes [#173](https://github.com/overmindbots/bot-referral-ranks/issues/173)
+
+
+### Features
+
+* create default referrals on upgrade ([951f009](https://github.com/overmindbots/bot-referral-ranks/commit/951f009))
+
+
+
+
 <a name="0.0.2-beta.16"></a>
 ## [0.0.2-beta.16](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.15...@overmindbots/bot-referral-ranks@0.0.2-beta.16) (2018-08-21)
 

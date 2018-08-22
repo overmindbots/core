@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.13"></a>
+## [0.0.2-beta.13](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.2-beta.12...@overmindbots/shared-models@0.0.2-beta.13) (2018-08-22)
+
+
+### Features
+
+* implement method to create default referrals for a guild ([fe9efe5](https://github.com/overmindbots/shared-models/commit/fe9efe5))
+
+
+
+
 <a name="0.0.2-beta.12"></a>
 ## [0.0.2-beta.12](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.2-beta.11...@overmindbots/shared-models@0.0.2-beta.12) (2018-08-21)
 
