@@ -2,10 +2,8 @@ import { APP_REFERRAL_RANKS_INVITE_WRAPPER_URL } from '@overmindbots/shared-util
 
 export function getUserInviteLinkUrl(
   guildDiscordId: string,
-  userDiscordId: string
+  userDiscordId: string,
+  baseUrl: string = APP_REFERRAL_RANKS_INVITE_WRAPPER_URL
 ) {
-  return (
-    `${APP_REFERRAL_RANKS_INVITE_WRAPPER_URL}/invite/` +
-    `${guildDiscordId}/${userDiscordId}`
-  );
+  return `${baseUrl}/invite/` + `${guildDiscordId}/${userDiscordId}`;
 }
