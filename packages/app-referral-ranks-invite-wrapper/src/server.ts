@@ -1,5 +1,5 @@
 import { isUserData } from '@overmindbots/shared-models';
-// import { Guild } from '@overmindbots/shared-models';
+import { Guild } from '@overmindbots/shared-models';
 import {
   CertainReferral,
   WrappedInvite,
@@ -10,10 +10,11 @@ import {
   DiscordAPIAuthTypes,
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
+import base64 from 'base-64';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
-// import formatNumber from 'format-number';
-// import { isNumber } from 'lodash';
+import formatNumber from 'format-number';
+import { isNumber } from 'lodash';
 import passport from 'passport';
 import logger from 'winston';
 import {
@@ -211,29 +212,27 @@ app.get(
       return;
     }
 
-    // let memberCount;
-    // let onlineCount;
-    // let membersText = '';
-    const { icon, name, id } = guild;
-    // const dbGuild = await Guild.findOne({ discordId: id });
-    // if (dbGuild) {
-    //   memberCount = dbGuild.memberCount;
-    //   if (dbGuild.onlineCount) {
-    //     onlineCount = dbGuild.onlineCount;
-    //   }
-    // }
-
-    // TODO: Check what the caching time is to see if this is usable
-    // if (isNumber(memberCount)) {
-    //   membersText = `▪️ ${formatNumber()(memberCount)} members`;
-    //   if (isNumber(onlineCount)) {
-    //     membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
-    //   }
-    // }
+    let memberCount;
+    let onlineCount;
     let membersText = '';
+    const { icon, name, id } = guild;
+    const dbGuild = await Guild.findOne({ discordId: id });
+    if (dbGuild) {
+      memberCount = dbGuild.memberCount;
+      if (dbGuild.onlineCount) {
+        onlineCount = dbGuild.onlineCount;
+      }
+    }
+
+    if (isNumber(memberCount)) {
+      membersText = `▪️ ${formatNumber()(memberCount)} members`;
+      if (isNumber(onlineCount)) {
+        membersText += `\n▫️ ${formatNumber()(onlineCount)} online`;
+      }
+    }
 
     if (DEPLOYMENT_STAGE === 'staging') {
-      membersText = `Debug timestamp: ${Date.now()}`;
+      membersText = `\nDebug timestamp: ${Date.now()}`;
     }
 
     const iconUrl = buildGuildIconUrl(id, icon);
@@ -250,14 +249,11 @@ app.get(
       title: 'Join Server',
     };
     logger.debug('oembedResponse', oembedResponse);
-    const oembedEncoded = new Buffer(JSON.stringify(oembedResponse)).toString(
-      'base64'
-    );
+    const oembedEncoded = base64.encode(JSON.stringify(oembedResponse));
 
     const htmlResponse = inviteViewTemplate({
       redirectUrl,
       iconUrl,
-      // NOTE: Disabled until caching is studied
       membersText,
       guildName: name,
       linkUrl: `${globalUrl}/invite/${guildDiscordId}/${inviterDiscordId}`,
@@ -276,10 +272,7 @@ app.get(
   asyncCatcher(async (req: Request, res: Response) => {
     logger.info('==> Parsing oEmbed response:');
     logger.info(req.params.encodedResponse);
-    const oembedResponse = Buffer.from(
-      req.params.encodedResponse,
-      'base64'
-    ).toString();
+    const oembedResponse = base64.decode(req.params.encodedResponse);
     const jsonResponse = JSON.parse(oembedResponse);
     logger.info('==> Responding to oEmbed request with:');
     logger.info(jsonResponse);

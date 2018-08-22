@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.16"></a>
+## [0.0.2-beta.16](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.15...@overmindbots/bot-referral-ranks@0.0.2-beta.16) (2018-08-21)
+
+
+### Bug Fixes
+
+* add all time score to invites command ([6695d58](https://github.com/overmindbots/bot-referral-ranks/commit/6695d58)), closes [#169](https://github.com/overmindbots/bot-referral-ranks/issues/169)
+* correct faulty import ([8568a5a](https://github.com/overmindbots/bot-referral-ranks/commit/8568a5a))
+* fix floating promises ([de79687](https://github.com/overmindbots/bot-referral-ranks/commit/de79687))
+* fix missing quote mark ([10a9396](https://github.com/overmindbots/bot-referral-ranks/commit/10a9396))
+* remove unhandled exceptions ([e0498c6](https://github.com/overmindbots/bot-referral-ranks/commit/e0498c6))
+
+
+
+
 <a name="0.0.2-beta.15"></a>
 ## [0.0.2-beta.15](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.14...@overmindbots/bot-referral-ranks@0.0.2-beta.15) (2018-08-20)
 

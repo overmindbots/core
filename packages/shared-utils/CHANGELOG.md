@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.12"></a>
+## [0.0.2-beta.12](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.11...@overmindbots/shared-utils@0.0.2-beta.12) (2018-08-21)
+
+
+### Bug Fixes
+
+* correct typo ([9b6751e](https://github.com/overmindbots/shared-utils/commit/9b6751e))
+* fix floating promises ([de79687](https://github.com/overmindbots/shared-utils/commit/de79687))
+
+
+
+
 <a name="0.0.2-beta.11"></a>
 ## [0.0.2-beta.11](https://github.com/overmindbots/shared-utils/compare/@overmindbots/shared-utils@0.0.2-beta.10...@overmindbots/shared-utils@0.0.2-beta.11) (2018-08-17)
 

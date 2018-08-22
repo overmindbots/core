@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.24"></a>
+## [0.0.1-beta.24](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.23...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.24) (2018-08-21)
+
+
+### Bug Fixes
+
+* add default DEPLOYMENT_STAGE env ([e26c571](https://github.com/overmindbots/core/commit/e26c571))
+
+
+
+
+<a name="0.0.1-beta.23"></a>
+## [0.0.1-beta.23](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.22...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.23) (2018-08-20)
+
+
+### Bug Fixes
+
+* add timestamp for debugging in staging ([cc4ebf5](https://github.com/overmindbots/core/commit/cc4ebf5))
+
+
+
+
 <a name="0.0.1-beta.22"></a>
 ## [0.0.1-beta.22](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.21...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.22) (2018-08-20)
 
