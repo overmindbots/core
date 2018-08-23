@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2"></a>
+## [0.0.2](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.17...@overmindbots/bot-referral-ranks@0.0.2) (2018-08-23)
+
+
+
+
+**Note:** Version bump only for package @overmindbots/bot-referral-ranks
+
 <a name="0.0.2-beta.17"></a>
 ## [0.0.2-beta.17](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.16...@overmindbots/bot-referral-ranks@0.0.2-beta.17) (2018-08-22)
 

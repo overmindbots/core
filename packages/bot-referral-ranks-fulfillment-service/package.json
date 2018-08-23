@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/bot-referral-ranks-fulfillment-service",
-  "version": "0.0.1-beta.12",
+  "version": "0.0.1",
   "private": true,
   "engines": {
     "node": ">=9.0.0"
@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.2-beta.13",
-    "@overmindbots/shared-utils": "^0.0.2-beta.13",
+    "@overmindbots/shared-models": "^0.0.2",
+    "@overmindbots/shared-utils": "^0.0.2",
     "bluebird": "^3.5.1",
     "discord.js": "^11.3.2",
     "dotenv": "^6.0.0",
