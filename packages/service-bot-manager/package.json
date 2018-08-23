@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/service-bot-manager",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "engines": {
     "node": ">=9.11.2"
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.53",
-    "@overmindbots/shared-models": "^0.0.2",
+    "@overmindbots/shared-models": "^0.0.3",
     "@overmindbots/shared-utils": "^0.0.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
