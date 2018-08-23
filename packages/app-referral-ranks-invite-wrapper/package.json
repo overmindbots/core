@@ -29,6 +29,7 @@
     "mongoose": "^5.2.1",
     "passport": "^0.4.0",
     "passport-oauth2": "^1.4.0",
+    "utf8": "^3.0.0",
     "winston": "^2.4.0"
   },
   "devDependencies": {
@@ -50,6 +51,7 @@
     "@types/mongoose": "^5.0.18",
     "@types/passport": "^0.4.6",
     "@types/passport-oauth2": "^1.4.5",
+    "@types/utf8": "^2.1.6",
     "@types/winston": "^2.3.9",
     "babel-plugin-module-resolver": "^3.1.1",
     "handlebars": "^4.0.11",
