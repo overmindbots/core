@@ -23,7 +23,7 @@ if (!process.env.APP_REFERRAL_RANKS_INVITE_WRAPPER_URL) {
   throw new Error('APP_REFERRAL_RANKS_INVITE_WRAPPER_URL is missing');
 }
 
-// NOTE: For development we generate a podId with a timestamp to avoid
+// NOTE: In Development we generate a podId with a timestamp to avoid
 // colissions, improve this, we want to be able to restart pods in dev and
 // have them keep their POD_ID
 export const POD_ID =

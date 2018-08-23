@@ -19,7 +19,7 @@ switch (stage) {
     break;
   }
   case 'production': {
-    appReferralRanksInviteWrapperUrl = 'https://invites.referralranks.com';
+    appReferralRanksInviteWrapperUrl = 'http://invites.referralranks.com';
     break;
   }
 }
