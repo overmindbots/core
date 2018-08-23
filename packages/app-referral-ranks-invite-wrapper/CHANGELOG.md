@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.1-beta.27"></a>
+## [0.0.1-beta.27](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.26...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.27) (2018-08-23)
+
+
+### Bug Fixes
+
+* correct encoding handling to avoid crash on unicode chars ([0a9d97b](https://github.com/overmindbots/core/commit/0a9d97b))
+
+
+
+
 <a name="0.0.1-beta.26"></a>
 ## [0.0.1-beta.26](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.25...@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.26) (2018-08-22)
 

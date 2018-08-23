@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.2-beta.18"></a>
+## [0.0.2-beta.18](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.17...@overmindbots/bot-referral-ranks@0.0.2-beta.18) (2018-08-23)
+
+
+### Bug Fixes
+
+* correct innaccurate text in the upgrade command ([1050df7](https://github.com/overmindbots/bot-referral-ranks/commit/1050df7))
+
+
+
+
 <a name="0.0.2-beta.17"></a>
 ## [0.0.2-beta.17](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.16...@overmindbots/bot-referral-ranks@0.0.2-beta.17) (2018-08-22)
 
