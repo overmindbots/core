@@ -12,6 +12,7 @@ import {
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import base64 from 'base-64';
+import utf8 from 'utf8';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import formatNumber from 'format-number';
@@ -128,7 +129,7 @@ app.get(
     session: false,
   }),
   asyncCatcher(async (req: Request, res: Response) => {
-    const stateStr = Buffer.from(req.query.state, 'base64').toString();
+    const stateStr = base64.decode(req.query.state);
     logger.info('Received state string: ', stateStr);
     const state = JSON.parse(stateStr);
     logger.info('state: ', state);
@@ -196,8 +197,8 @@ app.get(
       inviterDiscordId,
     };
 
-    const stateStr = JSON.stringify(state);
-    const encodedState = Buffer.from(stateStr).toString('base64');
+    const stateStr = utf8.encode(JSON.stringify(state));
+    const encodedState = base64.encode(stateStr);
     const redirectUrl =
       `${OAUTH_AUTHORIZATION_URL}?` +
       `client_id=${DISCORD_CLIENT_ID}` +
@@ -249,8 +250,10 @@ app.get(
       thumbnail_url: iconUrl,
       title: 'Join Server',
     };
-    logger.debug('oembedResponse', oembedResponse);
-    const oembedEncoded = base64.encode(JSON.stringify(oembedResponse));
+
+    const oembedEncoded = base64.encode(
+      utf8.encode(JSON.stringify(oembedResponse))
+    );
 
     const htmlResponse = inviteViewTemplate({
       redirectUrl,
@@ -277,7 +280,8 @@ app.get(
   asyncCatcher(async (req: Request, res: Response) => {
     logger.info('==> Parsing oEmbed response:');
     logger.info(req.params.encodedResponse);
-    const oembedResponse = base64.decode(req.params.encodedResponse);
+    let oembedResponse = base64.decode(req.params.encodedResponse);
+    oembedResponse = utf8.decode(oembedResponse);
     const jsonResponse = JSON.parse(oembedResponse);
     logger.info('==> Responding to oEmbed request with:');
     logger.info(jsonResponse);
