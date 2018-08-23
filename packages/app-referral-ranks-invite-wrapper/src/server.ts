@@ -56,7 +56,7 @@ const discordAPIClient = new DiscordAPI({
 });
 
 /**
- * Creates a unified invite for the specified guild via the Discord API
+ * Create a unified invite for the specified guild via the Discord API
  * and inserts it into the database. Returns the invite database object
  *
  * We use "find or create" strategies in both the Discord API and our database
