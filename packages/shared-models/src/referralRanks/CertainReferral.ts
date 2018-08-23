@@ -94,6 +94,7 @@ schema.statics.getTopScores = async function(
   const scores = (await this.aggregate([
     {
       $match: {
+        inviterDiscordId: { $exists: true, $ne: null },
         guildDiscordId: guild.id,
         createdAt: { $gte: getScoresSince },
         fulfilled: true,
