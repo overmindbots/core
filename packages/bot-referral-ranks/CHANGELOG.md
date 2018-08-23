@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2-beta.18...@overmindbots/bot-referral-ranks@1.0.0) (2018-08-23)
+
+
+### Bug Fixes
+
+* correct invite link url ([a42143f](https://github.com/overmindbots/bot-referral-ranks/commit/a42143f))
+
+
+### Features
+
+* merge and release new version ([1a6be94](https://github.com/overmindbots/bot-referral-ranks/commit/1a6be94))
+
+
+### BREAKING CHANGES
+
+* includes the upgrade command and the new invites system
+
+
+
+
 <a name="0.0.3"></a>
 ## [0.0.3](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@0.0.2...@overmindbots/bot-referral-ranks@0.0.3) (2018-08-23)
 
