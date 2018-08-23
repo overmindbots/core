@@ -135,8 +135,6 @@ export class UpgradeCommand extends Command {
         'their own invite link**. They can obtain their personal link by ' +
         'using the `!link` command\n\n' +
         '**Keep in mind:**\n\n' +
-        '👉 If you want to initialize the scores based on the current ' +
-        'invite links, use the `!import-invites` command.\n' +
         '👉 If you want to revert to the old system, use the' +
         ' `!downgrade` command.\n' +
         '👉 Check out the `!help` command, we updated it.'
