@@ -15,7 +15,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [1.0.1](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@1.0.0...@overmindbots/bot-referral-ranks@1.0.1) (2018-08-23)
 <a name="1.0.1-beta.0"></a>
 ## [1.0.1-beta.0](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@1.0.0...@overmindbots/bot-referral-ranks@1.0.1-beta.0) (2018-08-24)
->>>>>>> next
 
 
 
