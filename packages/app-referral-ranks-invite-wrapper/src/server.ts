@@ -1,5 +1,5 @@
-import { isUserData } from '@overmindbots/shared-models';
 import { Guild } from '@overmindbots/shared-models';
+import { isUserData } from '@overmindbots/shared-models';
 import {
   CertainReferral,
   WrappedInvite,
@@ -12,12 +12,12 @@ import {
 } from '@overmindbots/shared-utils/discord';
 import { createAsyncCatcher } from '@overmindbots/shared-utils/utils';
 import base64 from 'base-64';
-import utf8 from 'utf8';
 import cors from 'cors';
 import express, { Request, Response } from 'express';
 import formatNumber from 'format-number';
 import { isNumber } from 'lodash';
 import passport from 'passport';
+import utf8 from 'utf8';
 import logger from 'winston';
 import {
   API_URL,
@@ -113,8 +113,8 @@ const asyncCatcher = createAsyncCatcher(error => {
 const app = express();
 
 app.use(cors());
-app.use(({}, {}, next) => {
-  logger.debug('>> Receiving request');
+app.use((req, _res, next) => {
+  logger.debug(`>> Receiving request: ${req.url}`);
   next();
 });
 app.use(passport.initialize());
