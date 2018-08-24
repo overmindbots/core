@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.0.4"></a>
+## [1.0.4](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@1.0.3...@overmindbots/bot-referral-ranks@1.0.4) (2018-08-24)
+
+
+### Bug Fixes
+
+* bad conflict resolution ([c6293fe](https://github.com/overmindbots/bot-referral-ranks/commit/c6293fe))
+* bad conflict resolution ([eb78a79](https://github.com/overmindbots/bot-referral-ranks/commit/eb78a79))
+
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/overmindbots/bot-referral-ranks/compare/@overmindbots/bot-referral-ranks@1.0.1-beta.0...@overmindbots/bot-referral-ranks@1.0.2) (2018-08-24)
 
