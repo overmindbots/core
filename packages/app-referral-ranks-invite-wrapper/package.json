@@ -1,6 +1,6 @@
 {
   "name": "@overmindbots/app-referral-ranks-invite-wrapper",
-  "version": "0.0.4-beta.0",
+  "version": "0.0.4-beta.1",
   "private": true,
   "engines": {
     "node": ">=9.0.0"
