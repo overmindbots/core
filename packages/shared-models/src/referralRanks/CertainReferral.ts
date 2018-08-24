@@ -69,10 +69,7 @@ const schema = new mongoose.Schema(
 
 schema.index({ guildDiscordId: 1 });
 schema.index({ artificial: 1 });
-schema.index(
-  { guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 },
-  { unique: true }
-);
+schema.index({ guildDiscordId: 1, inviterDiscordId: 1, inviteeDiscordId: 1 });
 schema.index({ createdAt: 1 });
 
 /**
