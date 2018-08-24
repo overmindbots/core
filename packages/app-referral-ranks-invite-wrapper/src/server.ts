@@ -113,8 +113,8 @@ const asyncCatcher = createAsyncCatcher(error => {
 const app = express();
 
 app.use(cors());
-app.use(({}, {}, next) => {
-  logger.debug('>> Receiving request');
+app.use((req, _res, next) => {
+  logger.debug(`>> Receiving request: ${req.url}`);
   next();
 });
 app.use(passport.initialize());
