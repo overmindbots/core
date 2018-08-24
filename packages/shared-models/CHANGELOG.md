@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.3-beta.0"></a>
+## [0.0.3-beta.0](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.2...@overmindbots/shared-models@0.0.3-beta.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* fix top users with undefined user ([9f0381a](https://github.com/overmindbots/shared-models/commit/9f0381a))
+
+
+
+
 <a name="0.0.2"></a>
 ## [0.0.2](https://github.com/overmindbots/shared-models/compare/@overmindbots/shared-models@0.0.2-beta.13...@overmindbots/shared-models@0.0.2) (2018-08-23)
 

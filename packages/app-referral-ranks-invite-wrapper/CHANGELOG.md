@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.4-beta.0"></a>
+## [0.0.4-beta.0](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.1-beta.27...@overmindbots/app-referral-ranks-invite-wrapper@0.0.4-beta.0) (2018-08-24)
+
+
+### Bug Fixes
+
+* bump version ([e292b92](https://github.com/overmindbots/core/commit/e292b92))
+
+
+
+
 <a name="0.0.3"></a>
 ## [0.0.3](https://github.com/overmindbots/core/compare/@overmindbots/app-referral-ranks-invite-wrapper@0.0.2...@overmindbots/app-referral-ranks-invite-wrapper@0.0.3) (2018-08-23)
 
