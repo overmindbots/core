@@ -1,5 +1,5 @@
 {
-  "name": "service-naked-domain-redirect",
+  "name": "@overmindbots/service-naked-domain-redirect",
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
