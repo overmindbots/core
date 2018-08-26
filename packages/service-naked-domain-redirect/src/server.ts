@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import logger from 'winston';
 
 import { PORT } from '~/constants';
@@ -6,7 +6,7 @@ import { PORT } from '~/constants';
 const app = express();
 
 // We assume the only way to reach this endpoint is through a naked domain
-app.all(/.*/, function(req: Request, res: Response, next: NextFunction) {
+app.all(/.*/, function(req: Request, res: Response) {
   const host = req.header('host') as string;
   const protocol = req.secure ? 'https' : 'http';
 
