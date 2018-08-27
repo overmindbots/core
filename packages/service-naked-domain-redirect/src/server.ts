@@ -13,5 +13,6 @@ app.all(/.*/, function(req: Request, res: Response) {
   res.redirect(301, `${protocol}://www.` + host + req.url);
 });
 app.listen(PORT, () => {
-  logger.log('Listenting at port ', PORT);
+  // tslint:disable-next-line no-console
+  console.log('Listenting at port ', PORT);
 });
