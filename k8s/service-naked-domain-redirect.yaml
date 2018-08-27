@@ -1,0 +1,52 @@
+---
+apiVersion: v1
+kind: Service  
+metadata:  
+  name: service-naked-domain-redirect
+  namespace: overmindbots
+  labels:
+    app: service-naked-domain-redirect
+spec:  
+  selector:
+    app: service-naked-domain-redirect
+  ports:
+  - name: http
+    port: 80
+    targetPort: 4005
+    protocol: TCP
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: service-naked-domain-redirect
+  namespace: overmindbots
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: service-naked-domain-redirect
+  template:
+    metadata:
+      labels:
+        app: service-naked-domain-redirect
+        type: app
+    spec:
+      containers:
+      - name: overmindbots-core
+        command: ["/bin/sh","-c"]
+        args: ["cd packages/service-naked-domain-redirect; npm run start:production"]
+        image: {{{imageUrl}}}
+        imagePullPolicy: {{imagePullPolicy}}
+        ports:
+          - containerPort: 4005
+            protocol: TCP
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: DEPLOYMENT_STAGE
+          value: {{deploymentStage}}
+        - name: PORT
+          value: "4005"
