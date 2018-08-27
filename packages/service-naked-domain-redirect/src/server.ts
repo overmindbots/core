@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import logger from 'winston';
 
 import { PORT } from '~/constants';
 
