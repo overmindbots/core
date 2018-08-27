@@ -50,6 +50,7 @@ node ./scripts/buildTemplates.js service-bot-manager
 node ./scripts/buildTemplates.js bot-referral-ranks
 node ./scripts/buildTemplates.js app-referral-ranks-invite-wrapper
 node ./scripts/buildTemplates.js bot-referral-ranks-fulfillment-service
+node ./scripts/buildTemplates.js service-naked-domain-redirect
 
 {
   kubectl apply -f ./k8s-generated

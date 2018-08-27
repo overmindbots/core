@@ -1,0 +1,25 @@
+{
+  "name": "@overmindbots/service-naked-domain-redirect",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private": true,
+  "engines": {
+    "node": ">=9.11.2"
+  },
+  "scripts": {
+    "start": "webpack --watch",
+    "start:dev": "node ./build/index.js",
+    "start:production": "node ./production-build/index.js",
+    "build": "webpack --config webpack.config.js",
+    "build:production": "webpack --config webpack.production.config.js --env.NODE_ENV=production",
+    "production:start": "npm run build:production && npm run start:production"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "logger": "^0.0.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/winston": "^2.4.4"
+  }
+}
