@@ -64,4 +64,4 @@ node ./scripts/buildTemplates.js service-naked-domain-redirect
   echo "Did not apply"
 }
 
-node ./scripts/docker/cleanup.js
+# node ./scripts/docker/cleanup.js

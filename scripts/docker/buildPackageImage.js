@@ -43,14 +43,15 @@ bash('yarn install --production --pure-lockfile', { cwd: `${DOCKER_APP_DIR}` });
 // Copy package's source files
 bash(`cp -R ${PACKAGE_COPY_DIR}/src ${DOCKER_APP_DIR}/src`);
 
-// Copy package's build config files
+// Copy package's config files
 bash(`cp ${PACKAGE_COPY_DIR}/webpack.production.config.js ${DOCKER_APP_DIR}/`);
 bash(`cp ${PACKAGE_COPY_DIR}/tsconfig.build.json ${DOCKER_APP_DIR}/`);
 bash(`cp ${PACKAGE_COPY_DIR}/tsconfig.json ${DOCKER_APP_DIR}/`);
 bash(`cp ${PACKAGE_COPY_DIR}/Dockerfile ${DOCKER_ROOT_DIR}/`);
+bash(`cp ${PACKAGE_COPY_DIR}/.env.local ${DOCKER_APP_DIR}/`);
 
 // Copy shared build config files
-bash(`cp webpack.production.config.js ${PACKAGE_COPY_DIR}`);
+bash(`cp webpack.production.config.js ${PACKAGE_COPY_DIR}/`);
 bash(`cp packages/tsconfig.build.json ${DOCKER_ROOT_DIR}/`);
 bash(`cp packages/tsconfig.base.json ${DOCKER_ROOT_DIR}/`);
 // TODO: Figure out why webpack is asking for this file
