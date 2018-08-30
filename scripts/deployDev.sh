@@ -5,7 +5,7 @@ set -e
 argOne=$1
 
 devDeployTimestamp=$(date +%s)
-monorepoImageUrl="gcr.io/overmindbots/core:$devDeployTimestamp"
+imageBaseUrl=gcr.io/overmindbots
 
 kubectx docker-for-desktop
 
@@ -38,14 +38,20 @@ fi
   echo "Did not create overmindbots namespace"
 }
 
-# === Build image === #
+# === Generate docker files (TODO: Automate this list) === #
+node ./scripts/docker/preparePackagesCopies.js
+
+# === Build images === #
 if [[ $argOne == '--no-build' ]] ; then
   echo "=> Skipping docker build"
 else
-  docker build --no-cache -t $monorepoImageUrl -f Dockerfile .
+  node ./scripts/docker/buildPackageImage.js service-bot-manager "$imageBaseUrl/core:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js bot-referral-ranks "$imageBaseUrl/core:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js app-referral-ranks-invite-wrapper "$imageBaseUrl/core:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js bot-referral-ranks-fulfillment-service "$imageBaseUrl/core:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js service-naked-domain-redirect "$imageBaseUrl/core:$devDeployTimestamp"
 fi
 
-node ./scripts/buildTemplates.js service-referral-ranks-invites
 node ./scripts/buildTemplates.js service-bot-manager
 node ./scripts/buildTemplates.js bot-referral-ranks
 node ./scripts/buildTemplates.js app-referral-ranks-invite-wrapper
@@ -57,3 +63,5 @@ node ./scripts/buildTemplates.js service-naked-domain-redirect
 } || {
   echo "Did not apply"
 }
+
+node ./scripts/docker/cleanup.js

@@ -6,3 +6,6 @@ k8s-generated/*.yaml
 .env
 .devDeploy
 tempk8s-*.yaml
+.DS_Store
+.dockerBuild/*
+!.dockerBuild/.gitkeep

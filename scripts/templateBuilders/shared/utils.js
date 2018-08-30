@@ -5,7 +5,6 @@ const handlebars = require('handlebars');
 let res;
 let devDeployTimestamp;
 const config = pkgJson.config.overmindbots;
-const repoName = process.env.CIRCLE_PROJECT_REPONAME || 'core';
 const projectId = process.env.GOOGLE_PROJECT_ID;
 const deploymentStages = {
   development: 'development',
@@ -45,12 +44,12 @@ function getDeploymentStage() {
  * gets the docker image URL
  * @return {string}
  */
-function getImageUrl() {
+function getImageUrl(packageName) {
   const deploymentStage = getDeploymentStage();
   if (deploymentStage === deploymentStages.development) {
-    return `gcr.io/overmindbots/core:${devDeployTimestamp}`;
+    return `gcr.io/overmindbots/${packageName}:${devDeployTimestamp}`;
   }
-  return `gcr.io/${projectId}/${repoName}:${process.env.CIRCLE_BRANCH}-${
+  return `gcr.io/${projectId}/${packageName}:${process.env.CIRCLE_BRANCH}-${
     process.env.CIRCLE_BUILD_NUM
   }`;
 }
@@ -68,9 +67,9 @@ function getImagePullPolicy() {
  * gets the common data for kubernetes templates
  * @return {object}
  */
-function getBaseTemplateData() {
+function getBaseTemplateData(packageName) {
   const deploymentStage = getDeploymentStage();
-  const imageUrl = getImageUrl();
+  const imageUrl = getImageUrl(packageName);
   const imagePullPolicy = getImagePullPolicy();
   return {
     deploymentStage,
