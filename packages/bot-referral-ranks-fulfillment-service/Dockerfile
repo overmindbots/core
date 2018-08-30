@@ -4,5 +4,7 @@ RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 RUN mkdir /app
 WORKDIR /app
 
-COPY . .
+COPY app .
+
+CMD ["yarn", "start:production"]
 

@@ -45,11 +45,11 @@ node ./scripts/docker/preparePackagesCopies.js
 if [[ $argOne == '--no-build' ]] ; then
   echo "=> Skipping docker build"
 else
-  node ./scripts/docker/buildPackageImage.js service-bot-manager "$imageBaseUrl/core:$devDeployTimestamp"
-  node ./scripts/docker/buildPackageImage.js bot-referral-ranks "$imageBaseUrl/core:$devDeployTimestamp"
-  node ./scripts/docker/buildPackageImage.js app-referral-ranks-invite-wrapper "$imageBaseUrl/core:$devDeployTimestamp"
-  node ./scripts/docker/buildPackageImage.js bot-referral-ranks-fulfillment-service "$imageBaseUrl/core:$devDeployTimestamp"
-  node ./scripts/docker/buildPackageImage.js service-naked-domain-redirect "$imageBaseUrl/core:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js service-bot-manager "$imageBaseUrl/service-bot-manager:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js bot-referral-ranks "$imageBaseUrl/bot-referral-ranks:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js app-referral-ranks-invite-wrapper "$imageBaseUrl/app-referral-ranks-invite-wrapper:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js bot-referral-ranks-fulfillment-service "$imageBaseUrl/bot-referral-ranks-fulfillment-service:$devDeployTimestamp"
+  node ./scripts/docker/buildPackageImage.js service-naked-domain-redirect "$imageBaseUrl/service-naked-domain-redirect:$devDeployTimestamp"
 fi
 
 node ./scripts/buildTemplates.js service-bot-manager

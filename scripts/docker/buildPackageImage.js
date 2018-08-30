@@ -70,6 +70,7 @@ try {
 // Cleanup source files
 bash(`rm -rf ${DOCKER_APP_DIR}/src`);
 
+console.log('==> Building docker image with: ', dockerImageUrl);
 // Build Docker image
 try {
   bash(`docker build -t ${dockerImageUrl} ${DOCKER_ROOT_DIR}`);

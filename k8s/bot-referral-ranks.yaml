@@ -30,9 +30,7 @@ spec:
                   - bot-referral-ranks
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: overmindbots-core
-        command: ["/bin/sh","-c"]
-        args: ["cd packages/bot-referral-ranks; npm run start:production"]
+      - name: bot-referral-ranks
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         # ports:

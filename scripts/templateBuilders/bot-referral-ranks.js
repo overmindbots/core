@@ -25,7 +25,7 @@ switch (stage) {
 }
 
 const packageName = path.basename(__filename).split('.js')[0];
-const baseTemplateValues = utils.getBaseTemplateData();
+const baseTemplateValues = utils.getBaseTemplateData(packageName);
 const templateValue = Object.assign({}, baseTemplateValues, {
   totalShards,
   appReferralRanksInviteWrapperUrl,

@@ -32,9 +32,7 @@ spec:
                   - bot-referral-ranks-fulfillment-service
               topologyKey: kubernetes.io/hostname
       containers:
-      - name: overmindbots-core
-        command: ["/bin/sh","-c"]
-        args: ["cd packages/bot-referral-ranks-fulfillment-service; npm run start:production"]
+      - name: bot-referral-ranks-fulfillment-service
         image: {{{imageUrl}}}
         imagePullPolicy: {{imagePullPolicy}}
         env:

@@ -4,7 +4,7 @@ const path = require('path');
 const utils = require('./shared/utils');
 
 const packageName = path.basename(__filename).split('.js')[0];
-const templateValues = utils.getBaseTemplateData();
+const templateValues = utils.getBaseTemplateData(packageName);
 const stage = utils.getDeploymentStage();
 let url;
 
